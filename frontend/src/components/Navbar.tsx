@@ -1,11 +1,12 @@
 import React from "react";
 
 const Navbar = () => (
-    <nav
-        className="navbar fixed-top navbar-expand-lg navbar-dark"
-        style={{ backgroundColor: "black" }}
-    >
-        placeholder
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+            <a className="navbar-brand" href="#">
+                OtaMarket
+            </a>
+        </div>
     </nav>
 );
 
