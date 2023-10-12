@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 const AllPage = () => (
-    <div className='all-page' id='all-page'>
+    <div className="all-page" id="all-page">
         placeholder
     </div>
-)
+);
 
-export default AllPage
+export default AllPage;
