@@ -70,11 +70,9 @@ const ItemForm = () => {
                     ></textarea>
                     <label htmlFor="description">Description</label>
                 </div>
-                <div className="fixed-bottom p-4">
-                    <button type="submit" className="btn btn-primary w-100">
-                        Add Item
-                    </button>
-                </div>
+                <button type="submit" className="btn btn-primary w-100">
+                    Add Item
+                </button>
             </form>
         </div>
     );
