@@ -42,6 +42,7 @@ input[type="number"] {
 .product-card-image {
     width: 100%;
     height: 20rem;
+    position: relative;
 }
 
 .product-card:hover {
@@ -150,128 +151,6 @@ input[type="number"] {
     line-height: 2.25rem;
 }
 
-.product-card {
-    text-align: left;
-    line-height: 1;
-    box-shadow: 0 2px 2px #c9cbce;
-    border-radius: 4px;
-    background-color: #fff;
-    border: 1px solid #eee;
-    padding: 0.5rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    justify-content: space-between;
-}
-
-.product-card-image {
-    width: 100%;
-    height: 20rem;
-}
-
-.product-card:hover {
-    cursor: pointer;
-}
-
-.product-card-text-container {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-    flex-grow: 4;
-    padding: 2%;
-}
-
-.product-card-product-price {
-    text-transform: uppercase;
+.product-page-delete-button {
     float: right;
-}
-
-.product-card-product-pricecontainer {
-    font-size: 1.25rem;
-    color: #45474c;
-    font-weight: bold;
-    padding: 2%;
-}
-
-.product-card-product-name {
-    color: #000;
-    padding-right: 5%;
-}
-
-.product-page {
-    width: 100vw;
-    height: 100vh;
-    padding: 0%;
-    margin: 0%;
-    background-color: white;
-}
-
-.product-page-info-container {
-    position: relative;
-    margin: 5% 10% 0 10%;
-    text-align: left;
-}
-
-.product-page-description-container {
-    color: #45474c;
-    font-weight: 300;
-}
-
-.product-page-description-container h2 {
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 2.25rem;
-    color: #45474c;
-    margin-bottom: 0.5em;
-}
-
-.product-page-title {
-    font-size: 1.5rem;
-    font-weight: 300;
-    line-height: 1.25;
-}
-
-.product-page-image img {
-    width: 100%;
-    height: 50vh;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 5px 5px #000000;
-}
-
-.product-page-price {
-    font-size: 1.4em;
-    color: #000;
-    font-weight: 700;
-}
-
-.product-page-button-container {
-    margin-top: 2%;
-    width: 100%;
-}
-
-.product-page-button {
-    width: 100%;
-}
-
-.red-button {
-    background-color: red;
-}
-
-.red-button:hover {
-    background-color: crimson;
-}
-
-.product-page-contact-information {
-    font-size: 1rem;
-    color: black;
-}
-
-.product-page-contact-information span {
-    color: #45474c;
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 2.25rem;
 }
