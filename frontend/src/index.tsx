@@ -6,10 +6,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/ErrorPage";
 import App from "./App";
-import ProductList from "./components/ProductList";
 import ProductDetailsPage from "./components/ProductDetailsPage";
 
-import AllPage from "./components/HomePage";
+import HomePage from "./components/HomePage";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -22,7 +21,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <AllPage />,
+                element: <HomePage />,
             },
             {
                 path: "/:id",
