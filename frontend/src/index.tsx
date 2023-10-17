@@ -6,9 +6,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/ErrorPage";
 import App from "./App";
-import AllPage from "./components/AllPage";
 import ProductList from "./components/ProductList";
 import ProductDetailsPage from "./components/ProductDetailsPage";
+
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,

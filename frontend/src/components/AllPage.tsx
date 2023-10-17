@@ -1,10 +1,13 @@
-import React from "react";
+import Navbar from "./Navbar";
 
 
 const AllPage = () => (
-    <div className="all-page" id="all-page">
-        placeholder
-    </div>
+    <>
+        <Navbar />
+        <div className="all-page" id="all-page">
+            placeholder
+        </div>
+    </>
 );
 
 export default AllPage;

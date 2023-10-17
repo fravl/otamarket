@@ -4,6 +4,8 @@ import { Product } from './types/Product'
 import AppHeader from './components/AppHeader';
 import { Outlet } from 'react-router-dom';
 import ProductOutletContext from './components/Contexts/ProductOutletContext'
+import { Outlet } from "react-router-dom";
+import AppHeader from "./components/AppHeader";
 
 
 function App() {
