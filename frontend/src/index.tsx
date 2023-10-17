@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/ErrorPage";
 import App from "./App";
+import AllPage from "./components/AllPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -15,6 +16,12 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
         errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "/",
+                element: <AllPage />,
+            },
+        ],
     },
 ]);
 root.render(
