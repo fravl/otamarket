@@ -1,21 +1,27 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => (
     <nav className="navbar navbar-light bg-light border-bottom">
         <div className="container ">
             <ul className="navbar-nav container d-flex flex-row justify-content-around align-items-center">
                 <li className="nav-item">
-                    <a href="#" className="nav-link active" aria-current="page">
+                    <Link
+                        to="/"
+                        className="nav-link active"
+                        aria-current="page"
+                    >
                         All
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link">
+                    <Link to="/" className="nav-link">
                         Sales
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link">
+                    <Link to="/" className="nav-link">
                         Claims
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>

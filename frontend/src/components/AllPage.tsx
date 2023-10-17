@@ -1,11 +1,14 @@
-import React from "react";
+import Navbar from "./Navbar";
 import AddItemFab from "./AddItemFab";
 
 const AllPage = () => (
-    <div className="all-page" id="all-page">
-        placeholder
-        <AddItemFab />
-    </div>
+    <>
+        <Navbar />
+        <div className="all-page" id="all-page">
+            placeholder
+            <AddItemFab />
+        </div>
+    </>
 );
 
 export default AllPage;
