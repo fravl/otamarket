@@ -1,15 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import Navbar from "./components/Navbar";
-import ProductDetailsPage from "./components/ProductDetailsPage";
-import ProductList from './components/ProductList';
 import ProductService from './services/ProductService'
 import { Product } from './types/Product'
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    useParams
-  } from 'react-router-dom'
+import AppHeader from './components/AppHeader';
+import { Outlet } from 'react-router-dom';
+import ProductOutletContext from './components/Contexts/ProductOutletContext'
+
 
 function App() {
     const [products, setProducts] = useState<Product[]>([])
@@ -24,16 +19,10 @@ function App() {
     }, [])
 
     return (
-        <div className="App">
-            <Navbar />
-            <Router>
-                <Routes>
-                    <Route path="/" element={<ProductList products={products}/>}/>
-
-                    <Route path="/:id" element={<ProductDetailsPage products={products}/>}/>
-                </Routes>
-            </Router>
-        </div>
+        <>
+            <AppHeader />
+            <Outlet context={{products} satisfies ProductOutletContext}/>
+        </>
     );
 }
 

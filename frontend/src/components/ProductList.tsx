@@ -1,17 +1,25 @@
 import React from 'react'
 import { Product } from '../types/Product'
 import ProductCard from './ProductCard'
+import { useOutletContext } from 'react-router-dom'
+import ProductOutletContext from './Contexts/ProductOutletContext'
 
-const ProductList = ({ products }: { products: Product[] }) => (
-    <div className='products-list' id='products-list'>
-        <div className='container'>
-            <div className='row'>
-                {products.map(product => {
-                    return <ProductCard key={product.id} product={product}/>
-                })}
+const ProductList = () => {
+
+    const products = useOutletContext<ProductOutletContext>().products;
+
+
+    return(
+        <div className='products-list' id='products-list'>
+            <div className='container'>
+                <div className='row'>
+                    {products.map(product => {
+                        return <ProductCard key={product.id} product={product}/>
+                    })}
+                </div>
             </div>
         </div>
-    </div>
-)
+        )
+}
 
 export default ProductList

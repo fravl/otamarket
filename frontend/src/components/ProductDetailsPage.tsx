@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
 import { Product } from "../types/Product";
 import Button from "react-bootstrap/Button";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
+import ProductOutletContext from './Contexts/ProductOutletContext'
 
-const ProductDetailsPage = ({ products }: { products: Product[] }) => {
+const ProductDetailsPage = () => {
     const { id } = useParams();
-    const [claimStatus, setClaimStatus] = useState<boolean>(false)
+    const products = useOutletContext<ProductOutletContext>().products;
+    const [claimStatus, setClaimStatus] = useState<boolean>(false);
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const getProductById = (id: string | undefined) => {
@@ -16,57 +18,59 @@ const ProductDetailsPage = ({ products }: { products: Product[] }) => {
         }
     };
 
-
     const product = getProductById(id);
 
     const getClaimStatus = () => {
-        if(claimStatus){
-            return "Unclaim"
+        if (claimStatus) {
+            return "Unclaim";
         } else {
-            return "Claim"
+            return "Claim";
         }
-    }
+    };
 
     const getContactInformation = () => {
-        if(claimStatus){
-            return(
+        if (claimStatus) {
+            return (
                 <div className="product-page-contact-information">
-                                <span>Contact Information</span>
-                                <p>Tg: @testuser</p>
-                                <p>Email: testuser@aalto.fi</p>
-                            </div>
-            )
+                    <span>Contact Information</span>
+                    <p>Tg: @testuser</p>
+                    <p>Email: testuser@aalto.fi</p>
+                </div>
+            );
         } else {
             //return nothing
         }
-    }
+    };
 
     const changeDisplayedImage = () => {
-        if(product !== undefined && currentImage < product.images.length - 1){
-            setCurrentImage(currentImage+1)
+        if (product !== undefined && currentImage < product.images.length - 1) {
+            setCurrentImage(currentImage + 1);
         } else {
-            setCurrentImage(0)
+            setCurrentImage(0);
         }
-    }
+    };
 
     const claimButtonStyles = () => {
-        if(claimStatus){
-            return "product-page-button red-button"
+        if (claimStatus) {
+            return "product-page-button red-button";
         } else {
-            return "product-page-button"
+            return "product-page-button";
         }
-    }
-
+    };
 
     if (product === undefined) {
-        return <div>...</div>;
+        return <div>Product does not exist</div>;
     } else {
         return (
             <div className="product-page">
                 <div className="product-page-info-container">
                     <div className="row">
                         <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-image">
-                            <img src={product.images[currentImage]} alt="product" onClick={() => changeDisplayedImage()}></img>
+                            <img
+                                src={product.images[currentImage]}
+                                alt="product"
+                                onClick={() => changeDisplayedImage()}
+                            ></img>
                         </div>
                         <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-info">
                             <hr />
