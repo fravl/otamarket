@@ -1,9 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import Navbar from "./components/Navbar";
-import AllPage from "./components/AllPage";
+import ProductDetailsPage from "./components/ProductDetailsPage";
 import ProductList from './components/ProductList';
 import ProductService from './services/ProductService'
 import { Product } from './types/Product'
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useParams
+  } from 'react-router-dom'
 
 function App() {
     const [products, setProducts] = useState<Product[]>([])
@@ -15,12 +21,18 @@ function App() {
             .then(initialProducts => {
                 setProducts(initialProducts.slice(0,6))
             })
-    })
+    }, [])
 
     return (
         <div className="App">
             <Navbar />
-            <ProductList products={products}/>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<ProductList products={products}/>}/>
+
+                    <Route path="/:id" element={<ProductDetailsPage products={products}/>}/>
+                </Routes>
+            </Router>
         </div>
     );
 }
