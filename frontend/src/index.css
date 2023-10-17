@@ -141,4 +141,8 @@ code {
     line-height: 2.25rem;
   }
 
+  .product-page-delete-button {
+    float: right;
+  }
+
   
