@@ -1,11 +1,27 @@
+import ProductService from "../services/ProductService";
+import { Product } from "../types/Product";
+
 const ItemForm = () => {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+
+        const formJson = Object.fromEntries(
+            formData.entries(),
+        ) as unknown as Product;
+        ProductService.addItem(formJson);
+    }
+
     return (
         <div className="container mt-3">
-            <form>
+            <form method="post" onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
                     <input
                         type="text"
                         className="form-control"
+                        name="title"
                         id="title"
                         placeholder="Title"
                     />
@@ -15,6 +31,7 @@ const ItemForm = () => {
                     <input
                         type="file"
                         className="form-control"
+                        name="image"
                         id="picture"
                         placeholder="Add Image"
                     />
@@ -25,6 +42,7 @@ const ItemForm = () => {
                         <input
                             type="number"
                             className="form-control"
+                            name="price"
                             id="price"
                             placeholder="Price"
                         />
@@ -36,6 +54,7 @@ const ItemForm = () => {
                     <input
                         type="text"
                         className="form-control"
+                        name="location"
                         id="location"
                         placeholder="Pickup location"
                     />
@@ -44,15 +63,18 @@ const ItemForm = () => {
                 <div className="form-floating mb-3">
                     <textarea
                         className="form-control"
+                        name="description"
                         id="description"
                         placeholder="Description"
                         style={{ height: "130px" }}
                     ></textarea>
                     <label htmlFor="description">Description</label>
                 </div>
-                <button type="submit" className="btn btn-primary">
-                    Add Product
-                </button>
+                <div className="fixed-bottom p-4">
+                    <button type="submit" className="btn btn-primary w-100">
+                        Add Item
+                    </button>
+                </div>
             </form>
         </div>
     );
