@@ -1,9 +1,10 @@
 import BackAndTitleNav from "./BackAndTitleNav";
+import ItemForm from "./ItemForm";
 
 const AddItemPage = () => (
     <>
         <BackAndTitleNav title="Add Item" />
-        <div>Add ITem Page works</div>
+        <ItemForm />
     </>
 );
 
