@@ -1,13 +1,13 @@
 import Navbar from "./Navbar";
+import ProductList from "./ProductList";
 
-
-const AllPage = () => (
+const HomePage = () => (
     <>
         <Navbar />
         <div className="all-page" id="all-page">
-            placeholder
+            <ProductList />
         </div>
     </>
 );
 
-export default AllPage;
+export default HomePage;
