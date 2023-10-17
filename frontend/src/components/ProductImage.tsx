@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Product } from "../types/Product";
 
-const ProductImage = ({product}:{product: Product}) => {
+const ProductImage = ({ product }: { product: Product }) => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const changeDisplayedImage = () => {
@@ -14,11 +14,11 @@ const ProductImage = ({product}:{product: Product}) => {
 
     return (
         <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-image">
-        <img
-            src={product.images[currentImage]}
-            alt="product"
-            onClick={() => changeDisplayedImage()}
-        ></img>
+            <img
+                src={product.images[currentImage]}
+                alt="product"
+                onClick={() => changeDisplayedImage()}
+            ></img>
         </div>
     );
 };

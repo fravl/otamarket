@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useOutletContext } from "react-router-dom";
 import ProductOutletContext from "./Contexts/ProductOutletContext";
-import ProductBuyerDetails from "./ProductBuyerDetails"
+import ProductBuyerDetails from "./ProductBuyerDetails";
 import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
 import ProductSellerDetails from "./ProductSellerDetails";
@@ -22,12 +22,17 @@ const ProductDetailsPage = () => {
     };
 
     const getAdditionalInfo = () => {
-        if(sellerStatus){
-           return <ProductBuyerDetails claimStatus={claimStatus} setClaimStatus={setClaimStatus}/>
+        if (sellerStatus) {
+            return (
+                <ProductBuyerDetails
+                    claimStatus={claimStatus}
+                    setClaimStatus={setClaimStatus}
+                />
+            );
         } else {
-           return <ProductSellerDetails/>
+            return <ProductSellerDetails />;
         }
-    }
+    };
 
     const product = getProductById(id);
 
@@ -36,12 +41,17 @@ const ProductDetailsPage = () => {
     } else {
         return (
             <div className="product-page">
-                <Button variant="light" onClick={() => setSellerStatus(!sellerStatus)}>Toggle POV</Button>
+                <Button
+                    variant="light"
+                    onClick={() => setSellerStatus(!sellerStatus)}
+                >
+                    Toggle POV
+                </Button>
                 <div className="product-page-info-container">
                     <div className="row">
-                        <ProductImage product={product}/>
+                        <ProductImage product={product} />
                         <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-info">
-                            <ProductDetails product={product}/>
+                            <ProductDetails product={product} />
                             {getAdditionalInfo()}
                         </div>
                     </div>

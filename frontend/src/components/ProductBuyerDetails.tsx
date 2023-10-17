@@ -53,4 +53,4 @@ const ProdctBuyerDetails = ({
     );
 };
 
-export default ProdctBuyerDetails
+export default ProdctBuyerDetails;
