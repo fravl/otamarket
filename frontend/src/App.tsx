@@ -1,13 +1,12 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import AllPage from "./components/AllPage";
+import { Outlet } from "react-router-dom";
+import AppHeader from "./components/AppHeader";
 
 function App() {
     return (
-        <div className="App">
-            <Navbar />
-            <AllPage />
-        </div>
+        <>
+            <AppHeader />
+            <Outlet />
+        </>
     );
 }
 
