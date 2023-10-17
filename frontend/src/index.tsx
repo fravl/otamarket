@@ -8,6 +8,7 @@ import ErrorPage from "./components/ErrorPage";
 import App from "./App";
 import ProductDetailsPage from "./components/ProductDetailsPage";
 import HomePage from "./components/HomePage";
+import AddItemPage from "./components/AddItemPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <HomePage />,
+            },
+            {
+                path: "/add",
+                element: <AddItemPage />,
             },
             {
                 path: "/:id",
