@@ -6,6 +6,7 @@ import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
 import ProductSellerDetails from "./ProductSellerDetails";
 import Button from "react-bootstrap/Button";
+import BackAndTitleNav from "./BackAndTitleNav";
 
 const ProductDetailsPage = () => {
     const { id } = useParams();
@@ -41,6 +42,7 @@ const ProductDetailsPage = () => {
     } else {
         return (
             <div className="product-page">
+                <BackAndTitleNav title={product.title} />
                 <Button
                     variant="light"
                     onClick={() => setSellerStatus(!sellerStatus)}
