@@ -1,5 +1,5 @@
-import { Product } from "../../types/Product"
+import { Product } from "../../types/Product";
 
 export default interface ProductOutletContext {
-    products: Product[]
-  }
+    products: Product[];
+}
