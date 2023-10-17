@@ -9,6 +9,7 @@ import App from "./App";
 import ProductList from "./components/ProductList";
 import ProductDetailsPage from "./components/ProductDetailsPage";
 
+import AllPage from "./components/HomePage";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -21,12 +22,12 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <ProductList />,
+                element: <AllPage />,
             },
             {
                 path: "/:id",
-                element: <ProductDetailsPage />
-            }
+                element: <ProductDetailsPage />,
+            },
         ],
     },
 ]);
