@@ -7,6 +7,7 @@ import "./index.css";
 import ErrorPage from "./components/ErrorPage";
 import App from "./App";
 import AllPage from "./components/AllPage";
+import AddItemPage from "./components/AddItemPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <AllPage />,
+            },
+            {
+                path: "/add",
+                element: <AddItemPage />,
             },
         ],
     },
