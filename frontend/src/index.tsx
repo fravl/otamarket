@@ -6,7 +6,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/ErrorPage";
 import App from "./App";
-import AllPage from "./components/AllPage";
+import ProductList from "./components/ProductList";
+import ProductDetailsPage from "./components/ProductDetailsPage";
+
 import AddItemPage from "./components/AddItemPage";
 
 const root = ReactDOM.createRoot(
@@ -20,7 +22,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <AllPage />,
+                element: <ProductList />,
+            },
+            {
+                path: "/:id",
+                element: <ProductDetailsPage />,
             },
             {
                 path: "/add",

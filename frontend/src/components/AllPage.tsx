@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import AddItemFab from "./AddItemFab";
 
+
 const AllPage = () => (
     <>
         <Navbar />

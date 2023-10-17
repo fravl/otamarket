@@ -5,7 +5,7 @@ const baseUrl = "https://dummyjson.com/products";
 const getAll = async (): Promise<Product[]> => {
     const request = axios.get(baseUrl);
     const response = await request;
-    return response.data;
+    return response.data.products;
 };
 
 const getById = async (id: number): Promise<Product> => {
@@ -14,4 +14,4 @@ const getById = async (id: number): Promise<Product> => {
     return response.data;
 };
 
-export { getAll, getById };
+export default { getAll, getById };
