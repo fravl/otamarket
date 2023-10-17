@@ -1,4 +1,5 @@
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+import BackAndTitleNav from "./BackAndTitleNav";
 
 export default function ErrorPage() {
     const error = useRouteError();
@@ -20,7 +21,7 @@ export default function ErrorPage() {
 
     return (
         <div id="error-page" className="container">
-            <h1 className="display-4">Oops!</h1>
+            <BackAndTitleNav title="Oops!"></BackAndTitleNav>
             <p className="lead">Sorry, an unexpected error has occurred.</p>
             <p className="lead">
                 <i>{errorMessage}</i>

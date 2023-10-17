@@ -14,4 +14,10 @@ const getById = async (id: number): Promise<Product> => {
     return response.data;
 };
 
-export default { getAll, getById };
+const addItem = async (item: Product) => {
+    await new Promise((r) => setTimeout(r, 100));
+    console.log(item);
+    alert("Item added!");
+};
+
+export default { getAll, getById, addItem };
