@@ -46,7 +46,13 @@ input[type="number"] {
 }
 
 .product-card:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.product-card-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .product-card-text-container {
