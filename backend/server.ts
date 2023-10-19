@@ -1,9 +1,7 @@
-import {Express, Request, Response} from "express";
-import express from 'express';
-import path from 'path';
+import express, { Express, Request, Response } from "express";
+import path from "path";
 
 export class Server {
-
     private app: Express;
 
     constructor(app: Express) {
@@ -17,12 +15,12 @@ export class Server {
 
         this.app.get("/product", (req: Request, res: Response): void => {
             res.send("Some product");
-        })
-
+        });
     }
 
     public start(port: number): void {
-        this.app.listen(port, () => console.log(`Server listening on port ${port}!`));
+        this.app.listen(port, () =>
+            console.log(`Server listening on port ${port}!`),
+        );
     }
-
 }
