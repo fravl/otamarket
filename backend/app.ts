@@ -1,8 +1,20 @@
-import { Server } from "./src/server";
-import express from "express";
-const app = express();
+import express, { Express, Request, Response } from "express";
+import cors from "cors";
+import "dotenv/config";
 
-const port = 8080;
+const app: Express = express();
 
-const server = new Server(app);
-server.start(port);
+const corsOptions = {
+    origin: process.env.CLIENT_ORIGIN ?? "http://localhost:8081",
+};
+
+app.use(cors(corsOptions));
+
+app.get("/", (req: Request, res: Response) => {
+    res.send("Express + TypeScript Server");
+});
+
+const PORT = process.env.NODE_DOCKER_PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
+});
