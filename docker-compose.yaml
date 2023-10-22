@@ -1,0 +1,20 @@
+version: "3.8"
+name: "otamarket-app"
+services:
+    server:
+        build: ./backend
+        container_name: server_cont
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./backend:/app
+            - /app/node_modules
+
+    frontend:
+        build: ./frontend
+        container_name: frontend_cont
+        ports:
+            - "5173:5173"
+        volumes:
+            - ./frontend:/app_f
+            - /app_f/node_modules

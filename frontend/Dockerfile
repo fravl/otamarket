@@ -1,7 +1,6 @@
 FROM node:18.10-alpine3.15
 
-WORKDIR /frontend
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+WORKDIR /app_f
 
 COPY package.json package.json
 
@@ -13,4 +12,4 @@ RUN npm run build
 
 EXPOSE 5173
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
