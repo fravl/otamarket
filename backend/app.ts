@@ -1,8 +1,16 @@
-import { Server } from "./src/server";
-import express from "express";
-const app = express();
+import express, { Express, Request, Response } from "express";
+import cors from "cors";
+import "dotenv/config";
 
-const port = 8080;
+const app: Express = express();
 
-const server = new Server(app);
-server.start(port);
+app.use(cors());
+
+app.get("/", (req: Request, res: Response) => {
+    res.send("Hello from backend");
+});
+
+const PORT = process.env.NODE_DOCKER_PORT ?? 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
+});
