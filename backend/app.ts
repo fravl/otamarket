@@ -4,17 +4,13 @@ import "dotenv/config";
 
 const app: Express = express();
 
-const corsOptions = {
-    origin: process.env.CLIENT_ORIGIN ?? "http://localhost:8081",
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("Express + TypeScript Server");
+    res.send("Hello from backend");
 });
 
-const PORT = process.env.NODE_DOCKER_PORT || 8080;
+const PORT = process.env.NODE_DOCKER_PORT ?? 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

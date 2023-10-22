@@ -13,6 +13,7 @@ function App() {
         ProductService.getAll().then((initialProducts) => {
             setProducts(initialProducts.slice(0, 6));
         });
+        fetch("http://localhost:8080/").then(console.log);
     }, []);
 
     return (
