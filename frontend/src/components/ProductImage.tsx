@@ -1,26 +1,29 @@
-import { useState } from "react";
 import { Product } from "../types/Product";
+import Carousel from "react-bootstrap/Carousel";
+import { CarouselItem } from "react-bootstrap";
 
 const ProductImage = ({ product }: { product: Product }) => {
-    const [currentImage, setCurrentImage] = useState<number>(0);
-
-    const changeDisplayedImage = () => {
-        if (product !== undefined && currentImage < product.images.length - 1) {
-            setCurrentImage(currentImage + 1);
-        } else {
-            setCurrentImage(0);
-        }
+    const getImages = () => {
+        return product.images.map((img) => (
+            <CarouselItem>
+                <img src={img} alt="product"></img>
+            </CarouselItem>
+        ));
     };
 
-    return (
-        <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-image">
-            <img
-                src={product.images[currentImage]}
-                alt="product"
-                onClick={() => changeDisplayedImage()}
-            ></img>
-        </div>
-    );
+    if (product.images.length > 1) {
+        return (
+            <Carousel className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-image">
+                {getImages()}
+            </Carousel>
+        );
+    } else {
+        return (
+            <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-image">
+                <img src={product.images[0]} alt="product"></img>
+            </div>
+        );
+    }
 };
 
 export default ProductImage;
