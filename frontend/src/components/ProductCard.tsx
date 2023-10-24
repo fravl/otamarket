@@ -8,7 +8,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     const queueSize = Math.random() < 0.7 ? 0 : 1
     return (
         <React.Fragment>
-            <div className="col-10 mx-auto col-md-6 col-lg-3 my-3">
+            <div className="col-10 mx-auto mx-lg-0 col-md-6 col-lg-3 my-3">
             <Link className="product-card-navlink" to={`/${product.id}`}>
                 <div className="product-card">
                     <div>
