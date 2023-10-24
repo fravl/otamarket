@@ -10,6 +10,11 @@ const BackAndTitleNav = ({ title }: { title: string }) => {
                     <button
                         className="nav-link active"
                         aria-current="page"
+                        style={{
+                            backgroundColor: "#F8F9FA",
+                            color: "black",
+                            fontSize: "2rem",
+                        }}
                         onClick={() => {
                             navigate(-1);
                         }}
