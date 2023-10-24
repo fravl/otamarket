@@ -43,14 +43,11 @@ input[type="number"] {
     text-decoration: none;
 }
 
+
 .product-card-image {
     width: 100%;
     height: 20rem;
     position: relative;
-}
-
-.product-card-name {
-    text-decoration: n;
 }
 
 .product-card:hover {
@@ -83,6 +80,10 @@ input[type="number"] {
     padding: 2%;
 }
 
+.product-card-product-name {
+    color: #000;
+    padding-right: 5%;
+}
 
 .product-page {
     width: 100vw;
