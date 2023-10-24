@@ -180,3 +180,25 @@ input[type="number"] {
     background-color: #19a5e4;
 }
 
+.nav-item {
+    font-weight: bolder;
+    width: 33.333%;
+    text-align: center;
+  }
+  
+  .navbar a {
+    width: 100%;
+  }
+
+  .navbar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-link.active, .nav-link.active:hover{
+    background-color: #2196F3;
+  }
+
+.navbar {
+    --bs-navbar-active-color: white;
+}

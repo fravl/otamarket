@@ -7,6 +7,7 @@ import ProductDetails from "./ProductDetails";
 import ProductSellerDetails from "./ProductSellerDetails";
 import Button from "react-bootstrap/Button";
 import BackAndTitleNav from "./BackAndTitleNav";
+import Navbar from "./Navbar";
 
 const ProductDetailsPage = () => {
     const { id } = useParams();
@@ -38,7 +39,12 @@ const ProductDetailsPage = () => {
     const product = getProductById(id);
 
     if (product === undefined) {
-        return <div>Product does not exist</div>;
+        return (
+            <>
+                <Navbar />
+                <div>Placeholder</div>
+            </>
+        );
     } else {
         return (
             <div className="product-page">
