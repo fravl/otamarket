@@ -8,11 +8,18 @@ This requires a local Docker environment and a Docker Compose version 2.22 and l
 2. Run the following
 
 ```sh
-docker compose watch
+npm run dev
 
 ```
 
 This will spin up both the frontend (port 5173) and the backend (port 8080) with hot reloading enabled.
+
+If you want to view logs while running the application, open another terminal and run:
+
+```sh
+npm run logs
+
+```
 
 To stop the application run
 
@@ -21,12 +28,6 @@ docker compose down
 
 ```
 
-If you prefer to run the application without hot reloading, you can use the following command instead:
-
-```sh
-docker compose up
-
-```
 
 ## Local development without docker compose
 

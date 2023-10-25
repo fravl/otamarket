@@ -1,0 +1,13 @@
+{
+    "name": "otamarket",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "docker compose build && docker compose watch",
+        "logs": "docker compose logs -f"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fravl/otamarket.git"
+    },
+    "license": "ISC"
+}
