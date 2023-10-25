@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Product } from "../types/Product";
-const baseUrl = "https://dummyjson.com/products";
+const baseUrl = "http://localhost:8080";
 
 const getAll = async (): Promise<Product[]> => {
     const request = axios.get(baseUrl);
