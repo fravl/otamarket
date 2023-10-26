@@ -1,4 +1,4 @@
-import ProductService from "../services/ProductService";
+import ProductService from "../services/ItemService";
 import { Item } from "../types/Item";
 
 const ItemForm = () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductService from "./services/ProductService";
+import ProductService from "./services/ItemService";
 import { Item } from "./types/Item";
 import AppHeader from "./components/AppHeader";
 import { Outlet } from "react-router-dom";
