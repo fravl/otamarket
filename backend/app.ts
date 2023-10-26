@@ -24,6 +24,23 @@ app.get("/", (req: Request, res: Response) => {
         });
 });
 
+app.get("/items/:id", (req: Request, res: Response) => {
+    https
+        .get(`https://dummyjson.com/products/${req.params.id}`, (response) => {
+            let data = "";
+            response.on("data", (chunk) => {
+                data += chunk;
+            });
+            response.on("end", () => {
+                res.send(data);
+            });
+        })
+        .on("error", (err) => {
+            console.log("Error: " + err.message);
+            res.status(500).send("Error fetching data from external API");
+        });
+});
+
 const PORT = process.env.NODE_DOCKER_PORT ?? 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

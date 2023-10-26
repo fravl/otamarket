@@ -9,7 +9,7 @@ const getAll = async (): Promise<Product[]> => {
 };
 
 const getById = async (id: number): Promise<Product> => {
-    const request = axios.get(`${baseUrl}/${id}`);
+    const request = axios.get(`${baseUrl}/items/${id}`);
     const response = await request;
     return response.data;
 };
