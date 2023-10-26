@@ -1,8 +1,8 @@
-import { Product } from "../types/Product";
+import { Item } from "../types/Item";
 import Carousel from "react-bootstrap/Carousel";
 import { CarouselItem } from "react-bootstrap";
 
-const ProductImage = ({ product }: { product: Product }) => {
+const ProductImage = ({ product }: { product: Item }) => {
     const getImages = () => {
         return product.images.map((img) => (
             <CarouselItem>

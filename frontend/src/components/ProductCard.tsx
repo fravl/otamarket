@@ -1,8 +1,8 @@
 import React from "react";
-import { Product } from "../types/Product";
+import { Item } from "../types/Item";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product }: { product: Item }) => {
     const queueSize = Math.random() < 0.7 ? 0 : 1;
     return (
         <React.Fragment>

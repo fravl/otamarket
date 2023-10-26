@@ -1,6 +1,6 @@
-import { Product } from "../types/Product";
+import { Item } from "../types/Item";
 
-const ProductDetails = ({ product }: { product: Product }) => {
+const ProductDetails = ({ product }: { product: Item }) => {
     return (
         <>
             <hr />

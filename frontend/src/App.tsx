@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ProductService from "./services/ProductService";
-import { Product } from "./types/Product";
+import { Item } from "./types/Item";
 import AppHeader from "./components/AppHeader";
 import { Outlet } from "react-router-dom";
 import ProductOutletContext from "./components/Contexts/ProductOutletContext";
 
 function App() {
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState<Item[]>([]);
 
     //Fetch all products. This fetches only 6 first since we dont wanna fill site with 100+ dummy products while developin
     useEffect(() => {

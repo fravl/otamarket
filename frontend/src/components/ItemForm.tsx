@@ -1,5 +1,5 @@
 import ProductService from "../services/ProductService";
-import { Product } from "../types/Product";
+import { Item } from "../types/Item";
 
 const ItemForm = () => {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -10,7 +10,7 @@ const ItemForm = () => {
 
         const formJson = Object.fromEntries(
             formData.entries(),
-        ) as unknown as Product;
+        ) as unknown as Item;
         ProductService.addItem(formJson);
     }
 
