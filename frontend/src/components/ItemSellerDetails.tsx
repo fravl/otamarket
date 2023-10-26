@@ -1,9 +1,9 @@
 import Button from "react-bootstrap/Button";
 
-const ProductSellerDetails = () => {
+const ItemSellerDetails = () => {
     const getContactInformation = () => {
         return (
-            <div className="product-page-contact-information">
+            <div className="item-page-contact-information">
                 <span>First In Queue</span>
                 <p>Tg: @interestedbuyer</p>
                 <p>Email: interestedbuyer@aalto.fi</p>
@@ -23,14 +23,11 @@ const ProductSellerDetails = () => {
         <>
             {getContactInformation()}
             <hr />
-            <div className="product-page-button-container">
-                <Button
-                    className="product-page-edit-button"
-                    variant="secondary"
-                >
+            <div className="item-page-button-container">
+                <Button className="item-page-edit-button" variant="secondary">
                     Edit
                 </Button>
-                <Button className="product-page-delete-button" variant="danger">
+                <Button className="item-page-delete-button" variant="danger">
                     Delete
                 </Button>
             </div>
@@ -38,4 +35,4 @@ const ProductSellerDetails = () => {
     );
 };
 
-export default ProductSellerDetails;
+export default ItemSellerDetails;

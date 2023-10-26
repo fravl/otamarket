@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/ErrorPage";
 import App from "./App";
-import ProductDetailsPage from "./components/ProductDetailsPage";
+import ItemDetailsPage from "./components/ItemDetailsPage";
 import HomePage from "./components/HomePage";
 import AddItemPage from "./components/AddItemPage";
 
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/:id",
-                element: <ProductDetailsPage />,
+                element: <ItemDetailsPage />,
             },
         ],
     },

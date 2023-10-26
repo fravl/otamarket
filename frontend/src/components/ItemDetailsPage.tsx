@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { useParams, useOutletContext } from "react-router-dom";
-import ProductOutletContext from "./Contexts/ProductOutletContext";
-import ProductBuyerDetails from "./ProductBuyerDetails";
-import ProductImage from "./ProductImage";
-import ProductDetails from "./ProductDetails";
-import ProductSellerDetails from "./ProductSellerDetails";
+import ItemOutletContext from "./Contexts/ItemOutletContext";
+import ItemBuyerDetails from "./ItemBuyerDetails";
+import ItemImage from "./ItemImage";
+import ItemDetails from "./ItemDetails";
+import ItemSellerDetails from "./ItemSellerDetails";
 import Button from "react-bootstrap/Button";
 import BackAndTitleNav from "./BackAndTitleNav";
 import Navbar from "./Navbar";
 
-const ProductDetailsPage = () => {
+const ItemDetailsPage = () => {
     const { id } = useParams();
-    const products = useOutletContext<ProductOutletContext>().products;
+    const items = useOutletContext<ItemOutletContext>().items;
     const [claimStatus, setClaimStatus] = useState<boolean>(false);
     const [sellerStatus, setSellerStatus] = useState<boolean>(false);
 
-    const getProductById = (id: string | undefined) => {
+    const getItemById = (id: string | undefined) => {
         if (id !== undefined) {
-            return products.find((product) => product.id == Number(id));
+            return items.find((item) => item.id == Number(id));
         } else {
             return undefined;
         }
@@ -26,19 +26,19 @@ const ProductDetailsPage = () => {
     const getAdditionalInfo = () => {
         if (sellerStatus) {
             return (
-                <ProductBuyerDetails
+                <ItemBuyerDetails
                     claimStatus={claimStatus}
                     setClaimStatus={setClaimStatus}
                 />
             );
         } else {
-            return <ProductSellerDetails />;
+            return <ItemSellerDetails />;
         }
     };
 
-    const product = getProductById(id);
+    const item = getItemById(id);
 
-    if (product === undefined) {
+    if (item === undefined) {
         return (
             <>
                 <Navbar />
@@ -47,19 +47,19 @@ const ProductDetailsPage = () => {
         );
     } else {
         return (
-            <div className="product-page">
-                <BackAndTitleNav title={product.title} />
+            <div className="item-page">
+                <BackAndTitleNav title={item.title} />
                 <Button
                     variant="light"
                     onClick={() => setSellerStatus(!sellerStatus)}
                 >
                     Toggle POV
                 </Button>
-                <div className="product-page-info-container">
+                <div className="item-page-info-container">
                     <div className="row">
-                        <ProductImage product={product} />
-                        <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 product-page-info">
-                            <ProductDetails product={product} />
+                        <ItemImage item={item} />
+                        <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 item-page-info">
+                            <ItemDetails item={item} />
                             {getAdditionalInfo()}
                         </div>
                     </div>
@@ -69,4 +69,4 @@ const ProductDetailsPage = () => {
     }
 };
 
-export default ProductDetailsPage;
+export default ItemDetailsPage;
