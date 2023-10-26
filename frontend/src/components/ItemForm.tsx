@@ -1,4 +1,4 @@
-import ProductService from "../services/ItemService";
+import ItemService from "../services/ItemService";
 import { Item } from "../types/Item";
 
 const ItemForm = () => {
@@ -11,7 +11,7 @@ const ItemForm = () => {
         const formJson = Object.fromEntries(
             formData.entries(),
         ) as unknown as Item;
-        ProductService.addItem(formJson);
+        ItemService.addItem(formJson);
     }
 
     return (

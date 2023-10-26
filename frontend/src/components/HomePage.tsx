@@ -1,11 +1,11 @@
 import AddItemFab from "./AddItemFab";
 import Navbar from "./Navbar";
-import ProductList from "./ProductList";
+import ItemList from "./ItemList";
 
 const HomePage = () => (
     <>
         <Navbar />
-        <ProductList />
+        <ItemList />
         <AddItemFab />
     </>
 );

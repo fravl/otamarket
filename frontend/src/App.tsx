@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import ProductService from "./services/ItemService";
+import ItemService from "./services/ItemService";
 import { Item } from "./types/Item";
 import AppHeader from "./components/AppHeader";
 import { Outlet } from "react-router-dom";
-import ProductOutletContext from "./components/Contexts/ProductOutletContext";
+import ItemOutletContext from "./components/Contexts/ItemOutletContext";
 
 function App() {
-    const [products, setProducts] = useState<Item[]>([]);
+    const [items, setItems] = useState<Item[]>([]);
 
-    //Fetch all products. This fetches only 6 first since we dont wanna fill site with 100+ dummy products while developin
+    //Fetch all items. This fetches only 6 first since we dont wanna fill site with 100+ dummy items while developin
     useEffect(() => {
-        ProductService.getAll().then((initialProducts) => {
-            setProducts(initialProducts.slice(0, 6));
+        ItemService.getAll().then((initialItems) => {
+            setItems(initialItems.slice(0, 6));
         });
         fetch("http://localhost:8080/").then(console.log);
     }, []);
@@ -19,7 +19,7 @@ function App() {
     return (
         <>
             <AppHeader />
-            <Outlet context={{ products } satisfies ProductOutletContext} />
+            <Outlet context={{ items: items } satisfies ItemOutletContext} />
         </>
     );
 }

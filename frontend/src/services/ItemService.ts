@@ -5,7 +5,7 @@ const baseUrl = "http://localhost:8080";
 const getAll = async (): Promise<Item[]> => {
     const request = axios.get(baseUrl);
     const response = await request;
-    return response.data.products;
+    return response.data.items;
 };
 
 const getById = async (id: number): Promise<Item> => {

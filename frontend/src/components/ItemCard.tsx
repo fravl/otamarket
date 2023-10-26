@@ -2,21 +2,21 @@ import React from "react";
 import { Item } from "../types/Item";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product }: { product: Item }) => {
+const ItemCard = ({ item }: { item: Item }) => {
     const queueSize = Math.random() < 0.7 ? 0 : 1;
     return (
         <React.Fragment>
             <div className="col-10 mx-auto mx-lg-0 col-md-6 col-lg-3 my-3">
-                <Link className="product-card-navlink" to={`/${product.id}`}>
-                    <div className="product-card">
+                <Link className="item-card-navlink" to={`/${item.id}`}>
+                    <div className="item-card">
                         <div>
                             <img
-                                className="product-card-image"
-                                alt="productimg"
-                                src={product.images[0]}
+                                className="item-card-image"
+                                alt="itemimg"
+                                src={item.images[0]}
                             />
                             <span
-                                className={`product-card-badge badge ${
+                                className={`item-card-badge badge ${
                                     queueSize === 0
                                         ? "bg-success"
                                         : "bg-warning"
@@ -24,14 +24,14 @@ const ProductCard = ({ product }: { product: Item }) => {
                             >
                                 {queueSize} in queue
                             </span>
-                            {/* <span className={`"badge ${product.queueSize === 0 ? 'bg-success' : 'bg-warning' }"`}>{product.queueSize} in queue</span> */}
+                            {/* <span className={`"badge ${item.queueSize === 0 ? 'bg-success' : 'bg-warning' }"`}>{item.queueSize} in queue</span> */}
                         </div>
-                        <div className="product-card-text-container">
-                            <div className="product-card-product-pricecontainer">
+                        <div className="item-card-text-container">
+                            <div className="item-card-item-pricecontainer">
                                 <div>
-                                    <span className="product-card-product-price">{`${product.price} €`}</span>
-                                    <span className="product-card-product-name">
-                                        {product.title}
+                                    <span className="item-card-item-price">{`${item.price} €`}</span>
+                                    <span className="item-card-item-name">
+                                        {item.title}
                                     </span>
                                 </div>
                             </div>
@@ -43,4 +43,4 @@ const ProductCard = ({ product }: { product: Item }) => {
     );
 };
 
-export default ProductCard;
+export default ItemCard;

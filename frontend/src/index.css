@@ -24,7 +24,7 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-.product-card {
+.item-card {
     text-align: left;
     line-height: 1;
     box-shadow: 0 2px 2px #c9cbce;
@@ -39,28 +39,27 @@ input[type="number"] {
     justify-content: space-between;
 }
 
-.product-card-navlink{
+.item-card-navlink {
     text-decoration: none;
 }
 
-
-.product-card-image {
+.item-card-image {
     width: 100%;
     height: 20rem;
     position: relative;
 }
 
-.product-card:hover {
-  cursor: pointer;
+.item-card:hover {
+    cursor: pointer;
 }
 
-.product-card-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.item-card-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
-.product-card-text-container {
+.item-card-text-container {
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -68,24 +67,24 @@ input[type="number"] {
     padding: 2%;
 }
 
-.product-card-product-price {
+.item-card-item-price {
     text-transform: uppercase;
     float: right;
 }
 
-.product-card-product-pricecontainer {
+.item-card-item-pricecontainer {
     font-size: 1.25rem;
     color: #45474c;
     font-weight: bold;
     padding: 2%;
 }
 
-.product-card-product-name {
+.item-card-item-name {
     color: #000;
     padding-right: 5%;
 }
 
-.product-page {
+.item-page {
     width: 100vw;
     height: 100vh;
     padding: 0%;
@@ -93,18 +92,18 @@ input[type="number"] {
     background-color: white;
 }
 
-.product-page-info-container {
+.item-page-info-container {
     position: relative;
     margin: 5% 10% 0 10%;
     text-align: left;
 }
 
-.product-page-description-container {
+.item-page-description-container {
     color: #45474c;
     font-weight: 300;
 }
 
-.product-page-description-container h2 {
+.item-page-description-container h2 {
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 2.25rem;
@@ -112,13 +111,13 @@ input[type="number"] {
     margin-bottom: 0.5em;
 }
 
-.product-page-title {
+.item-page-title {
     font-size: 1.5rem;
     font-weight: 300;
     line-height: 1.25;
 }
 
-.product-page-image img {
+.item-page-image img {
     width: 100%;
     height: 50vh;
     display: block;
@@ -126,19 +125,18 @@ input[type="number"] {
     margin-right: auto;
 }
 
-
-.product-page-price {
+.item-page-price {
     font-size: 1.4em;
     color: #000;
     font-weight: 700;
 }
 
-.product-page-button-container {
+.item-page-button-container {
     margin-top: 2%;
     width: 100%;
 }
 
-.product-page-button {
+.item-page-button {
     width: 100%;
 }
 
@@ -150,32 +148,29 @@ input[type="number"] {
     background-color: crimson;
 }
 
-.product-page-contact-information {
+.item-page-contact-information {
     font-size: 1rem;
     color: black;
 }
 
-.product-page-contact-information span {
+.item-page-contact-information span {
     color: #45474c;
     font-size: 1.25rem;
     font-weight: 600;
     line-height: 2.25rem;
 }
 
-.product-page-delete-button {
+.item-page-delete-button {
     float: right;
 }
 
-
-.carousel-control-prev-icon { 
-    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23009be1' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"); 
-
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23009be1' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 }
-.carousel-control-next-icon { 
+.carousel-control-next-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23009be1' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
-
 }
-                                                                          
+
 .carousel-indicators .active {
     background-color: #19a5e4;
 }
@@ -184,20 +179,21 @@ input[type="number"] {
     font-weight: bolder;
     width: 33.333%;
     text-align: center;
-  }
-  
-  .navbar a {
-    width: 100%;
-  }
+}
 
-  .navbar a:hover {
+.navbar a {
+    width: 100%;
+}
+
+.navbar a:hover {
     background-color: #ddd;
     color: black;
-  }
+}
 
-  .nav-link.active, .nav-link.active:hover{
-    background-color: #2196F3;
-  }
+.nav-link.active,
+.nav-link.active:hover {
+    background-color: #2196f3;
+}
 
 .navbar {
     --bs-navbar-active-color: white;

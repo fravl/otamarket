@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 
-const ProdctBuyerDetails = ({
+const ItemBuyerDetails = ({
     claimStatus,
     setClaimStatus,
 }: {
@@ -10,10 +10,10 @@ const ProdctBuyerDetails = ({
     const getContactInformation = () => {
         if (claimStatus) {
             return (
-                <div className="product-page-contact-information">
+                <div className="item-page-contact-information">
                     <span>Contact Information</span>
-                    <p>Tg: @productseller</p>
-                    <p>Email: productseller@aalto.fi</p>
+                    <p>Tg: @itemseller</p>
+                    <p>Email: itemseller@aalto.fi</p>
                 </div>
             );
         } else {
@@ -23,9 +23,9 @@ const ProdctBuyerDetails = ({
 
     const claimButtonStyles = () => {
         if (claimStatus) {
-            return "product-page-button red-button";
+            return "item-page-button red-button";
         } else {
-            return "product-page-button";
+            return "item-page-button";
         }
     };
 
@@ -40,7 +40,7 @@ const ProdctBuyerDetails = ({
     return (
         <>
             {getContactInformation()}
-            <div className="product-page-button-container">
+            <div className="item-page-button-container">
                 <Button
                     type="submit"
                     className={claimButtonStyles()}
@@ -53,4 +53,4 @@ const ProdctBuyerDetails = ({
     );
 };
 
-export default ProdctBuyerDetails;
+export default ItemBuyerDetails;
