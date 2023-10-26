@@ -3,7 +3,7 @@ name: "otamarket-app"
 services:
     server:
         build: ./backend
-        container_name: server_cont
+        container_name: ota_server_cont
         ports:
             - "8080:8080"
 
@@ -19,7 +19,7 @@ services:
 
     frontend:
         build: ./frontend
-        container_name: frontend_cont
+        container_name: ota_frontend_cont
         ports:
             - "5173:5173"
 
