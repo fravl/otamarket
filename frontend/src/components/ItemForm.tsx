@@ -1,7 +1,15 @@
+import React, { useState } from "react";
 import ItemService from "../services/ItemService";
 import { Item } from "../types/Item";
+import ReactDOM from 'react-dom';
+import AddItemAlert from "./AddItemAlert"
 
 const ItemForm = () => {
+    const [alertStatus, setAlertStatus] = useState({
+        status: 0,
+        show: false
+    });
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -11,7 +19,22 @@ const ItemForm = () => {
         const formJson = Object.fromEntries(
             formData.entries(),
         ) as unknown as Item;
-        ItemService.addItem(formJson);
+
+        const submitButton = form.submitButton;
+        const spinner = form.getElement
+        submitButton.disabled = true;
+        //spinner;
+        ItemService.addItem(formJson)
+            .then((res) => {
+                setAlertStatus({status: res.status, show: true});
+                form.reset();
+            })
+            .catch((error) => {
+                setAlertStatus({status: error.response.status, show: true});
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+            });
     }
 
     return (
@@ -70,9 +93,11 @@ const ItemForm = () => {
                     ></textarea>
                     <label htmlFor="description">Description</label>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">
+                <button type="submit" name="submitButton" className="btn btn-primary w-100">
+                    <span className="spinner-border spinner-border-sm hidden" id="loadingSpinner" role="status" aria-hidden="true"></span>
                     Add Item
                 </button>
+                <AddItemAlert status={alertStatus.status} show={alertStatus.show}/>
             </form>
         </div>
     );
