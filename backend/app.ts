@@ -5,7 +5,11 @@ import "dotenv/config";
 
 const app: Express = express();
 
+// temporary for adding items
+const itemList: object[] = [];
+
 app.use(cors());
+app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
     https
@@ -39,6 +43,17 @@ app.get("/items/:id", (req: Request, res: Response) => {
             console.log("Error: " + err.message);
             res.status(500).send("Error fetching data from external API");
         });
+});
+
+app.post("/items/add", (req: Request, res: Response) => {
+    const newItem = req.body;
+    console.log(req.body);
+    if (newItem.title && typeof newItem.description == 'string' && typeof parseInt(newItem.price) == 'number') {
+        itemList.push(newItem);
+    } else {
+        res.status(400).send();
+    }
+    res.status(204).send();
 });
 
 const PORT = process.env.NODE_DOCKER_PORT ?? 8080;
