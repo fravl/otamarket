@@ -11,11 +11,16 @@ const ItemForm = () => {
     });
     const [loadingSpinner, setLoadingSpinner] = useState(false);
 
+    const [isChecked, setIsChecked] = useState(true);
+
+    const [priceValue, setPriceValue] = useState('0');
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
+        formData.append('price', priceValue);
 
         const formJson = Object.fromEntries(
             formData.entries(),
@@ -45,6 +50,7 @@ const ItemForm = () => {
                         name="title"
                         id="title"
                         placeholder="Title"
+                        required
                     />
                     <label htmlFor="title">Title</label>
                 </div>
@@ -58,6 +64,10 @@ const ItemForm = () => {
                     />
                     <label htmlFor="picture">Add Image</label>
                 </div>
+                <div className="form-check">
+                    <input className="form-check-input" type="checkbox" value="" id="freeCheckbox" onChange={() => {setIsChecked(!isChecked); setPriceValue(!isChecked ? '0' : '');}} checked={isChecked} />
+                    <label className="form-check-label" htmlFor="freeCheckbox">This item is free!</label>
+                </div>
                 <div className="input-group mb-3">
                     <div className="form-floating">
                         <input
@@ -66,6 +76,10 @@ const ItemForm = () => {
                             name="price"
                             id="price"
                             placeholder="Price"
+                            onChange={(e) => {setPriceValue(e.target.value)}}
+                            disabled={isChecked}
+                            value={priceValue}
+                            required
                         />
                         <label htmlFor="price">Price</label>
                     </div>
