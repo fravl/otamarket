@@ -5,9 +5,6 @@ import "dotenv/config";
 
 const app: Express = express();
 
-// temporary for adding items
-const itemList: object[] = [];
-
 app.use(cors());
 app.use(express.json());
 
@@ -47,13 +44,13 @@ app.get("/items/:id", (req: Request, res: Response) => {
 
 app.post("/items/add", (req: Request, res: Response) => {
     const newItem = req.body;
-    console.log(req.body);
     if (newItem.title && typeof newItem.description == 'string' && typeof parseInt(newItem.price) == 'number') {
-        itemList.push(newItem);
+        console.log("Item received")
+        console.log(req.body);
+        setTimeout(() => {res.status(204).send()}, 1000)
     } else {
         res.status(400).send();
     }
-    res.status(204).send();
 });
 
 const PORT = process.env.NODE_DOCKER_PORT ?? 8080;
