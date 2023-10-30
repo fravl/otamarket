@@ -15,9 +15,9 @@ const getById = async (id: number): Promise<Item> => {
 };
 
 const addItem = async (item: Item) => {
-    await new Promise((r) => setTimeout(r, 100));
-    console.log(item);
-    alert("Item added!");
+    const request = axios.post(`${baseUrl}/items/add`, item);
+    const response = await request;
+    return response;
 };
 
 export default { getAll, getById, addItem };

@@ -1,7 +1,16 @@
+import React, { useState } from "react";
 import ItemService from "../services/ItemService";
 import { Item } from "../types/Item";
+import SubmitButton from "./SubmitButton";
+import AddItemAlert from "./AddItemAlert"
 
 const ItemForm = () => {
+    const [alertStatus, setAlertStatus] = useState({
+        status: 0,
+        show: false
+    });
+    const [loadingSpinner, setLoadingSpinner] = useState(false);
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -11,7 +20,19 @@ const ItemForm = () => {
         const formJson = Object.fromEntries(
             formData.entries(),
         ) as unknown as Item;
-        ItemService.addItem(formJson);
+        setLoadingSpinner(true);
+
+        ItemService.addItem(formJson)
+            .then((res) => {
+                setAlertStatus({status: res.status, show: true});
+                form.reset();
+            })
+            .catch((error) => {
+                setAlertStatus({status: error.response.status, show: true});
+            })
+            .finally(() => {
+                setLoadingSpinner(false);
+            });
     }
 
     return (
@@ -70,9 +91,8 @@ const ItemForm = () => {
                     ></textarea>
                     <label htmlFor="description">Description</label>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">
-                    Add Item
-                </button>
+                <SubmitButton loading={loadingSpinner} />
+                <AddItemAlert status={alertStatus.status} show={alertStatus.show}/>
             </form>
         </div>
     );

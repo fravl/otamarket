@@ -6,6 +6,7 @@ import "dotenv/config";
 const app: Express = express();
 
 app.use(cors());
+app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
     https
@@ -39,6 +40,17 @@ app.get("/items/:id", (req: Request, res: Response) => {
             console.log("Error: " + err.message);
             res.status(500).send("Error fetching data from external API");
         });
+});
+
+app.post("/items/add", (req: Request, res: Response) => {
+    const newItem = req.body;
+    if (newItem.title && typeof newItem.description == 'string' && typeof parseInt(newItem.price) == 'number') {
+        console.log("Item received")
+        console.log(req.body);
+        setTimeout(() => {res.status(204).send()}, 1000)
+    } else {
+        res.status(400).send();
+    }
 });
 
 const PORT = process.env.NODE_DOCKER_PORT ?? 8080;
