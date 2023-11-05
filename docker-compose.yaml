@@ -6,7 +6,11 @@ services:
         container_name: ota_server_cont
         ports:
             - "8080:8080"
-
+        env_file:
+            - project.env
+        depends_on:
+            - database
+            - flyway
         develop:
             watch:
                 - action: sync
@@ -22,7 +26,12 @@ services:
         container_name: ota_frontend_cont
         ports:
             - "5173:5173"
-
+        env_file:
+            - project.env
+        depends_on:
+            - server
+            - database
+            - flyway
         develop:
             watch:
                 - action: sync
@@ -32,3 +41,20 @@ services:
                       - .frontend/node_modules/
                 - action: rebuild
                   path: ./frontend/package.json
+
+    database:
+        container_name: ota_db_cont
+        image: postgres:14.1
+        restart: "no"
+        env_file:
+            - project.env
+
+    flyway:
+        image: flyway/flyway:9.11.0-alpine
+        depends_on:
+            - database
+        volumes:
+            - .:/flyway/sql
+        command: -connectRetries=60 -baselineOnMigrate=true migrate
+        env_file:
+            - project.env
