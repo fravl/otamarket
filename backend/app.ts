@@ -1,7 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import https from "https";
-import "dotenv/config";
 
 const app: Express = express();
 
@@ -44,10 +43,16 @@ app.get("/items/:id", (req: Request, res: Response) => {
 
 app.post("/items/add", (req: Request, res: Response) => {
     const newItem = req.body;
-    if (newItem.title && typeof newItem.description == 'string' && typeof parseInt(newItem.price) == 'number') {
-        console.log("Item received")
+    if (
+        newItem.title &&
+        typeof newItem.description == "string" &&
+        typeof parseInt(newItem.price) == "number"
+    ) {
+        console.log("Item received");
         console.log(req.body);
-        setTimeout(() => {res.status(204).send()}, 1000)
+        setTimeout(() => {
+            res.status(204).send();
+        }, 1000);
     } else {
         res.status(400).send();
     }
