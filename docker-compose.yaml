@@ -8,9 +8,6 @@ services:
             - "8080:8080"
         env_file:
             - project.env
-        depends_on:
-            - database
-            - flyway
         develop:
             watch:
                 - action: sync
@@ -28,10 +25,6 @@ services:
             - "5173:5173"
         env_file:
             - project.env
-        depends_on:
-            - server
-            - database
-            - flyway
         develop:
             watch:
                 - action: sync
@@ -46,6 +39,8 @@ services:
         container_name: ota_db_cont
         image: postgres:14.1
         restart: "no"
+        ports:
+            - "5432:5432"
         env_file:
             - project.env
 
@@ -54,7 +49,7 @@ services:
         depends_on:
             - database
         volumes:
-            - .:/flyway/sql
+            - ./flyway/sql:/flyway/sql
         command: -connectRetries=60 -baselineOnMigrate=true migrate
         env_file:
             - project.env
