@@ -1,20 +1,20 @@
 import axios from "axios";
-import { Item } from "../types/Item";
+import { Item, ItemSave, ItemSummary } from "../types";
 const baseUrl = "http://localhost:8080";
 
-const getAll = async (): Promise<Item[]> => {
+const getAll = async (): Promise<ItemSummary[]> => {
     const request = axios.get(baseUrl);
     const response = await request;
-    return response.data.products;
+    return response.data;
 };
 
-const getById = async (id: number): Promise<Item> => {
+const getById = async (id: number): Promise<Item | null> => {
     const request = axios.get(`${baseUrl}/items/${id}`);
     const response = await request;
     return response.data;
 };
 
-const addItem = async (item: Item) => {
+const addItem = async (item: ItemSave) => {
     const request = axios.post(`${baseUrl}/items/add`, item);
     const response = await request;
     return response;

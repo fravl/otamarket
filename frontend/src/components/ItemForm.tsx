@@ -1,39 +1,39 @@
 import React, { useState } from "react";
 import ItemService from "../services/ItemService";
-import { Item } from "../types/Item";
+import { ItemSave } from "../types";
 import SubmitButton from "./SubmitButton";
-import AddItemAlert from "./AddItemAlert"
+import AddItemAlert from "./AddItemAlert";
 
 const ItemForm = () => {
     const [alertStatus, setAlertStatus] = useState({
         status: 0,
-        show: false
+        show: false,
     });
     const [loadingSpinner, setLoadingSpinner] = useState(false);
 
     const [isChecked, setIsChecked] = useState(true);
 
-    const [priceValue, setPriceValue] = useState('0');
+    const [priceValue, setPriceValue] = useState("0");
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        formData.append('price', priceValue);
+        formData.append("price", priceValue);
 
         const formJson = Object.fromEntries(
             formData.entries(),
-        ) as unknown as Item;
+        ) as unknown as ItemSave;
         setLoadingSpinner(true);
 
         ItemService.addItem(formJson)
             .then((res) => {
-                setAlertStatus({status: res.status, show: true});
+                setAlertStatus({ status: res.status, show: true });
                 form.reset();
             })
             .catch((error) => {
-                setAlertStatus({status: error.response.status, show: true});
+                setAlertStatus({ status: error.response.status, show: true });
             })
             .finally(() => {
                 setLoadingSpinner(false);
@@ -65,8 +65,20 @@ const ItemForm = () => {
                     <label htmlFor="picture">Add Image</label>
                 </div>
                 <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="freeCheckbox" onChange={() => {setIsChecked(!isChecked); setPriceValue(!isChecked ? '0' : '');}} checked={isChecked} />
-                    <label className="form-check-label" htmlFor="freeCheckbox">This item is free!</label>
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="freeCheckbox"
+                        onChange={() => {
+                            setIsChecked(!isChecked);
+                            setPriceValue(!isChecked ? "0" : "");
+                        }}
+                        checked={isChecked}
+                    />
+                    <label className="form-check-label" htmlFor="freeCheckbox">
+                        This item is free!
+                    </label>
                 </div>
                 <div className="input-group mb-3">
                     <div className="form-floating">
@@ -76,7 +88,9 @@ const ItemForm = () => {
                             name="price"
                             id="price"
                             placeholder="Price"
-                            onChange={(e) => {setPriceValue(e.target.value)}}
+                            onChange={(e) => {
+                                setPriceValue(e.target.value);
+                            }}
                             disabled={isChecked}
                             value={priceValue}
                             required
@@ -106,7 +120,10 @@ const ItemForm = () => {
                     <label htmlFor="description">Description</label>
                 </div>
                 <SubmitButton loading={loadingSpinner} />
-                <AddItemAlert status={alertStatus.status} show={alertStatus.show}/>
+                <AddItemAlert
+                    status={alertStatus.status}
+                    show={alertStatus.show}
+                />
             </form>
         </div>
     );

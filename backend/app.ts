@@ -1,44 +1,26 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import https from "https";
+import { ItemService } from "./services";
 
 const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-    https
-        .get("https://dummyjson.com/products", (response) => {
-            let data = "";
-            response.on("data", (chunk) => {
-                data += chunk;
-            });
-            response.on("end", () => {
-                res.send(data);
-            });
-        })
-        .on("error", (err) => {
-            console.log("Error: " + err.message);
-            res.status(500).send("Error fetching data from external API");
-        });
+app.get("/", async (req: Request, res: Response) => {
+    try {
+        res.send(await ItemService.all());
+    } catch (error) {
+        res.status(500).send("Error querying database");
+    }
 });
 
-app.get("/items/:id", (req: Request, res: Response) => {
-    https
-        .get(`https://dummyjson.com/products/${req.params.id}`, (response) => {
-            let data = "";
-            response.on("data", (chunk) => {
-                data += chunk;
-            });
-            response.on("end", () => {
-                res.send(data);
-            });
-        })
-        .on("error", (err) => {
-            console.log("Error: " + err.message);
-            res.status(500).send("Error fetching data from external API");
-        });
+app.get("/items/:id", async (req: Request, res: Response) => {
+    try {
+        res.send(await ItemService.findById(parseInt(req.params.id)));
+    } catch (error) {
+        res.status(500).send("Error querying database");
+    }
 });
 
 app.post("/items/add", (req: Request, res: Response) => {
