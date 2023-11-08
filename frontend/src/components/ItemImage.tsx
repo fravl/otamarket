@@ -1,4 +1,4 @@
-import { Item } from "../types/Item";
+import { Item } from "../types";
 import Carousel from "react-bootstrap/Carousel";
 import { CarouselItem } from "react-bootstrap";
 

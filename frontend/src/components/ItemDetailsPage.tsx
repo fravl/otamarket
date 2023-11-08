@@ -1,27 +1,18 @@
-import React, { useState } from "react";
-import { useParams, useOutletContext } from "react-router-dom";
-import ItemOutletContext from "./Contexts/ItemOutletContext";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import ItemBuyerDetails from "./ItemBuyerDetails";
-import ItemImage from "./ItemImage";
 import ItemDetails from "./ItemDetails";
 import ItemSellerDetails from "./ItemSellerDetails";
 import Button from "react-bootstrap/Button";
 import BackAndTitleNav from "./BackAndTitleNav";
 import Navbar from "./Navbar";
+import { Item } from "../types";
+import ItemImage from "./ItemImage";
 
 const ItemDetailsPage = () => {
-    const { id } = useParams();
-    const items = useOutletContext<ItemOutletContext>().items;
+    const { item } = useLoaderData() as { item: Item };
     const [claimStatus, setClaimStatus] = useState<boolean>(false);
     const [sellerStatus, setSellerStatus] = useState<boolean>(false);
-
-    const getItemById = (id: string | undefined) => {
-        if (id !== undefined) {
-            return items.find((item) => item.id == Number(id));
-        } else {
-            return undefined;
-        }
-    };
 
     const getAdditionalInfo = () => {
         if (sellerStatus) {
@@ -36,9 +27,7 @@ const ItemDetailsPage = () => {
         }
     };
 
-    const item = getItemById(id);
-
-    if (item === undefined) {
+    if (!item) {
         return (
             <>
                 <Navbar />

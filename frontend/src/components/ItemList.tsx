@@ -1,10 +1,9 @@
-import React from "react";
 import ItemCard from "./ItemCard";
-import { useOutletContext } from "react-router-dom";
-import ItemOutletContext from "./Contexts/ItemOutletContext";
+import { useLoaderData } from "react-router-dom";
+import { ItemSummary } from "../types";
 
 const ItemList = () => {
-    const items = useOutletContext<ItemOutletContext>().items;
+    const { items } = useLoaderData() as { items: ItemSummary[] };
 
     return (
         <div className="items-list" id="items-list">

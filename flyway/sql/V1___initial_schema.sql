@@ -20,6 +20,7 @@ CREATE TABLE items (
     description TEXT,
     price DECIMAL,
     location VARCHAR(100),
+    listed_at TIMESTAMP DEFAULT NOW(),
     seller_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     thumbnail_id INTEGER REFERENCES item_images(id) ON DELETE SET NULL
 );
