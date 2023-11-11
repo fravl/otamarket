@@ -3,19 +3,26 @@ import { Link } from "react-router-dom";
 
 const ItemCard = ({ item }: { item: ItemSummary }) => {
     function getThumbnail() {
-        if(item.thumbnail === null){
+        if (item.thumbnail === null) {
             return <i className="bi bi-camera fs-1"></i>;
         } else {
-            var imgsrc = "data:image/jpeg;base64," + btoa(String.fromCharCode.apply(null, new Uint8Array(item.thumbnail[0].data)));
+            var imgsrc =
+                "data:image/jpeg;base64," +
+                btoa(
+                    String.fromCharCode.apply(
+                        null,
+                        new Uint8Array(item.thumbnail[0].data),
+                    ),
+                );
 
-            return(
+            return (
                 <img
-                                    className="item-card-image"
-                                    alt="productimg"
-                                    src={imgsrc}
-                                />
-                )
-            }
+                    className="item-card-image"
+                    alt="productimg"
+                    src={imgsrc}
+                />
+            );
+        }
     }
 
     return (

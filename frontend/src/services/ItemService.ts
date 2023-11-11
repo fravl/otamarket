@@ -11,6 +11,7 @@ const getAll = async (): Promise<ItemSummary[]> => {
 const getById = async (id: number): Promise<Item | null> => {
     const request = axios.get(`${baseUrl}/items/${id}`);
     const response = await request;
+    console.log(response.data);
     return response.data;
 };
 

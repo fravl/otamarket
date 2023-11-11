@@ -1,6 +1,6 @@
 import { IDatabase, IMain } from "pg-promise";
 import { IResult } from "pg-promise/typescript/pg-subset";
-import { Item } from "../models";
+import { Item, ItemImage } from "../models";
 
 export class ItemsRepository {
     /**
@@ -40,5 +40,11 @@ export class ItemsRepository {
                 GROUP BY i.id
                 ORDER BY listed_at DESC`,
         );
+    }
+
+    allImages(): Promise<ItemImage[]>{
+        return this.db.any(
+            'SELECT * FROM item_images'
+        )
     }
 }

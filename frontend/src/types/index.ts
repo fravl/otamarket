@@ -18,6 +18,13 @@ export type ItemSummary = {
     thumbnail: any;
 };
 
+export type ItemImageType = {
+    id: number;
+    image: any;
+    order_num: number;
+    item_id: number;
+};
+
 export type Item = {
     id: number;
     title: string;
