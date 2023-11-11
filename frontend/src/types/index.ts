@@ -15,7 +15,7 @@ export type ItemSummary = {
     title: string;
     price: number;
     claimCount: number;
-    thumbnail: null;
+    thumbnail: any;
 };
 
 export type Item = {
@@ -25,6 +25,6 @@ export type Item = {
     description: string;
     location: string;
     claimCount: number;
-    thumbnail: null;
+    thumbnail: any;
     images: any[];
 };

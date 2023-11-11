@@ -1,9 +1,9 @@
 import db from "../db";
 import { ItemDetails, ItemSummary } from "../dtos";
 
-export async function all(): Promise<ItemSummary[]> {
+export async function all(): Promise<any> {
     const items = await db.items.all();
-    const dtos = items.map((item) => new ItemSummary(item, item.claim_count));
+    const dtos = items.map((item) => new ItemSummary(item, item.claim_count, item.thumbnail ));
 
     return dtos;
 }

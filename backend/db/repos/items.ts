@@ -31,12 +31,13 @@ export class ItemsRepository {
         return this.db.oneOrNone("SELECT * FROM items WHERE id = $1", +id);
     }
 
-    all(): Promise<(Item & { claim_count: number })[]> {
+    all(): Promise<(Item & { claim_count: number, thumbnail: Buffer })[]> {
         return this.db.any(
-            `SELECT items.*, count(claims.item_id) as claim_count
-                FROM items
-                LEFT JOIN claims ON claims.item_id = items.id
-                GROUP BY items.id
+            `SELECT i.*, count(c.item_id) as claim_count, array_agg(im.image) as thumbnail
+                FROM items i
+                LEFT JOIN claims c ON c.item_id = i.id
+                LEFT JOIN item_images im ON im.id = i.thumbnail_id
+                GROUP BY i.id
                 ORDER BY listed_at DESC`,
         );
     }
