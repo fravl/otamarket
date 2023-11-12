@@ -3,8 +3,15 @@ import { ItemDetails, ItemSummary } from "../dtos";
 
 export async function all(): Promise<any> {
     const items = await db.items.all();
+    
     const dtos = items.map(
-        (item) => new ItemSummary(item, item.claim_count, item.thumbnail),
+        (item) =>  {
+            if(item.thumbnail_id === null){
+               return  new ItemSummary(item, item.claim_count)
+            } else {
+               return  new ItemSummary(item, item.claim_count, item.thumbnail)
+            }
+        }
     );
 
     return dtos;

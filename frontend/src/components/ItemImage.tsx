@@ -7,7 +7,7 @@ const ItemImage = ({ item }: { item: Item }) => {
         var imgsrc =
             "data:image/jpeg;base64," +
             btoa(
-                String.fromCharCode.apply(null, new Uint8Array(img.image.data)),
+                String.fromCharCode.apply(null,  [...new Uint8Array(img.image.data)]),
             );
 
         return <img alt="item" src={imgsrc} />;

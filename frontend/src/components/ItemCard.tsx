@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ItemCard = ({ item }: { item: ItemSummary }) => {
     function getThumbnail() {
-        if (item.thumbnail === null) {
+        if (item.thumbnail === null || item.thumbnail.length === 0) {
             return <i className="bi bi-camera fs-1"></i>;
         } else {
             var imgsrc =
@@ -11,7 +11,7 @@ const ItemCard = ({ item }: { item: ItemSummary }) => {
                 btoa(
                     String.fromCharCode.apply(
                         null,
-                        new Uint8Array(item.thumbnail[0].data),
+                        [...new Uint8Array(item.thumbnail[0].data)]
                     ),
                 );
 

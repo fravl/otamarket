@@ -5,8 +5,8 @@ export class ItemSummary {
     title: string;
     price: number;
     claimCount: number;
-    thumbnail: Buffer | null;
-    constructor(item: Item, claimCount: number, thumbnail?: Buffer) {
+    thumbnail: Buffer |null;
+    constructor(item: Item, claimCount: number, thumbnail?: Buffer | null ) {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
