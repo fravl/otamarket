@@ -3,7 +3,25 @@ import { Link } from "react-router-dom";
 
 const ItemCard = ({ item }: { item: ItemSummary }) => {
     function getThumbnail() {
-        return <i className="bi bi-camera fs-1"></i>;
+        if (item.thumbnail === null || item.thumbnail.length === 0) {
+            return <i className="bi bi-camera fs-1"></i>;
+        } else {
+            var imgsrc =
+                "data:image/jpeg;base64," +
+                btoa(
+                    String.fromCharCode.apply(null, [
+                        ...new Uint8Array(item.thumbnail[0].data),
+                    ]),
+                );
+
+            return (
+                <img
+                    className="item-card-image"
+                    alt="productimg"
+                    src={imgsrc}
+                />
+            );
+        }
     }
 
     return (

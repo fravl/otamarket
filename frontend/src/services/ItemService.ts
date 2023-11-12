@@ -5,12 +5,14 @@ const baseUrl = "http://localhost:8080";
 const getAll = async (): Promise<ItemSummary[]> => {
     const request = axios.get(baseUrl);
     const response = await request;
+    console.log(response.data)
     return response.data;
 };
 
 const getById = async (id: number): Promise<Item | null> => {
     const request = axios.get(`${baseUrl}/items/${id}`);
     const response = await request;
+    console.log(response.data);
     return response.data;
 };
 
