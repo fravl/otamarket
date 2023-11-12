@@ -9,10 +9,9 @@ const ItemCard = ({ item }: { item: ItemSummary }) => {
             var imgsrc =
                 "data:image/jpeg;base64," +
                 btoa(
-                    String.fromCharCode.apply(
-                        null,
-                        [...new Uint8Array(item.thumbnail[0].data)]
-                    ),
+                    String.fromCharCode.apply(null, [
+                        ...new Uint8Array(item.thumbnail[0].data),
+                    ]),
                 );
 
             return (
