@@ -37,7 +37,7 @@ const ItemImage = ({ item }: { item: Item }) => {
     } else {
         return (
             <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 item-page-image">
-                {getSingleImage(item.images[0].image.data)}
+                {getSingleImage(item.images[0])}
             </div>
         );
     }
