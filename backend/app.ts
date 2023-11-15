@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import { ItemService } from "./services";
+import { ItemService, UserService } from "./services";
+import { UserSave } from "./dtos";
 
 const app: Express = express();
 
@@ -37,6 +38,18 @@ app.post("/items/add", (req: Request, res: Response) => {
         }, 1000);
     } else {
         res.status(400).send();
+    }
+});
+
+app.post("/auth/register", async (req: Request, res: Response) => {
+    const user: UserSave = req.body;
+    try {
+        console.log(user);
+        await UserService.add(user);
+        res.status(201).send();
+    } catch (error) {
+        if (error instanceof Error) res.status(400).send(error.message);
+        else res.status(500).send();
     }
 });
 
