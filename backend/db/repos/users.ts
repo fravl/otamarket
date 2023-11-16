@@ -34,10 +34,7 @@ export class UsersRepository {
     }
 
     findByEmail(email: string): Promise<User | null> {
-        return this.db.oneOrNone(
-            "SELECT * FROM users WHERE email = $1",
-            +email,
-        );
+        return this.db.oneOrNone("SELECT * FROM users WHERE email = $1", email);
     }
 
     // Returns the total number of users;

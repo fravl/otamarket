@@ -11,6 +11,7 @@ import AddItemPage from "./components/AddItemPage";
 import ItemService from "./services/ItemService";
 import App from "./App";
 import RegistrationPage from "./components/RegistrationPage";
+import LoginPage from "./components/LoginPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <RegistrationPage />,
+            },
+            {
+                path: "/login",
+                element: <LoginPage />,
             },
         ],
     },

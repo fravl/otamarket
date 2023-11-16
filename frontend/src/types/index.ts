@@ -41,3 +41,5 @@ export type RegistrationFormData = {
     telegram: string;
     password: string;
 };
+
+export type LoginFormData = Omit<RegistrationFormData, "telegram">;
