@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import BackAndTitleNav from "./BackAndTitleNav";
-import RegistrationForm from "./RegistrationForm";
+import LoginForm from "./LoginForm";
 
-const RegistrationPage = () => (
+const LoginPage = () => (
     <>
-        <BackAndTitleNav title="Registration" />
+        <BackAndTitleNav title="Login" />
         <div className="container mt-3">
-            <RegistrationForm />
+            <LoginForm />
             <p className="mt-3 text-center">
-                Already have an account? Login{" "}
-                <Link to="/login" replace>
+                No account yet? Register{" "}
+                <Link to="/register" replace>
                     here
                 </Link>
                 .
@@ -18,4 +18,4 @@ const RegistrationPage = () => (
     </>
 );
 
-export default RegistrationPage;
+export default LoginPage;
