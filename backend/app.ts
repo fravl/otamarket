@@ -44,8 +44,8 @@ app.post("/items/add", (req: Request, res: Response) => {
 app.post("/auth/register", async (req: Request, res: Response) => {
     const user: UserSave = req.body;
     try {
-        console.log(user);
         await UserService.add(user);
+        console.log(`User ${user.email} successfully registered`);
         res.status(201).send();
     } catch (error) {
         if (error instanceof Error) res.status(400).send(error.message);

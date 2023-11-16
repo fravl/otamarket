@@ -10,6 +10,7 @@ import HomePage from "./components/HomePage";
 import AddItemPage from "./components/AddItemPage";
 import ItemService from "./services/ItemService";
 import App from "./App";
+import RegistrationPage from "./components/RegistrationPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
                     return { item };
                 },
                 element: <ItemDetailsPage />,
+            },
+            {
+                path: "/register",
+                element: <RegistrationPage />,
             },
         ],
     },
