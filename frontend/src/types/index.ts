@@ -35,3 +35,9 @@ export type Item = {
     thumbnail: any;
     images: any[];
 };
+
+export type RegistrationFormData = {
+    email: string;
+    telegram: string;
+    password: string;
+};

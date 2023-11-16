@@ -1,14 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
-export interface RegistrationFormData {
-    email: string;
-    telegram: string;
-    password: string;
-}
-const baseUrl = "http://localhost:8080";
+import { RegistrationFormData } from "../types";
+import { register } from "../services/AuthService";
 
 const RegistrationForm = () => {
     const navigate = useNavigate();
@@ -30,7 +24,7 @@ const RegistrationForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await axios.post(`${baseUrl}/auth/register`, formData);
+            await register(formData);
             navigate("/");
         } catch (error) {
             alert(error);
