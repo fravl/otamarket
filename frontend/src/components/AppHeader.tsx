@@ -9,7 +9,7 @@ const AppHeader = () => (
             >
                 OtaMarket
             </Link>
-            <Link className="icon-link link-dark" to="/profile">
+            <Link className="icon-link link-dark" to="/login">
                 <i className="bi bi-person-circle h2 mb-0"></i>
             </Link>
         </div>
@@ -17,4 +17,3 @@ const AppHeader = () => (
 );
 
 export default AppHeader;
-
