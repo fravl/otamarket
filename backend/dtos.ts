@@ -1,12 +1,12 @@
-import { Item, ItemImage } from "./db/models";
+import { Item, ItemImage, User } from "./db/models";
 
 export class ItemSummary {
     id: number;
     title: string;
     price: number;
     claimCount: number;
-    thumbnail: Buffer |null;
-    constructor(item: Item, claimCount: number, thumbnail?: Buffer | null ) {
+    thumbnail: Buffer | null;
+    constructor(item: Item, claimCount: number, thumbnail?: Buffer | null) {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
@@ -40,3 +40,5 @@ export class ItemDetails {
         this.images = images ?? [];
     }
 }
+
+export type UserSave = Omit<User, "id">;

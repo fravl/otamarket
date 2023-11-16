@@ -1,11 +1,11 @@
 import axios from "axios";
 import { Item, ItemSave, ItemSummary } from "../types";
-const baseUrl = "http://localhost:8080";
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const getAll = async (): Promise<ItemSummary[]> => {
     const request = axios.get(baseUrl);
     const response = await request;
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
 };
 
