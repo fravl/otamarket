@@ -1,6 +1,6 @@
 import axios from "axios";
 import { RegistrationFormData } from "../types";
-const baseUrl = "http://localhost:8080";
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const register = async (data: RegistrationFormData) => {
     const request = axios.post(`${baseUrl}/auth/register`, data);
