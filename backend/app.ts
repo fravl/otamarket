@@ -53,6 +53,18 @@ app.post("/auth/register", async (req: Request, res: Response) => {
     }
 });
 
+app.post("/auth/login", async (req: Request, res: Response) => {
+    const credentials: { email: string; password: string } = req.body;
+    try {
+        const user = await UserService.verifyLogin(credentials);
+        console.log(`User ${user.email} successfully logged in`);
+        res.status(200).send(user);
+    } catch (error) {
+        if (error instanceof Error) res.status(401).send(error.message);
+        else res.status(500).send();
+    }
+});
+
 const PORT = process.env.NODE_DOCKER_PORT ?? 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
