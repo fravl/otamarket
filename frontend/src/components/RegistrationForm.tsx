@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-interface FormData {
+export interface RegistrationFormData {
     email: string;
     telegram: string;
     password: string;
@@ -13,7 +13,7 @@ const baseUrl = "http://localhost:8080";
 const RegistrationForm = () => {
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<RegistrationFormData>({
         email: "",
         telegram: "",
         password: "",
@@ -39,42 +39,43 @@ const RegistrationForm = () => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                    type="email"
-                    placeholder="Enter email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
+            <Form.Group controlId="email" className="mb-3">
+                <FloatingLabel label="Email">
+                    <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="telegram" className="mb-3">
+                <FloatingLabel label="Telegram Username">
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter Telegram username"
+                        name="telegram"
+                        value={formData.telegram}
+                        onChange={handleChange}
+                    />
+                </FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="password" className="mb-3">
+                <FloatingLabel label="Password">
+                    <Form.Control
+                        type="password"
+                        placeholder="Enter password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </FloatingLabel>
             </Form.Group>
 
-            <Form.Group controlId="telegram">
-                <Form.Label>Telegram Username</Form.Label>
-                <Form.Control
-                    type="text"
-                    placeholder="Enter Telegram username"
-                    name="telegram"
-                    value={formData.telegram}
-                    onChange={handleChange}
-                />
-            </Form.Group>
-
-            <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                    type="password"
-                    placeholder="Enter password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" className="mt-3 w-100">
+            <Button variant="primary" type="submit" className="w-100">
                 Register
             </Button>
         </Form>
