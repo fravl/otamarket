@@ -4,6 +4,8 @@ import { ItemSave } from "../types";
 import SubmitButton from "./SubmitButton";
 import AddItemAlert from "./AddItemAlert";
 import { Form, InputGroup } from "react-bootstrap";
+import Carousel from "react-bootstrap/Carousel";
+import { CarouselItem } from "react-bootstrap";
 
 const ItemForm = () => {
     const [alertStatus, setAlertStatus] = useState({
@@ -112,11 +114,11 @@ const ItemForm = () => {
                     </label>
                 </div>
                 {imageData.length > 0 &&
-                <div>
-                    {imageData.map((img, index) => {
-                        return <img key={index} src={img} style={{ maxWidth: '100px', maxHeight: '100px' }} />;
-                    })}
-                </div>
+                    <Carousel className="mt-3 mb-3">
+                        {imageData.map((img) => {
+                            return <CarouselItem style={{maxHeight: 300}}><img alt="item" className="mx-auto d-block" style={{maxHeight: 300}} src={img} /></CarouselItem>;
+                        })}
+                    </Carousel>
                 }
                 <Form.Check
                         type="checkbox"
