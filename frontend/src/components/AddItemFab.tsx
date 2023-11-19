@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const AddItemFab = () => (
     <Link
-        to="/add"
+        to="/item/add"
         className="btn btn-primary rounded-circle"
         title="Add New Item"
         style={{

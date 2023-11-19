@@ -6,6 +6,7 @@ import {
     RouterProvider,
     createBrowserRouter,
     Navigate,
+    Outlet,
 } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/ErrorPage";
@@ -18,15 +19,11 @@ import RegistrationPage from "./components/RegistrationPage";
 import LoginPage from "./components/LoginPage";
 import AuthService from "./services/AuthService";
 
-const ProtectedRoute = ({
-    children,
-}: {
-    children: JSX.Element | JSX.Element[];
-}) => {
+const ProtectedRoute = () => {
     if (!AuthService.isAuthenticated()) {
         return <Navigate to={"/login"} replace />;
     }
-    return children;
+    return <Outlet />;
 };
 
 const root = ReactDOM.createRoot(
@@ -47,22 +44,22 @@ const router = createBrowserRouter([
                 },
             },
             {
-                path: "/add",
-                element: (
-                    <ProtectedRoute>
-                        <AddItemPage />
-                    </ProtectedRoute>
-                ),
-            },
-            {
-                path: "/item/:id",
-                loader: async ({ params }) => {
-                    const item = await ItemService.getById(
-                        parseInt(params.id!),
-                    );
-                    return { item };
-                },
-                element: <ItemDetailsPage />,
+                path: "item",
+                element: <ProtectedRoute />,
+                children: [
+                    { path: "add", element: <AddItemPage /> },
+                    {
+                        path: ":id",
+                        loader: async ({ params }) => {
+                            if (!AuthService.isAuthenticated()) return;
+                            const item = await ItemService.getById(
+                                parseInt(params.id!),
+                            );
+                            return { item };
+                        },
+                        element: <ItemDetailsPage />,
+                    },
+                ],
             },
             {
                 path: "/register",
