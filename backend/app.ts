@@ -1,7 +1,8 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import { ItemService } from "./services";
 import bodyParser from "body-parser";
+import { ItemService, UserService } from "./services";
+import { UserSave } from "./dtos";
 
 const app: Express = express();
 
@@ -39,6 +40,31 @@ app.post("/items/add", (req: Request, res: Response) => {
         }, 1000);
     } else {
         res.status(400).send();
+    }
+});
+
+app.post("/auth/register", async (req: Request, res: Response) => {
+    const user: UserSave = req.body;
+    try {
+        await UserService.add(user);
+        console.log(`User ${user.email} successfully registered`);
+        res.status(201).send();
+    } catch (error) {
+        if (error instanceof Error) res.status(400).send(error.message);
+        else res.status(500).send();
+    }
+});
+
+app.post("/auth/login", async (req: Request, res: Response) => {
+    const credentials: { email: string; password: string } = req.body;
+    try {
+        const user = await UserService.verifyLogin(credentials);
+        console.log(`User ${user.email} successfully logged in`);
+        res.status(200).send(user);
+    } catch (error) {
+        console.log(error);
+        if (error instanceof Error) res.status(401).send(error.message);
+        else res.status(500).send();
     }
 });
 

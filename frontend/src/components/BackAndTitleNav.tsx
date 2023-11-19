@@ -6,7 +6,7 @@ const BackAndTitleNav = ({ title }: { title: string }) => {
     return (
         <nav className="navbar navbar-light bg-light border-bottom">
             <ul className="navbar-nav container d-flex flex-row justify-content-around align-items-center">
-                <li className="nav-item">
+                <li className="nav-item" style={{ width: "fit-content" }}>
                     <button
                         className="nav-link active"
                         aria-current="page"

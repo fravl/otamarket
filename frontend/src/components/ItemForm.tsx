@@ -3,6 +3,7 @@ import ItemService from "../services/ItemService";
 import { ItemSave } from "../types";
 import SubmitButton from "./SubmitButton";
 import AddItemAlert from "./AddItemAlert";
+import { Form, InputGroup } from "react-bootstrap";
 
 const ItemForm = () => {
     const [alertStatus, setAlertStatus] = useState({
@@ -70,18 +71,21 @@ const ItemForm = () => {
 
     return (
         <div className="container mt-3">
-            <form method="post" onSubmit={handleSubmit}>
-                <div className="form-floating mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="title"
-                        id="title"
-                        placeholder="Title"
-                        required
-                    />
-                    <label htmlFor="title">Title</label>
-                </div>
+            <Form method="post" onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="title">
+                    <Form.Floating>
+                        <Form.Control
+                            type="text"
+                            className="form-control"
+                            name="title"
+                            id="title"
+                            placeholder="Title"
+                            required
+                        />
+                        <Form.Label>Title</Form.Label>
+                    </Form.Floating>
+                </Form.Group>
+                
                 <div className="btn-toolbar">
                     <input
                         type="file"
@@ -114,67 +118,61 @@ const ItemForm = () => {
                     })}
                 </div>
                 }
-                <div className="form-check">
-                    <input
-                        className="form-check-input"
+                <Form.Check
                         type="checkbox"
-                        value=""
                         id="freeCheckbox"
+                        label="This item is free!"
                         onChange={() => {
                             setIsChecked(!isChecked);
                             setPriceValue(!isChecked ? "0" : "");
                         }}
                         checked={isChecked}
-                    />
-                    <label className="form-check-label" htmlFor="freeCheckbox">
-                        This item is free!
-                    </label>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="form-floating">
-                        <input
+                />
+                <InputGroup className="mb-3">
+                    <Form.Floating>
+                        <Form.Control
                             type="number"
-                            className="form-control"
-                            name="price"
-                            id="price"
                             placeholder="Price"
-                            onChange={(e) => {
-                                setPriceValue(e.target.value);
-                            }}
+                            name="price"
+                            onChange={(e) => setPriceValue(e.target.value)}
                             disabled={isChecked}
                             value={priceValue}
                             required
                         />
-                        <label htmlFor="price">Price</label>
-                    </div>
-                    <span className="input-group-text">€</span>
-                </div>
-                <div className="form-floating mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="location"
-                        id="location"
-                        placeholder="Pickup location"
-                    />
-                    <label htmlFor="location">Pickup location</label>
-                </div>
-                <div className="form-floating mb-3">
-                    <textarea
-                        className="form-control"
-                        name="description"
-                        id="description"
-                        placeholder="Description"
-                        style={{ height: "130px" }}
-                    ></textarea>
-                    <label htmlFor="description">Description</label>
-                </div>
+                        <Form.Label>Price</Form.Label>
+                    </Form.Floating>
+                    <InputGroup.Text>€</InputGroup.Text>
+                </InputGroup>
+
+                <Form.Group className="mb-3" controlId="location">
+                    <Form.Floating>
+                        <Form.Control
+                            type="text"
+                            placeholder="Pickup location"
+                            name="location"
+                        />
+                        <Form.Label>Pickup location</Form.Label>
+                    </Form.Floating>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Floating>
+                        <Form.Control
+                            as="textarea"
+                            placeholder="Description"
+                            style={{ height: "130px" }}
+                            name="description"
+                        />
+                        <Form.Label>Description</Form.Label>
+                    </Form.Floating>
+                </Form.Group>
+
                 <SubmitButton loading={loadingSpinner} />
                 <AddItemAlert
                     status={alertStatus.status}
                     show={alertStatus.show}
                 />
-            </form>
+            </Form>
         </div>
     );
 };
