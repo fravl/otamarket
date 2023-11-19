@@ -48,8 +48,9 @@ const ItemForm = () => {
                     <Form.Floating>
                         <Form.Control
                             type="text"
-                            placeholder="Title"
+                            className="form-control"
                             name="title"
+                            placeholder="Title"
                             required
                         />
                         <Form.Label>Title</Form.Label>
