@@ -6,9 +6,10 @@ VALUES ('Item 1', 'Description for Item 1', 50.00, 'New York', 1, null),
        ('Item 2', 'Description for Item 2', 100.00, 'Los Angeles', 1, null);
 
 INSERT INTO categories (name) 
-VALUES ('Category 1'),
-       ('Category 2'),
-       ('Category 3');
+VALUES ('Furniture'),
+       ('Electronics'),
+       ('Clothes'),
+       ('Others');
 
 INSERT INTO item_category (item_id, category_id)
 VALUES (1, 1),

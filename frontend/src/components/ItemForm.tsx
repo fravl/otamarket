@@ -19,6 +19,8 @@ const ItemForm = () => {
 
     const [priceValue, setPriceValue] = useState("0");
 
+    const [category, setCategory] = useState("4");
+
     //const [imageURLs, setimageURLs] = useState<string[]>([]);
 
     const [imageData, setimageData] = useState<string[]>([]);
@@ -47,6 +49,7 @@ const ItemForm = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         formData.append("price", priceValue);
+        formData.append("category", category)
 
         imageData.forEach((img) => {
             formData.append("images[]", img);
@@ -56,6 +59,8 @@ const ItemForm = () => {
             formData.entries(),
         ) as unknown as ItemSave;
         setLoadingSpinner(true);
+
+        console.log(formJson)
 
         ItemService.addItem(formJson)
             .then((res) => {
@@ -143,6 +148,19 @@ const ItemForm = () => {
                     </Form.Floating>
                     <InputGroup.Text>€</InputGroup.Text>
                 </InputGroup>
+
+                <Form.Group className="mb-3" controlId="category">
+                    <Form.Floating>
+                    <Form.Select aria-label="Default select example" onChange={(e) => setCategory(e.target.value)}>
+                        <option>Choose category</option>
+                        <option value="1">Furniture</option>
+                        <option value="2">Electronics</option>
+                        <option value="3">Clothes</option>
+                        <option value="4">Others</option>
+                        </Form.Select>
+                        <Form.Label>Category</Form.Label>
+                    </Form.Floating>
+                </Form.Group>
 
                 <Form.Group className="mb-3" controlId="location">
                     <Form.Floating>
