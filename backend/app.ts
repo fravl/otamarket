@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import { ItemService, UserService } from "./services";
-import { UserSave } from "./dtos";
+import { UserSave, ItemSave } from "./dtos";
 
 const app: Express = express();
 
@@ -24,20 +24,21 @@ app.get("/items/:id", async (req: Request, res: Response) => {
     }
 });
 
-app.post("/items/add", (req: Request, res: Response) => {
-    const newItem = req.body;
-    if (
-        newItem.title &&
-        typeof newItem.description == "string" &&
-        typeof parseInt(newItem.price) == "number"
-    ) {
-        console.log("Item received");
-        console.log(req.body);
-        setTimeout(() => {
-            res.status(204).send();
-        }, 1000);
-    } else {
-        res.status(400).send();
+app.post("/items/add", async (req: Request, res: Response) => {
+    const raw = req.body;
+    raw.seller_id = 1;
+    raw.thumbnail_id = null;
+    try {
+        raw.price = +raw.price
+        const newItem: ItemSave = raw;
+        await ItemService.addItem(newItem);
+        console.log(`Item ${newItem.title} added.`);
+        res.status(204).send();
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(`Error ${error.message}`);
+            res.status(400).send(error.message);
+        } else res.status(500).send();
     }
 });
 

@@ -47,4 +47,26 @@ export class ItemsRepository {
             'SELECT * FROM item_images'
         )
     }
+
+    addItem(item: Omit<Item, "id">): Promise<Item> {
+        return this.db.one(
+            `INSERT INTO items (title, description, price, location, seller_id, thumbnail_id)
+                VALUES (
+                    \${title},
+                    \${description},
+                    \${price},
+                    \${location},
+                    \${seller_id},
+                    \${thumbnail_id}
+                ) RETURNING *`,
+            {
+                title: item.title,
+                description: item.description,
+                price: item.price,
+                location: item.location,
+                seller_id: item.seller_id,
+                thumbnail_id: item.thumbnail_id,
+            },
+        );
+    }
 }
