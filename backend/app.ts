@@ -11,7 +11,7 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", auth, async (req: Request, res: Response) => {
+app.get("/", async (req: Request, res: Response) => {
     try {
         res.send(await ItemService.all());
     } catch (error) {
@@ -27,7 +27,7 @@ app.get("/items/:id", async (req: Request, res: Response) => {
     }
 });
 
-app.post("/items/add", (req: Request, res: Response) => {
+app.post("/items/add", auth, (req: Request, res: Response) => {
     const newItem = req.body;
     if (
         newItem.title &&

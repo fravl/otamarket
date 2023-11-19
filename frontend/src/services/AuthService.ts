@@ -14,7 +14,6 @@ export const register = async (data: RegistrationFormData) => {
 export const login = async (data: LoginFormData) => {
     const request = axios.post(`${baseUrl}/auth/login`, data);
     const response = await request;
-    console.log(response);
     if (response.data.token) {
         cookies.set("TOKEN", response.data.token, {
             path: "/",
@@ -28,4 +27,6 @@ export const logout = () => cookies.remove("TOKEN");
 
 export const getToken = () => cookies.get("TOKEN") ?? null;
 
-export default { register, login };
+export const isAuthenticated = () => !!getToken();
+
+export default { register, login, logout, isAuthenticated };
