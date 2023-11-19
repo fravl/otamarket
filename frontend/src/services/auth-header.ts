@@ -1,10 +1,10 @@
-import { getCurrentUser } from "./AuthService";
+import { getToken } from "./AuthService";
 
 export default function authHeader() {
-    const user = getCurrentUser();
-    if (user?.token) {
+    const token = getToken();
+    if (token) {
         return {
-            Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${token}`,
         };
     } else {
         return {

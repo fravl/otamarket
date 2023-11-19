@@ -5,9 +5,7 @@ import { UserService } from "../services";
 
 export const auth: RequestHandler = async (req, res, next) => {
     try {
-        console.log(req.headers);
         const token = req.headers?.authorization?.split(" ")[1];
-        console.log(token);
         if (!token) {
             throw new Error("Missing authentication header");
         }
