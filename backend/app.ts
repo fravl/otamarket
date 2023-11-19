@@ -1,10 +1,12 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import { ItemService } from "./services";
+import bodyParser from "body-parser";
 
 const app: Express = express();
 
 app.use(cors());
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(express.json());
 
 app.get("/", async (req: Request, res: Response) => {
