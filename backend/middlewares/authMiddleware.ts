@@ -3,7 +3,11 @@ import type { RequestHandler } from "express";
 import { JwtToken } from "../types";
 import { UserService } from "../services";
 
-export const auth: RequestHandler = async (req, res, next) => {
+const protectedRoutes = ["/items"];
+
+export const authMiddleware: RequestHandler = async (req, res, next) => {
+    if (!protectedRoutes.some((route) => req.path.startsWith(route)))
+        return next();
     try {
         const token = req.headers?.authorization?.split(" ")[1];
         if (!token) {

@@ -3,13 +3,14 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 import { ItemService, UserService } from "./services";
 import { UserSave } from "./dtos";
-import { auth } from "./middlewares/authMiddleware";
+import { authMiddleware } from "./middlewares/authMiddleware";
 import { JwtToken } from "./types";
 
 const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(authMiddleware);
 
 app.get("/", async (req: Request, res: Response) => {
     try {
@@ -27,7 +28,7 @@ app.get("/items/:id", async (req: Request, res: Response) => {
     }
 });
 
-app.post("/items/add", auth, (req: Request, res: Response) => {
+app.post("/items/add", (req: Request, res: Response) => {
     const newItem = req.body;
     if (
         newItem.title &&
