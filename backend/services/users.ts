@@ -15,13 +15,16 @@ export async function verifyLogin(credentials: {
     email: string;
     password: string;
 }) {
-    const user = await db.users.findByEmail(credentials.email);
+    const user = await findByEmail(credentials.email);
 
-    if (!user) {
-        throw new Error(`No user ${credentials.email} exists`);
-    }
     if (user.password !== credentials.password) {
         throw new Error(`Wrong password for user ${user.email}`);
     }
+    return user;
+}
+
+export async function findByEmail(email: string) {
+    const user = await db.users.findByEmail(email);
+    if (!user) throw new Error(`No user ${email} exists`);
     return user;
 }

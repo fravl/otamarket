@@ -11,7 +11,23 @@ export const register = async (data: RegistrationFormData) => {
 export const login = async (data: LoginFormData) => {
     const request = axios.post(`${baseUrl}/auth/login`, data);
     const response = await request;
+    console.log(response);
+    if (response.data.token) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
     return response;
+};
+
+export const logout = () => {
+    localStorage.removeItem("user");
+};
+
+export const getCurrentUser = () => {
+    const userStr = localStorage.getItem("user");
+    if (userStr) return JSON.parse(userStr);
+
+    return null;
 };
 
 export default { register, login };
