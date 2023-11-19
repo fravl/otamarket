@@ -1,6 +1,5 @@
 import db from "../db";
 import { ItemDetails, ItemSummary } from "../dtos";
-import { Item } from "../db/models";
 
 export async function all(): Promise<any> {
     const items = await db.items.all();
@@ -29,8 +28,4 @@ export async function findById(id: number): Promise<ItemDetails | null> {
     } else {
         return new ItemDetails(item, 2);
     }
-}
-
-export async function addItem(item: Omit<Item, "id">): Promise<any> {
-    await db.items.addItem(item);
 }

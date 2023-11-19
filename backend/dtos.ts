@@ -41,6 +41,4 @@ export class ItemDetails {
     }
 }
 
-export type ItemSave = Omit<Item, "id">;
-
 export type UserSave = Omit<User, "id">;
