@@ -9,11 +9,34 @@ const ItemForm = () => {
         status: 0,
         show: false,
     });
+
     const [loadingSpinner, setLoadingSpinner] = useState(false);
 
     const [isChecked, setIsChecked] = useState(true);
 
     const [priceValue, setPriceValue] = useState("0");
+
+    //const [imageURLs, setimageURLs] = useState<string[]>([]);
+
+    const [imageData, setimageData] = useState<string[]>([]);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+        const b64str = reader.result as string;
+        setimageData((prevData) => [...prevData, b64str]);
+    };
+
+    function handleImageCapture(e: React.ChangeEvent<HTMLInputElement>) {
+        e.preventDefault();
+        if (e.target.files) {
+            Array.from(e.target.files).forEach((f) => reader.readAsDataURL(f));
+            console.log(`Img size: ${e.target.files[0].size / 1000}`);
+            //const imgs = Array.from(e.target.files).map((imgData) => reader.readAsDataURL(imgData));
+            //setimageURLs((prevImages) => [...prevImages, ...imgs]);
+            //setimageData((prevData) => [...prevData, ...imgs]);
+        }
+    }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -21,6 +44,10 @@ const ItemForm = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         formData.append("price", priceValue);
+
+        imageData.forEach((img) => {
+            formData.append("images[]", img);
+        });
 
         const formJson = Object.fromEntries(
             formData.entries(),
@@ -37,6 +64,7 @@ const ItemForm = () => {
             })
             .finally(() => {
                 setLoadingSpinner(false);
+                setimageData([]);
             });
     }
 
@@ -54,16 +82,38 @@ const ItemForm = () => {
                     />
                     <label htmlFor="title">Title</label>
                 </div>
-                <div className="form-floating mb-3">
+                <div className="btn-toolbar">
                     <input
                         type="file"
-                        className="form-control"
-                        name="image"
-                        id="picture"
-                        placeholder="Add Image"
+                        accept="image/*"
+                        capture="user"
+                        id="imageInput"
+                        onChange={handleImageCapture}
+                        className="d-none"
                     />
-                    <label htmlFor="picture">Add Image</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="imageInputUpload"
+                        onChange={handleImageCapture}
+                        className="d-none"
+                    />
+                    <label className="btn btn-primary" htmlFor="imageInput">
+                        <i className="bi bi-camera"></i>
+                        &nbsp;Capture Image
+                    </label>
+                    <div>&nbsp;</div>
+                    <label className="btn btn-primary" htmlFor="imageInputUpload">
+                        Upload Image
+                    </label>
                 </div>
+                {imageData.length > 0 &&
+                <div>
+                    {imageData.map((img, index) => {
+                        return <img key={index} src={img} style={{ maxWidth: '100px', maxHeight: '100px' }} />;
+                    })}
+                </div>
+                }
                 <div className="form-check">
                     <input
                         className="form-check-input"
