@@ -1,12 +1,16 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 import { ItemService, UserService } from "./services";
 import { UserSave } from "./dtos";
+import { authMiddleware } from "./middlewares/authMiddleware";
+import { JwtToken } from "./types";
 
 const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(authMiddleware);
 
 app.get("/", async (req: Request, res: Response) => {
     try {
@@ -58,7 +62,18 @@ app.post("/auth/login", async (req: Request, res: Response) => {
     try {
         const user = await UserService.verifyLogin(credentials);
         console.log(`User ${user.email} successfully logged in`);
-        res.status(200).send(user);
+        const tokenPayload: JwtToken = {
+            userId: user.id,
+            userEmail: user.email,
+        };
+        const token = jwt.sign(tokenPayload, "RANDOM-TOKEN", {
+            expiresIn: "24h",
+        });
+        res.status(200).send({
+            message: "Login Successful",
+            email: user.email,
+            token,
+        });
     } catch (error) {
         console.log(error);
         if (error instanceof Error) res.status(401).send(error.message);

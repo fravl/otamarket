@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Item, ItemSave, ItemSummary } from "../types";
+import authHeader from "./auth-header";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const getAll = async (): Promise<ItemSummary[]> => {
@@ -10,14 +11,18 @@ const getAll = async (): Promise<ItemSummary[]> => {
 };
 
 const getById = async (id: number): Promise<Item | null> => {
-    const request = axios.get(`${baseUrl}/items/${id}`);
+    const request = axios.get(`${baseUrl}/items/${id}`, {
+        headers: authHeader(),
+    });
     const response = await request;
     console.log(response.data);
     return response.data;
 };
 
 const addItem = async (item: ItemSave) => {
-    const request = axios.post(`${baseUrl}/items/add`, item);
+    const request = axios.post(`${baseUrl}/items/add`, item, {
+        headers: authHeader(),
+    });
     const response = await request;
     return response;
 };
