@@ -51,7 +51,7 @@ const router = createBrowserRouter([
                     {
                         path: ":id",
                         loader: async ({ params }) => {
-                            if (!AuthService.isAuthenticated()) return;
+                            if (!AuthService.isAuthenticated()) return null;
                             const item = await ItemService.getById(
                                 parseInt(params.id!),
                             );

@@ -12,21 +12,11 @@ export const register = async (data: RegistrationFormData) => {
 };
 
 export const login = async (data: LoginFormData) => {
-    const request = axios.post(`${baseUrl}/auth/login`, data);
-    const response = await request;
-    if (response.data.token) {
-        cookies.set("TOKEN", response.data.token, {
-            path: "/",
-        });
-    }
-
-    return response;
+    return axios.post(`${baseUrl}/auth/login`, data);
 };
-
-export const logout = () => cookies.remove("TOKEN");
 
 export const getToken = () => cookies.get("TOKEN") ?? null;
 
 export const isAuthenticated = () => !!getToken();
 
-export default { register, login, logout, isAuthenticated };
+export default { register, login, isAuthenticated };
