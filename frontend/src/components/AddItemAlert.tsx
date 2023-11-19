@@ -3,8 +3,6 @@ import React from "react";
 const AddItemAlert = ({ status, show }: { status: number, show: boolean }) => {
     const clname: string = status == 204 ? "alert alert-success alert-dismissible fade" : "alert alert-danger alert-dismissible fade";
     const text: string = status == 204 ? "Successfully added item!" : "Error while adding item...";
-    console.log(clname);
-    console.log(show);
     return (
         <div className={`${clname}${show ? ' show' : ''}`} role="alert">
             {text}

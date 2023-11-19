@@ -80,7 +80,6 @@ const ItemForm = () => {
                             type="text"
                             className="form-control"
                             name="title"
-                            id="title"
                             placeholder="Title"
                             required
                         />
