@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { LoginFormData } from "../types";
-import AuthService from "../services/AuthService";
+import { useAuth } from "../hooks/useAuth";
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const [formData, setFormData] = useState<LoginFormData>({
         email: "",
@@ -23,11 +24,12 @@ const LoginForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await AuthService.login(formData);
+            const response = await login(formData);
             if (response.status === 200) {
                 navigate("/");
             }
         } catch (error) {
+            console.log(error);
             alert(error);
         }
     };

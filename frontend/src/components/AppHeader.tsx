@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ProfileMenu from "./ProfileMenu";
 
 const AppHeader = () => (
     <header className="py-2 bg-body-tertiary">
@@ -9,9 +10,7 @@ const AppHeader = () => (
             >
                 OtaMarket
             </Link>
-            <Link className="icon-link link-dark" to="/login">
-                <i className="bi bi-person-circle h2 mb-0"></i>
-            </Link>
+            <ProfileMenu />
         </div>
     </header>
 );
