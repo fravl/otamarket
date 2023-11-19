@@ -113,13 +113,12 @@ const ItemForm = () => {
                         Upload Image
                     </label>
                 </div>
-                {imageData.length > 0 &&
-                    <Carousel className="mt-3 mb-3">
-                        {imageData.map((img) => {
-                            return <CarouselItem style={{maxHeight: 300}}><img alt="item" className="mx-auto d-block" style={{maxHeight: 300}} src={img} /></CarouselItem>;
-                        })}
-                    </Carousel>
-                }
+                <Carousel controls={imageData.length < 2 ? false : true} className="mt-3 mb-3 border" style={{height: 300}}>
+                {imageData.length === 0 && <CarouselItem></CarouselItem>}
+                {imageData.map((img) => {
+                    return <CarouselItem style={{maxHeight: 300}}><img alt="item" className="mx-auto d-block img-fluid" style={{maxHeight: 300}} src={img} /></CarouselItem>;
+                })}
+                </Carousel>
                 <Form.Check
                         type="checkbox"
                         id="freeCheckbox"
