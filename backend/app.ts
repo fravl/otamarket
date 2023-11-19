@@ -1,14 +1,16 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import { ItemService, UserService } from "./services";
-import { UserSave, ItemSave } from "./dtos";
 import { authMiddleware } from "./middlewares/authMiddleware";
 import { JwtToken } from "./types";
+import { UserSave, ItemSave } from "./dtos";
 
 const app: Express = express();
 
 app.use(cors());
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(express.json());
 app.use(authMiddleware);
 

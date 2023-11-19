@@ -4,17 +4,42 @@ import { ItemSave } from "../types";
 import SubmitButton from "./SubmitButton";
 import AddItemAlert from "./AddItemAlert";
 import { Form, InputGroup } from "react-bootstrap";
+import Carousel from "react-bootstrap/Carousel";
+import { CarouselItem } from "react-bootstrap";
 
 const ItemForm = () => {
     const [alertStatus, setAlertStatus] = useState({
         status: 0,
         show: false,
     });
+
     const [loadingSpinner, setLoadingSpinner] = useState(false);
 
     const [isChecked, setIsChecked] = useState(true);
 
     const [priceValue, setPriceValue] = useState("0");
+
+    //const [imageURLs, setimageURLs] = useState<string[]>([]);
+
+    const [imageData, setimageData] = useState<string[]>([]);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+        const b64str = reader.result as string;
+        setimageData((prevData) => [...prevData, b64str]);
+    };
+
+    function handleImageCapture(e: React.ChangeEvent<HTMLInputElement>) {
+        e.preventDefault();
+        if (e.target.files) {
+            Array.from(e.target.files).forEach((f) => reader.readAsDataURL(f));
+            console.log(`Img size: ${e.target.files[0].size / 1000}`);
+            //const imgs = Array.from(e.target.files).map((imgData) => reader.readAsDataURL(imgData));
+            //setimageURLs((prevImages) => [...prevImages, ...imgs]);
+            //setimageData((prevData) => [...prevData, ...imgs]);
+        }
+    }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -22,6 +47,10 @@ const ItemForm = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         formData.append("price", priceValue);
+
+        imageData.forEach((img) => {
+            formData.append("images[]", img);
+        });
 
         const formJson = Object.fromEntries(
             formData.entries(),
@@ -38,6 +67,7 @@ const ItemForm = () => {
             })
             .finally(() => {
                 setLoadingSpinner(false);
+                setimageData([]);
             });
     }
 
@@ -56,30 +86,48 @@ const ItemForm = () => {
                         <Form.Label>Title</Form.Label>
                     </Form.Floating>
                 </Form.Group>
-
-                <Form.Group className="mb-3" controlId="image">
-                    <Form.Floating>
-                        <Form.Control
-                            type="file"
-                            placeholder="Add Image"
-                            name="image"
-                        />
-                        <Form.Label>Add Image</Form.Label>
-                    </Form.Floating>
-                </Form.Group>
-
+                
+                <div className="btn-toolbar">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        capture="user"
+                        id="imageInput"
+                        onChange={handleImageCapture}
+                        className="d-none"
+                    />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="imageInputUpload"
+                        onChange={handleImageCapture}
+                        className="d-none"
+                    />
+                    <label className="btn btn-primary" htmlFor="imageInput">
+                        <i className="bi bi-camera"></i>
+                        &nbsp;Capture Image
+                    </label>
+                    <div>&nbsp;</div>
+                    <label className="btn btn-primary" htmlFor="imageInputUpload">
+                        Upload Image
+                    </label>
+                </div>
+                <Carousel controls={imageData.length < 2 ? false : true} className="mt-3 mb-3 border" style={{height: 300}}>
+                {imageData.length === 0 && <CarouselItem></CarouselItem>}
+                {imageData.map((img) => {
+                    return <CarouselItem style={{maxHeight: 300}}><img alt="item" className="mx-auto d-block img-fluid" style={{maxHeight: 300}} src={img} /></CarouselItem>;
+                })}
+                </Carousel>
                 <Form.Check
-                    className="mb-3"
-                    type="checkbox"
-                    id="freeCheckbox"
-                    label="This item is free!"
-                    onChange={() => {
-                        setIsChecked(!isChecked);
-                        setPriceValue(!isChecked ? "0" : "");
-                    }}
-                    checked={isChecked}
+                        type="checkbox"
+                        id="freeCheckbox"
+                        label="This item is free!"
+                        onChange={() => {
+                            setIsChecked(!isChecked);
+                            setPriceValue(!isChecked ? "0" : "");
+                        }}
+                        checked={isChecked}
                 />
-
                 <InputGroup className="mb-3">
                     <Form.Floating>
                         <Form.Control
