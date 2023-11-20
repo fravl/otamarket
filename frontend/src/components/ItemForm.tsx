@@ -156,7 +156,8 @@ const ItemForm = () => {
                         <option value="1">Furniture</option>
                         <option value="2">Electronics</option>
                         <option value="3">Clothes</option>
-                        <option value="4">Others</option>
+                        <option value="4">Kitchenware</option>
+                        <option value="5">Others</option>
                         </Form.Select>
                         <Form.Label>Category</Form.Label>
                     </Form.Floating>

@@ -69,4 +69,14 @@ export class ItemsRepository {
             },
         );
     }
+
+    addToCategory(itemId: number, categoryId: number): Promise<any> {
+        return this.db.one(
+            `INSERT into item_category(item_id, category_id) VALUES (\${item_id},\${category_id}) RETURNING *`,
+            {
+                item_id: itemId,
+                category_id: categoryId
+            },
+        );
+    }
 }

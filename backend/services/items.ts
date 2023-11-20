@@ -31,6 +31,10 @@ export async function findById(id: number): Promise<ItemDetails | null> {
     }
 }
 
-export async function addItem(item: Omit<Item, "id">): Promise<any> {
-    await db.items.addItem(item);
+export async function addItem(item: Omit<Item, "id">, category_id: number): Promise<any> {
+    const res = await db.items.addItem(item);
+
+    const addedItemId: number = res.id;
+
+    await db.items.addToCategory(addedItemId, category_id);
 }

@@ -9,6 +9,7 @@ INSERT INTO categories (name)
 VALUES ('Furniture'),
        ('Electronics'),
        ('Clothes'),
+       ('Kitchenware'),
        ('Others');
 
 INSERT INTO item_category (item_id, category_id)

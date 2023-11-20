@@ -37,7 +37,7 @@ app.post("/items/add", async (req: Request, res: Response) => {
     try {
         raw.price = +raw.price
         const newItem: ItemSave = raw;
-        await ItemService.addItem(newItem);
+        await ItemService.addItem(newItem, parseInt(req.body.category));
         console.log(`Item ${newItem.title} added.`);
         res.status(204).send();
     } catch (error) {
