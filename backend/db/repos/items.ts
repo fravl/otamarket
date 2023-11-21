@@ -1,6 +1,6 @@
 import { IDatabase, IMain } from "pg-promise";
 import { IResult } from "pg-promise/typescript/pg-subset";
-import { Item, ItemImage } from "../models";
+import { Item, ItemImage, Category, ItemCategory } from "../models";
 
 export class ItemsRepository {
     /**
@@ -40,6 +40,18 @@ export class ItemsRepository {
                 GROUP BY i.id
                 ORDER BY listed_at DESC`,
         );
+    }
+
+    allCategories(): Promise<Category[]> {
+        return this.db.any(
+            'SELECT * from categories'
+        )
+    }
+
+    allItemCategories(): Promise<ItemCategory[]> {
+        return this.db.any(
+            'SELECT * from item_category'
+        )
     }
 
     allImages(): Promise<ItemImage[]>{

@@ -7,21 +7,21 @@ import { Form, InputGroup } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { CarouselItem } from "react-bootstrap";
 import Select, { MultiValue } from "react-select";
+import { useLoaderData } from "react-router-dom";
+import { Category, OptionType } from "../types";
 
-type OptionType = {
-    value: string;
-    label: string;
-};
 
-const options: OptionType[] = [
-    { value: "1", label: "Furniture" },
-    { value: "2", label: "Electronics" },
-    { value: "3", label: "Clothes" },
-    { value: "4", label: "Kitchenware" },
-    { value: "5", label: "Others" },
-];
 
 const ItemForm = () => {
+    const { allCategories } = useLoaderData() as { allCategories: Category[] };
+
+    const options: OptionType[] = []
+
+    allCategories.forEach( (category: Category) => {
+        const option: OptionType = {value: String(category.id), label: category.name}
+        options.push(option)
+    })
+
     const [alertStatus, setAlertStatus] = useState({
         status: 0,
         show: false,

@@ -7,8 +7,14 @@ export type ItemSave = {
     price: number;
     location: string;
     seller_id: number;
-    categories: string[],
+    categories: string[];
     thumbnail_id: number | null;
+};
+
+//Used for filter form
+export type OptionType = {
+    value: string;
+    label: string;
 };
 
 export type ItemSummary = {
@@ -35,6 +41,16 @@ export type Item = {
     claimCount: number;
     thumbnail: any;
     images: any[];
+};
+
+export type Category = {
+    id: number;
+    name: string;
+};
+
+export type ItemCategory = {
+    item_id: number;
+    category_id: number;
 };
 
 export type RegistrationFormData = {
