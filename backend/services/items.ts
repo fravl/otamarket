@@ -35,10 +35,8 @@ export async function addItem(item: Omit<Item, "id">, categories: string[]): Pro
     const res = await db.items.addItem(item);
 
     const addedItemId: number = res.id;
-    const returnr: number[] = [];
 
     for(const category of categories){
-        returnr.push(parseInt(category))
         await db.items.addToCategory(addedItemId, parseInt(category))
     }
 }
