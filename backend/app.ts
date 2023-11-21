@@ -32,12 +32,13 @@ app.get("/items/:id", async (req: Request, res: Response) => {
 
 app.post("/items/add", async (req: Request, res: Response) => {
     const raw = req.body;
+    const categories = req.body.categories;
     raw.seller_id = 1;
     raw.thumbnail_id = null;
     try {
         raw.price = +raw.price
         const newItem: ItemSave = raw;
-        await ItemService.addItem(newItem, parseInt(req.body.category));
+        await ItemService.addItem(newItem, req.body.categories);
         console.log(`Item ${newItem.title} added.`);
         res.status(204).send();
     } catch (error) {

@@ -6,6 +6,21 @@ import AddItemAlert from "./AddItemAlert";
 import { Form, InputGroup } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { CarouselItem } from "react-bootstrap";
+import Select, { MultiValue } from 'react-select'
+
+type OptionType = {
+    value: string;
+    label: string;
+  };
+
+const options: OptionType[] = [
+    { value: '1', label: 'Furniture' },
+    { value: '2', label: 'Electronics' },
+    { value: '3', label: 'Clothes' },
+    { value: '4', label: 'Kitchenware' },
+    { value: '5', label: 'Others' }
+  ]
+
 
 const ItemForm = () => {
     const [alertStatus, setAlertStatus] = useState({
@@ -19,7 +34,7 @@ const ItemForm = () => {
 
     const [priceValue, setPriceValue] = useState("0");
 
-    const [category, setCategory] = useState("4");
+    const [categories, setCategories] = useState<string[]>([]);
 
     //const [imageURLs, setimageURLs] = useState<string[]>([]);
 
@@ -43,13 +58,16 @@ const ItemForm = () => {
         }
     }
 
+    function handleChange(e: MultiValue<OptionType>){
+        setCategories(e.map( (optionType) => optionType.value))
+    }
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         formData.append("price", priceValue);
-        formData.append("category", category)
 
         imageData.forEach((img) => {
             formData.append("images[]", img);
@@ -60,9 +78,13 @@ const ItemForm = () => {
         ) as unknown as ItemSave;
         setLoadingSpinner(true);
 
+        formJson.categories = categories;
+
         console.log(formJson)
 
-        ItemService.addItem(formJson)
+       
+
+         ItemService.addItem(formJson)
             .then((res) => {
                 setAlertStatus({ status: res.status, show: true });
                 form.reset();
@@ -73,7 +95,7 @@ const ItemForm = () => {
             .finally(() => {
                 setLoadingSpinner(false);
                 setimageData([]);
-            });
+            });  
     }
 
     return (
@@ -149,20 +171,7 @@ const ItemForm = () => {
                     <InputGroup.Text>€</InputGroup.Text>
                 </InputGroup>
 
-                <Form.Group className="mb-3" controlId="category">
-                    <Form.Floating>
-                    <Form.Select aria-label="Default select example" onChange={(e) => setCategory(e.target.value)}>
-                        <option>Choose category</option>
-                        <option value="1">Furniture</option>
-                        <option value="2">Electronics</option>
-                        <option value="3">Clothes</option>
-                        <option value="4">Kitchenware</option>
-                        <option value="5">Others</option>
-                        </Form.Select>
-                        <Form.Label>Category</Form.Label>
-                    </Form.Floating>
-                </Form.Group>
-
+        
                 <Form.Group className="mb-3" controlId="location">
                     <Form.Floating>
                         <Form.Control
@@ -185,6 +194,25 @@ const ItemForm = () => {
                         <Form.Label>Description</Form.Label>
                     </Form.Floating>
                 </Form.Group>
+
+                <Form.Group className="mb-3" controlId="category">
+                    <Select 
+                        isMulti options={options} 
+                        onChange={(e) => handleChange(e)}
+                        className="basic-multi-select"
+                        classNamePrefix="react-select"
+                        placeholder='Select your categories'
+                        theme={theme => ({
+                            ...theme,
+                            colors: {
+                                ...theme.colors,
+                                neutral50: '#000000',  
+                            },
+                        })}
+                         />
+                        
+                </Form.Group>
+
 
                 <SubmitButton loading={loadingSpinner} />
                 <AddItemAlert

@@ -31,10 +31,14 @@ export async function findById(id: number): Promise<ItemDetails | null> {
     }
 }
 
-export async function addItem(item: Omit<Item, "id">, category_id: number): Promise<any> {
+export async function addItem(item: Omit<Item, "id">, categories: string[]): Promise<any> {
     const res = await db.items.addItem(item);
 
     const addedItemId: number = res.id;
+    const returnr: number[] = [];
 
-    await db.items.addToCategory(addedItemId, category_id);
+    for(const category of categories){
+        returnr.push(parseInt(category))
+        await db.items.addToCategory(addedItemId, parseInt(category))
+    }
 }
