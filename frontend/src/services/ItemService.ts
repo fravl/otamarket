@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Item, ItemSave, ItemSummary } from "../types";
+import { Item, ItemSave, ItemSummary, Category } from "../types";
 import authHeader from "./auth-header";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -24,7 +24,7 @@ const addItem = async (item: ItemSave) => {
         headers: authHeader(),
     });
     const response = await request;
-    console.log(response)
+    console.log(response);
     return response;
 };
 

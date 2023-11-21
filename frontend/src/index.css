@@ -198,3 +198,14 @@ input[type="number"] {
 .navbar {
     --bs-navbar-active-color: white;
 }
+
+.filter-button-container {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    margin: 1%;
+}
+
+.filter-button-container > * {
+    float: right;
+}

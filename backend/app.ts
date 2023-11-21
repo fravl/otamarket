@@ -22,6 +22,22 @@ app.get("/", async (req: Request, res: Response) => {
     }
 });
 
+app.get("/categories", async (req: Request, res: Response) => {
+    try {
+        res.send(await ItemService.allCategories());
+    } catch (error) {
+        res.status(500).send("Error querying database");
+    }
+});
+
+app.get("/categories/items", async (req: Request, res: Response) => {
+    try {
+        res.send(await ItemService.allItemCategories());
+    } catch (error) {
+        res.status(500).send("Error querying database");
+    }
+});
+
 app.get("/items/:id", async (req: Request, res: Response) => {
     try {
         res.send(await ItemService.findById(parseInt(req.params.id)));

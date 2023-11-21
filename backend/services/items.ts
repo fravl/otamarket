@@ -18,6 +18,21 @@ export async function all(): Promise<any> {
     return dtos;
 }
 
+export async function allCategories(): Promise<any> {
+    const categories = await db.items.allCategories();
+    
+    return categories;
+}
+
+export async function allItemCategories(): Promise<any> {
+    const categories = await db.items.allItemCategories();
+    
+    return categories;
+}
+
+
+
+
 export async function findById(id: number): Promise<ItemDetails | null> {
     const item = await db.items.findById(id);
     if (!item) return null;
