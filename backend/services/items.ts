@@ -31,6 +31,12 @@ export async function findById(id: number): Promise<ItemDetails | null> {
     }
 }
 
-export async function addItem(item: Omit<Item, "id">): Promise<any> {
-    await db.items.addItem(item);
+export async function addItem(item: Omit<Item, "id">, categories: string[]): Promise<any> {
+    const res = await db.items.addItem(item);
+
+    const addedItemId: number = res.id;
+
+    for(const category of categories){
+        await db.items.addToCategory(addedItemId, parseInt(category))
+    }
 }

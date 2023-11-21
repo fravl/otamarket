@@ -24,6 +24,7 @@ const addItem = async (item: ItemSave) => {
         headers: authHeader(),
     });
     const response = await request;
+    console.log(response)
     return response;
 };
 

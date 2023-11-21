@@ -6,6 +6,20 @@ import AddItemAlert from "./AddItemAlert";
 import { Form, InputGroup } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { CarouselItem } from "react-bootstrap";
+import Select, { MultiValue } from "react-select";
+
+type OptionType = {
+    value: string;
+    label: string;
+};
+
+const options: OptionType[] = [
+    { value: "1", label: "Furniture" },
+    { value: "2", label: "Electronics" },
+    { value: "3", label: "Clothes" },
+    { value: "4", label: "Kitchenware" },
+    { value: "5", label: "Others" },
+];
 
 const ItemForm = () => {
     const [alertStatus, setAlertStatus] = useState({
@@ -19,9 +33,11 @@ const ItemForm = () => {
 
     const [priceValue, setPriceValue] = useState("0");
 
+    const [categories, setCategories] = useState<string[]>([]);
+
     //const [imageURLs, setimageURLs] = useState<string[]>([]);
 
-    const [imageData, setimageData] = useState<string[]>([]);
+    const [imageData, setimageData] = useState<string[]>([]);
 
     const reader = new FileReader();
 
@@ -41,6 +57,10 @@ const ItemForm = () => {
         }
     }
 
+    function handleChange(e: MultiValue<OptionType>) {
+        setCategories(e.map((optionType) => optionType.value));
+    }
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -56,6 +76,10 @@ const ItemForm = () => {
             formData.entries(),
         ) as unknown as ItemSave;
         setLoadingSpinner(true);
+
+        formJson.categories = categories;
+
+        console.log(formJson);
 
         ItemService.addItem(formJson)
             .then((res) => {
@@ -86,7 +110,7 @@ const ItemForm = () => {
                         <Form.Label>Title</Form.Label>
                     </Form.Floating>
                 </Form.Group>
-                
+
                 <div className="btn-toolbar">
                     <input
                         type="file"
@@ -108,25 +132,41 @@ const ItemForm = () => {
                         &nbsp;Capture Image
                     </label>
                     <div>&nbsp;</div>
-                    <label className="btn btn-primary" htmlFor="imageInputUpload">
+                    <label
+                        className="btn btn-primary"
+                        htmlFor="imageInputUpload"
+                    >
                         Upload Image
                     </label>
                 </div>
-                <Carousel controls={imageData.length < 2 ? false : true} className="mt-3 mb-3 border" style={{height: 300}}>
-                {imageData.length === 0 && <CarouselItem></CarouselItem>}
-                {imageData.map((img) => {
-                    return <CarouselItem style={{maxHeight: 300}}><img alt="item" className="mx-auto d-block img-fluid" style={{maxHeight: 300}} src={img} /></CarouselItem>;
-                })}
+                <Carousel
+                    controls={imageData.length < 2 ? false : true}
+                    className="mt-3 mb-3 border"
+                    style={{ height: 300 }}
+                >
+                    {imageData.length === 0 && <CarouselItem></CarouselItem>}
+                    {imageData.map((img) => {
+                        return (
+                            <CarouselItem style={{ maxHeight: 300 }}>
+                                <img
+                                    alt="item"
+                                    className="mx-auto d-block img-fluid"
+                                    style={{ maxHeight: 300 }}
+                                    src={img}
+                                />
+                            </CarouselItem>
+                        );
+                    })}
                 </Carousel>
                 <Form.Check
-                        type="checkbox"
-                        id="freeCheckbox"
-                        label="This item is free!"
-                        onChange={() => {
-                            setIsChecked(!isChecked);
-                            setPriceValue(!isChecked ? "0" : "");
-                        }}
-                        checked={isChecked}
+                    type="checkbox"
+                    id="freeCheckbox"
+                    label="This item is free!"
+                    onChange={() => {
+                        setIsChecked(!isChecked);
+                        setPriceValue(!isChecked ? "0" : "");
+                    }}
+                    checked={isChecked}
                 />
                 <InputGroup className="mb-3">
                     <Form.Floating>
@@ -165,6 +205,24 @@ const ItemForm = () => {
                         />
                         <Form.Label>Description</Form.Label>
                     </Form.Floating>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="category">
+                    <Select
+                        isMulti
+                        options={options}
+                        onChange={(e) => handleChange(e)}
+                        className="basic-multi-select"
+                        classNamePrefix="react-select"
+                        placeholder="Select your categories"
+                        theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                                ...theme.colors,
+                                neutral50: "#000000",
+                            },
+                        })}
+                    />
                 </Form.Group>
 
                 <SubmitButton loading={loadingSpinner} />
