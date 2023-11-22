@@ -24,20 +24,15 @@ export class ItemDetails {
     claimCount: number;
     thumbnail: ItemImage | null;
     images: ItemImage[];
-    constructor(
-        item: Item,
-        claimCount: number,
-        images?: ItemImage[],
-        thumbnail?: ItemImage,
-    ) {
+    constructor(item: Item, claimCount: number, images: ItemImage[]) {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
         this.description = item.description;
         this.location = item.location;
         this.claimCount = claimCount;
-        this.thumbnail = thumbnail ?? null;
-        this.images = images ?? [];
+        this.images = images;
+        this.thumbnail = images[0] ?? null;
     }
 }
 

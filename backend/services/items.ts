@@ -31,14 +31,8 @@ export async function allItemCategories(): Promise<any> {
 export async function findById(id: number): Promise<ItemDetails | null> {
     const item = await db.items.findById(id);
     if (!item) return null;
-    const images = await db.items.allImages();
-    const imagesOfItem = images.filter((image) => image.item_id === item.id);
-
-    if (imagesOfItem.length > 0) {
-        return new ItemDetails(item, 2, imagesOfItem, imagesOfItem[0]);
-    } else {
-        return new ItemDetails(item, 2);
-    }
+    const images = await db.items.allImages(id);
+    return new ItemDetails(item, 2, images);
 }
 
 export async function addItem(
