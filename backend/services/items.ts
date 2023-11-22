@@ -32,7 +32,7 @@ export async function findById(id: number): Promise<ItemDetails | null> {
     const item = await db.items.findById(id);
     if (!item) return null;
     const images = await db.items.allImages(id);
-    return new ItemDetails(item, 2, images);
+    return new ItemDetails(item, images);
 }
 
 export async function addItem(
