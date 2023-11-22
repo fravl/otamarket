@@ -1,5 +1,10 @@
 import pgPromise, { IInitOptions, IDatabase, IMain } from "pg-promise";
-import { IExtensions, UsersRepository, ItemsRepository } from "./repos";
+import {
+    IExtensions,
+    UsersRepository,
+    ItemsRepository,
+    ClaimsRepository,
+} from "./repos";
 
 type ExtendedProtocol = IDatabase<IExtensions> & IExtensions;
 
@@ -13,6 +18,7 @@ const initOptions: IInitOptions<IExtensions> = {
         // which should be as fast as possible.
         obj.users = new UsersRepository(obj, pgp);
         obj.items = new ItemsRepository(obj, pgp);
+        obj.claims = new ClaimsRepository(obj, pgp);
     },
 };
 

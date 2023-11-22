@@ -43,6 +43,12 @@ export type Item = {
     images: any[];
 };
 
+export type ClaimInfo = {
+    claimCount: number;
+    userHasClaim: boolean;
+    userClaimPosition: number | null;
+};
+
 export type Category = {
     id: number;
     name: string;

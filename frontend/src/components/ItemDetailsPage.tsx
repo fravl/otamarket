@@ -6,20 +6,36 @@ import ItemSellerDetails from "./ItemSellerDetails";
 import Button from "react-bootstrap/Button";
 import BackAndTitleNav from "./BackAndTitleNav";
 import Navbar from "./Navbar";
-import { Item } from "../types";
+import { ClaimInfo, Item } from "../types";
 import ItemImage from "./ItemImage";
+import ItemService from "../services/ItemService";
 
 const ItemDetailsPage = () => {
-    const { item } = useLoaderData() as { item: Item };
-    const [claimStatus, setClaimStatus] = useState<boolean>(false);
+    const { item, claimInfo: initialClaimInfo } = useLoaderData() as {
+        item: Item;
+        claimInfo: ClaimInfo;
+    };
+
+    const [claimInfo, setClaimInfo] = useState<ClaimInfo>(initialClaimInfo);
     const [sellerStatus, setSellerStatus] = useState<boolean>(false);
+
+    const toggleClaimStatus = async (newValue: boolean) => {
+        if (newValue) {
+            await ItemService.claimItem(item.id);
+        } else {
+            await ItemService.unclaimItem(item.id);
+        }
+        await ItemService.getClaimInfo(item.id).then((newInfo) =>
+            setClaimInfo(newInfo),
+        );
+    };
 
     const getAdditionalInfo = () => {
         if (sellerStatus) {
             return (
                 <ItemBuyerDetails
-                    claimStatus={claimStatus}
-                    setClaimStatus={setClaimStatus}
+                    claimInfo={claimInfo}
+                    toggleClaimStatus={toggleClaimStatus}
                 />
             );
         } else {

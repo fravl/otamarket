@@ -31,7 +31,7 @@ export class ItemsRepository {
         return this.db.oneOrNone("SELECT * FROM items WHERE id = $1", +id);
     }
 
-    all(): Promise<(Item & { claim_count: number, thumbnail: Buffer })[]> {
+    all(): Promise<(Item & { claim_count: number; thumbnail: Buffer })[]> {
         return this.db.any(
             `SELECT i.*, count(c.item_id) as claim_count, array_agg(im.image) as thumbnail
                 FROM items i
@@ -43,21 +43,18 @@ export class ItemsRepository {
     }
 
     allCategories(): Promise<Category[]> {
-        return this.db.any(
-            'SELECT * from categories'
-        )
+        return this.db.any("SELECT * from categories");
     }
 
     allItemCategories(): Promise<ItemCategory[]> {
-        return this.db.any(
-            'SELECT * from item_category'
-        )
+        return this.db.any("SELECT * from item_category");
     }
 
-    allImages(): Promise<ItemImage[]>{
-        return this.db.any(
-            'SELECT * FROM item_images'
-        )
+    allImages(itemId: number): Promise<ItemImage[]> {
+        return this.db.manyOrNone(
+            "SELECT * FROM item_images WHERE item_id = $1",
+            itemId,
+        );
     }
 
     addItem(item: Omit<Item, "id">): Promise<Item> {
@@ -87,7 +84,7 @@ export class ItemsRepository {
             `INSERT into item_category(item_id, category_id) VALUES (\${item_id},\${category_id}) RETURNING *`,
             {
                 item_id: itemId,
-                category_id: categoryId
+                category_id: categoryId,
             },
         );
     }

@@ -1,8 +1,8 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
+import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
-import { ItemService, UserService } from "./services";
+import { ClaimsService, ItemService, UserService } from "./services";
 import { authMiddleware } from "./middlewares/authMiddleware";
 import { JwtToken } from "./types";
 import { UserSave, ItemSave } from "./dtos";
@@ -10,7 +10,7 @@ import { UserSave, ItemSave } from "./dtos";
 const app: Express = express();
 
 app.use(cors());
-app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.json({ limit: "10mb" }));
 app.use(express.json());
 app.use(authMiddleware);
 
@@ -52,7 +52,7 @@ app.post("/items/add", async (req: Request, res: Response) => {
     raw.seller_id = 1;
     raw.thumbnail_id = null;
     try {
-        raw.price = +raw.price
+        raw.price = +raw.price;
         const newItem: ItemSave = raw;
         await ItemService.addItem(newItem, req.body.categories);
         console.log(`Item ${newItem.title} added.`);
@@ -62,6 +62,35 @@ app.post("/items/add", async (req: Request, res: Response) => {
             console.log(`Error ${error.message}`);
             res.status(400).send(error.message);
         } else res.status(500).send();
+    }
+});
+
+app.get("/items/:id/claims", async (req: Request, res: Response) => {
+    const user = req.user!;
+    res.send(await ClaimsService.getClaimInfo(+req.params.id, user.id));
+});
+
+app.post("/items/:id/claims", async (req: Request, res: Response) => {
+    const user = req.user!;
+    try {
+        res.status(201).send(
+            await ClaimsService.claimItem(+req.params.id, user.id),
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send();
+    }
+});
+
+app.delete("/items/:id/claims", async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user) throw new Error("Unauthorized");
+    try {
+        await ClaimsService.unclaimItem(+req.params.id, user.id);
+        res.status(204).send();
+    } catch (error) {
+        console.log(error);
+        res.status(500).send();
     }
 });
 
