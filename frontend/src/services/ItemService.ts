@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Item, ItemSave, ItemSummary, Category } from "../types";
+import { ClaimInfo, Item, ItemSave, ItemSummary } from "../types";
 import authHeader from "./auth-header";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -28,4 +28,45 @@ const addItem = async (item: ItemSave) => {
     return response;
 };
 
-export default { getAll, getById, addItem };
+const getClaimInfo = async (itemId: number) => {
+    const request = axios.get<ClaimInfo>(`${baseUrl}/items/${itemId}/claims`, {
+        headers: authHeader(),
+    });
+    const response = await request;
+    console.log(response.data);
+    return response.data;
+};
+
+const claimItem = async (itemId: number) => {
+    const request = axios.post<ClaimInfo>(
+        `${baseUrl}/items/${itemId}/claims`,
+        {},
+        {
+            headers: authHeader(),
+        },
+    );
+    const response = await request;
+    console.log(response.data);
+    return response;
+};
+
+const unclaimItem = async (itemId: number) => {
+    const request = axios.delete<ClaimInfo>(
+        `${baseUrl}/items/${itemId}/claims`,
+        {
+            headers: authHeader(),
+        },
+    );
+    const response = await request;
+    console.log(response.data);
+    return response;
+};
+
+export default {
+    getAll,
+    getById,
+    addItem,
+    getClaimInfo,
+    claimItem,
+    unclaimItem,
+};

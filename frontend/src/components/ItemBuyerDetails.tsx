@@ -1,14 +1,15 @@
 import Button from "react-bootstrap/Button";
+import { ClaimInfo } from "../types";
 
 const ItemBuyerDetails = ({
-    claimStatus,
-    setClaimStatus,
+    claimInfo,
+    toggleClaimStatus,
 }: {
-    claimStatus: boolean;
-    setClaimStatus: (arg0: React.SetStateAction<boolean>) => void;
+    claimInfo: ClaimInfo;
+    toggleClaimStatus: (value: boolean) => void;
 }) => {
     const getContactInformation = () => {
-        if (claimStatus) {
+        if (claimInfo.userClaimPosition === 1) {
             return (
                 <div className="item-page-contact-information">
                     <span>Contact Information</span>
@@ -22,7 +23,7 @@ const ItemBuyerDetails = ({
     };
 
     const claimButtonStyles = () => {
-        if (claimStatus) {
+        if (claimInfo.userHasClaim) {
             return "item-page-button red-button";
         } else {
             return "item-page-button";
@@ -30,7 +31,7 @@ const ItemBuyerDetails = ({
     };
 
     const getClaimStatus = () => {
-        if (claimStatus) {
+        if (claimInfo.userHasClaim) {
             return "Unclaim";
         } else {
             return "Claim";
@@ -44,7 +45,7 @@ const ItemBuyerDetails = ({
                 <Button
                     type="submit"
                     className={claimButtonStyles()}
-                    onClick={() => setClaimStatus(!claimStatus)}
+                    onClick={() => toggleClaimStatus(!claimInfo.userHasClaim)}
                 >
                     {getClaimStatus()}
                 </Button>

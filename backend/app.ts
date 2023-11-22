@@ -66,7 +66,6 @@ app.post("/items/add", async (req: Request, res: Response) => {
 });
 
 app.get("/items/:id/claims", async (req: Request, res: Response) => {
-    console.log(req.params.id);
     const user = req.user!;
     res.send(await ClaimsService.getClaimInfo(+req.params.id, user.id));
 });

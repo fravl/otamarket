@@ -40,10 +40,12 @@ const router = createBrowserRouter([
                 path: "/",
                 element: <HomePage />,
                 loader: async () => {
-                    const items = await ItemService.getAll();
-                    const categories = await CategoryService.getAll();
-                    const itemCategories =
-                        await CategoryService.getItemCategories();
+                    const [items, categories, itemCategories] =
+                        await Promise.all([
+                            ItemService.getAll(),
+                            CategoryService.getAll(),
+                            CategoryService.getItemCategories(),
+                        ]);
                     return { items, categories, itemCategories };
                 },
             },
@@ -64,10 +66,11 @@ const router = createBrowserRouter([
                         path: ":id",
                         loader: async ({ params }) => {
                             if (!AuthService.isAuthenticated()) return null;
-                            const item = await ItemService.getById(
-                                parseInt(params.id!),
-                            );
-                            return { item };
+                            const [item, claimInfo] = await Promise.all([
+                                ItemService.getById(parseInt(params.id!)),
+                                ItemService.getClaimInfo(parseInt(params.id!)),
+                            ]);
+                            return { item, claimInfo };
                         },
                         element: <ItemDetailsPage />,
                     },
