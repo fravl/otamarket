@@ -20,5 +20,4 @@ VALUES (1, 1),
 
 INSERT INTO claims (timestamp, item_id, user_id) 
 VALUES ('2023-11-08 12:00:00', 1, 1),
-       ('2023-11-08 12:00:00', 1, 1),
        ('2023-11-07 10:00:00', 2, 1);

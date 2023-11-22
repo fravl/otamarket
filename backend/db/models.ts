@@ -34,7 +34,6 @@ interface ItemCategory {
 }
 
 interface Claim {
-    id: number;
     timestamp: Date;
     item_id: number;
     user_id: number;
