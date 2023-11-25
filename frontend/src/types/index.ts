@@ -41,6 +41,7 @@ export type Item = {
     location: string;
     claimCount: number;
     thumbnail: any;
+    seller_id: number;
     images: any[];
 };
 
