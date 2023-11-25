@@ -1,6 +1,8 @@
 import Button from "react-bootstrap/Button";
+import ItemService from "../services/ItemService";
+import { Item } from "../types";
 
-const ItemSellerDetails = () => {
+const ItemSellerDetails = ({ item }: { item: Item }) => {
     const getContactInformation = () => {
         return (
             <div className="item-page-contact-information">
@@ -19,6 +21,12 @@ const ItemSellerDetails = () => {
         );
     };
 
+    const onDelete = async () => {
+        if(confirm(`Are you sure you want to remove this item from your listings?`)){
+           await ItemService.removeItem(item.id)
+        }
+    }
+
     return (
         <>
             {getContactInformation()}
@@ -27,7 +35,7 @@ const ItemSellerDetails = () => {
                 <Button className="item-page-edit-button" variant="secondary">
                     Edit
                 </Button>
-                <Button className="item-page-delete-button" variant="danger">
+                <Button className="item-page-delete-button" variant="danger" onClick={() => onDelete()}>
                     Delete
                 </Button>
             </div>

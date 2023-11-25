@@ -27,6 +27,14 @@ export class ItemsRepository {
         );
     }
 
+    removeFromCategories(item_id: number){
+        return this.db.result(
+            "DELETE FROM item_category WHERE item_id = $1",
+            +item_id,
+            (r: IResult) => r.rowCount,
+        );
+    }
+
     findById(id: number): Promise<Item | null> {
         return this.db.oneOrNone("SELECT * FROM items WHERE id = $1", +id);
     }
