@@ -8,7 +8,7 @@ export const useToken = () => {
 
     const addToken = (token: string) => {
         setToken(token);
-        setItem("TOKEN", token);
+        setItem("TOKEN", token, { maxAge: 360 * 24 });
     };
 
     const removeToken = () => {
