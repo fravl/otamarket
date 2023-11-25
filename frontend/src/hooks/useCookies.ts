@@ -1,13 +1,17 @@
 import { useState } from "react";
-import Cookies from "universal-cookie";
+import Cookies, { CookieSetOptions } from "universal-cookie";
 
 const cookies = new Cookies();
 
 export const useCookies = () => {
     const [value, setValue] = useState<string | null>(null);
 
-    const setItem = (key: string, value: string) => {
-        cookies.set(key, value);
+    const setItem = (
+        key: string,
+        value: string,
+        options?: CookieSetOptions,
+    ) => {
+        cookies.set(key, value, options);
         setValue(value);
     };
 
