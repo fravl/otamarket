@@ -5,7 +5,7 @@ import { LoginFormData } from "../types";
 import AuthService from "../services/AuthService";
 
 export const useAuth = () => {
-    const { contextToken: token, addToken, removeToken, setToken } = useToken();
+    const { contextToken: token, addToken, addUserId, removeToken, setToken } = useToken();
     const { getItem } = useCookies();
 
     useEffect(() => {
@@ -19,7 +19,9 @@ export const useAuth = () => {
         const response = await AuthService.login(user);
         if (response.data.token) {
             addToken(response.data.token);
+            addUserId(response.data.id)
         }
+        console.log(AuthService.getUserId())
         return response;
     };
 

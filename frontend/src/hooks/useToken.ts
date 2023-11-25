@@ -11,10 +11,15 @@ export const useToken = () => {
         setItem("TOKEN", token, { maxAge: 360 * 24 });
     };
 
+    const addUserId = (email: string) => {
+        setItem("USERID", email)
+    }
+
     const removeToken = () => {
         setToken(null);
         removeItem("TOKEN");
+        removeItem("USERID")
     };
 
-    return { contextToken, addToken, removeToken, setToken };
+    return { contextToken, addToken, addUserId, removeToken, setToken };
 };

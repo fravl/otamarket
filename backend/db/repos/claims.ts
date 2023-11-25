@@ -32,4 +32,12 @@ export class ClaimsRepository {
             +itemId,
         );
     }
+
+    getClaimsOfUser(userId: number): Promise<Claim[]> {
+        return this.db.manyOrNone(
+            "SELECT * FROM claims WHERE user_id = $1 ORDER BY timestamp ASC",
+            +userId,
+        );
+    }
+
 }

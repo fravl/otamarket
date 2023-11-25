@@ -9,6 +9,10 @@ export async function claimItem(
     return claim;
 }
 
+export async function getClaimsOfUser(userId: number): Promise<Claim[]>{
+    return await db.claims.getClaimsOfUser(userId)
+}
+
 export async function unclaimItem(itemId: number, userId: number) {
     await db.claims.removeClaim(itemId, userId);
 }

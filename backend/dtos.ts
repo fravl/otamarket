@@ -5,11 +5,13 @@ export class ItemSummary {
     title: string;
     price: number;
     claimCount: number;
+    seller_id: number;
     thumbnail: Buffer | null;
     constructor(item: Item, claimCount: number, thumbnail?: Buffer | null) {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
+        this.seller_id = item.seller_id;
         this.claimCount = claimCount;
         this.thumbnail = thumbnail ?? null;
     }
