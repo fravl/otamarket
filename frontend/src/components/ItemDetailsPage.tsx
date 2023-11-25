@@ -3,12 +3,12 @@ import { useLoaderData } from "react-router-dom";
 import ItemBuyerDetails from "./ItemBuyerDetails";
 import ItemDetails from "./ItemDetails";
 import ItemSellerDetails from "./ItemSellerDetails";
-import Button from "react-bootstrap/Button";
 import BackAndTitleNav from "./BackAndTitleNav";
 import Navbar from "./Navbar";
 import { ClaimInfo, Item } from "../types";
 import ItemImage from "./ItemImage";
 import ItemService from "../services/ItemService";
+import AuthService from "../services/AuthService";
 
 const ItemDetailsPage = () => {
     const { item, claimInfo: initialClaimInfo } = useLoaderData() as {
@@ -17,7 +17,6 @@ const ItemDetailsPage = () => {
     };
 
     const [claimInfo, setClaimInfo] = useState<ClaimInfo>(initialClaimInfo);
-    const [sellerStatus, setSellerStatus] = useState<boolean>(false);
 
     const toggleClaimStatus = async (newValue: boolean) => {
         if (newValue) {
@@ -31,7 +30,7 @@ const ItemDetailsPage = () => {
     };
 
     const getAdditionalInfo = () => {
-        if (sellerStatus) {
+        if (AuthService.getUserId() !== item.seller_id) {
             return (
                 <ItemBuyerDetails
                     claimInfo={claimInfo}
@@ -54,12 +53,6 @@ const ItemDetailsPage = () => {
         return (
             <div className="item-page">
                 <BackAndTitleNav title={item.title} />
-                <Button
-                    variant="light"
-                    onClick={() => setSellerStatus(!sellerStatus)}
-                >
-                    Toggle POV
-                </Button>
                 <div className="item-page-info-container">
                     <div className="row">
                         <ItemImage item={item} />

@@ -23,6 +23,7 @@ export class ItemDetails {
     price: number;
     description: string;
     location: string;
+    seller_id: number;
     thumbnail: ItemImage | null;
     images: ItemImage[];
     constructor(item: Item, images: ItemImage[]) {
@@ -32,6 +33,7 @@ export class ItemDetails {
         this.description = item.description;
         this.location = item.location;
         this.images = images;
+        this.seller_id = item.seller_id;
         this.thumbnail = images[0] ?? null;
     }
 }
