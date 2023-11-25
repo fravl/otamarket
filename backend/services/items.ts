@@ -1,6 +1,7 @@
 import db from "../db";
 import { ItemDetails, ItemSummary } from "../dtos";
 import { Item } from "../db/models";
+import { toByteArray } from "base64-js";
 
 export async function all(): Promise<any> {
     const items = await db.items.all();
@@ -46,4 +47,13 @@ export async function addItem(
     for (const category of categories) {
         await db.items.addToCategory(addedItemId, parseInt(category));
     }
+    return res;
+}
+
+export async function addImage(imgData: string, imgExt: string) {
+    if (imgExt === 'png') {
+        console.log('png image');
+    }
+    const binaryData = Buffer.from(toByteArray(imgData));
+    const res = await db.items.addImage(binaryData);
 }

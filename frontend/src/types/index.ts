@@ -8,6 +8,7 @@ export type ItemSave = {
     location: string;
     seller_id: number;
     categories: string[];
+    images: string[];
     thumbnail_id: number | null;
 };
 

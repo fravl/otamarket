@@ -79,6 +79,12 @@ export class ItemsRepository {
         );
     }
 
+    addImage(imgData: Buffer): Promise<any> {
+        return this.db.one(
+            'INSERT INTO images (imgData) VALUES ${imgData} RETURNING *', {imgData: imgData}
+        )
+    }
+
     addToCategory(itemId: number, categoryId: number): Promise<any> {
         return this.db.one(
             `INSERT into item_category(item_id, category_id) VALUES (\${item_id},\${category_id}) RETURNING *`,

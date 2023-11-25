@@ -54,7 +54,19 @@ app.post("/items/add", async (req: Request, res: Response) => {
     try {
         raw.price = +raw.price;
         const newItem: ItemSave = raw;
-        await ItemService.addItem(newItem, req.body.categories);
+        //console.log(raw);
+        //console.log(raw.images);
+        const base64imgs: string[] = raw.images;
+        base64imgs.forEach((img: string) => {
+            const data = img.split(',');
+            if (data[0].startsWith('data:image')) {
+                const ext = data[0].split(':')[1];
+                ItemService.addImage(data[1], ext);
+            } else {
+                console.log(`Invalid image header ${data[0]}`)
+            }
+        });
+        const addedItem = await ItemService.addItem(newItem, req.body.categories);
         console.log(`Item ${newItem.title} added.`);
         res.status(204).send();
     } catch (error) {
