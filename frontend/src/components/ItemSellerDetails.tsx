@@ -1,8 +1,15 @@
 import Button from "react-bootstrap/Button";
 import ItemService from "../services/ItemService";
 import { Item } from "../types";
+import { useNavigate } from "react-router-dom";
 
 const ItemSellerDetails = ({ item }: { item: Item }) => {
+    let navigate = useNavigate();
+    const routeChange = () => {
+        let path = "/sales";
+        navigate(path);
+    };
+
     const getContactInformation = () => {
         return (
             <div className="item-page-contact-information">
@@ -22,10 +29,15 @@ const ItemSellerDetails = ({ item }: { item: Item }) => {
     };
 
     const onDelete = async () => {
-        if(confirm(`Are you sure you want to remove this item from your listings?`)){
-           await ItemService.removeItem(item.id)
+        if (
+            confirm(
+                `Are you sure you want to remove this item from your listings?`,
+            )
+        ) {
+            await ItemService.removeItem(item.id);
+            routeChange();
         }
-    }
+    };
 
     return (
         <>
@@ -35,7 +47,11 @@ const ItemSellerDetails = ({ item }: { item: Item }) => {
                 <Button className="item-page-edit-button" variant="secondary">
                     Edit
                 </Button>
-                <Button className="item-page-delete-button" variant="danger" onClick={() => onDelete()}>
+                <Button
+                    className="item-page-delete-button"
+                    variant="danger"
+                    onClick={() => onDelete()}
+                >
                     Delete
                 </Button>
             </div>

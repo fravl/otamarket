@@ -21,7 +21,7 @@ export class ItemsRepository {
 
     remove(id: number): Promise<number> {
         return this.db.result(
-            "DELETE FROM products WHERE id = $1",
+            "DELETE FROM items WHERE id = $1",
             +id,
             (r: IResult) => r.rowCount,
         );

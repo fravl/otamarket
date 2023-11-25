@@ -49,8 +49,8 @@ export async function addItem(
 }
 
 export async function removeItem(id: number): Promise<any> {
-    await db.items.remove(id)
-    await db.item.removeFromCategories(id)
+   await db.items.remove(id)
+   await db.items.removeFromCategories(id)
     
 
 }
