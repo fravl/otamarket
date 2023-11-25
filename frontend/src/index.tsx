@@ -19,6 +19,8 @@ import App from "./App";
 import RegistrationPage from "./components/RegistrationPage";
 import LoginPage from "./components/LoginPage";
 import AuthService from "./services/AuthService";
+import SalesPage from "./components/SalesPage";
+import ClaimsPage from "./components/ClaimsPage";
 
 const ProtectedRoute = () => {
     if (!AuthService.isAuthenticated()) {
@@ -48,6 +50,42 @@ const router = createBrowserRouter([
                         ]);
                     return { items, categories, itemCategories };
                 },
+            },
+            {
+                path: "/sales",
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: "/sales",
+                        element: <SalesPage />,
+                        loader: async () => {
+                            const [items, userId] = await Promise.all([
+                                ItemService.getAll(),
+                                AuthService.getUserId(),
+                            ]);
+                            return { items, userId };
+                        },
+                    },
+                ],
+            },
+            {
+                path: "/claims",
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: "/claims",
+                        element: <ClaimsPage />,
+                        loader: async () => {
+                            const [items, claims] = await Promise.all([
+                                ItemService.getAll(),
+                                ItemService.getUserClaims(
+                                    AuthService.getUserId(),
+                                ),
+                            ]);
+                            return { items, claims };
+                        },
+                    },
+                ],
             },
             {
                 path: "item",

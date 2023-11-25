@@ -49,7 +49,7 @@ app.get("/items/:id", async (req: Request, res: Response) => {
 app.post("/items/add", async (req: Request, res: Response) => {
     const raw = req.body;
     const categories = req.body.categories;
-    raw.seller_id = 1;
+    raw.seller_id = req.body.seller_id;
     raw.thumbnail_id = null;
     try {
         raw.price = +raw.price;
@@ -68,6 +68,11 @@ app.post("/items/add", async (req: Request, res: Response) => {
 app.get("/items/:id/claims", async (req: Request, res: Response) => {
     const user = req.user!;
     res.send(await ClaimsService.getClaimInfo(+req.params.id, user.id));
+});
+
+app.get("/items/claims/:id", async (req: Request, res: Response) => {
+    const user = req.user!;
+    res.send(await ClaimsService.getClaimsOfUser(user.id));
 });
 
 app.post("/items/:id/claims", async (req: Request, res: Response) => {
@@ -120,6 +125,7 @@ app.post("/auth/login", async (req: Request, res: Response) => {
         });
         res.status(200).send({
             message: "Login Successful",
+            id: user.id,
             email: user.email,
             token,
         });

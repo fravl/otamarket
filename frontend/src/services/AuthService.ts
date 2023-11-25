@@ -12,11 +12,17 @@ export const register = async (data: RegistrationFormData) => {
 };
 
 export const login = async (data: LoginFormData) => {
-    return axios.post(`${baseUrl}/auth/login`, data);
+    const request = axios.post(`${baseUrl}/auth/login`, data);
+    const response = await request;
+    console.log(response.data)
+    return request;
 };
+
 
 export const getToken = () => cookies.get("TOKEN") ?? null;
 
+export const getUserId = () => cookies.get("USERID") ?? null;
+
 export const isAuthenticated = () => !!getToken();
 
-export default { register, login, isAuthenticated };
+export default { register, login, isAuthenticated, getUserId };
