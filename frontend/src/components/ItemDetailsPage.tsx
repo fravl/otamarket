@@ -38,7 +38,7 @@ const ItemDetailsPage = () => {
                 />
             );
         } else {
-            return <ItemSellerDetails />;
+            return <ItemSellerDetails item={item} />;
         }
     };
 

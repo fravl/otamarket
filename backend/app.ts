@@ -46,6 +46,14 @@ app.get("/items/:id", async (req: Request, res: Response) => {
     }
 });
 
+app.delete("/items/:id", async (req: Request, res: Response) => {
+    try {
+        res.send(await ItemService.removeItem(parseInt(req.params.id)));
+    } catch (error) {
+        res.status(500).send("Error querying database");
+    }
+});
+
 app.post("/items/add", async (req: Request, res: Response) => {
     const raw = req.body;
     const categories = req.body.categories;

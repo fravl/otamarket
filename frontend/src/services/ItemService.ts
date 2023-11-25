@@ -75,6 +75,15 @@ const unclaimItem = async (itemId: number) => {
     return response;
 };
 
+const removeItem = async (id :number) => {
+    const request = axios.delete(`${baseUrl}/items/${id}`, {
+        headers: authHeader(),
+    });
+    const response = await request;
+    console.log(response.data);
+    return response.data;
+}
+
 export default {
     getAll,
     getById,
@@ -83,4 +92,5 @@ export default {
     claimItem,
     unclaimItem,
     getUserClaims,
+    removeItem
 };
