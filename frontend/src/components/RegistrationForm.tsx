@@ -25,7 +25,7 @@ const RegistrationForm = () => {
         e.preventDefault();
         try {
             await register(formData);
-            navigate("/");
+            navigate("/login");
         } catch (error) {
             alert(error);
         }
