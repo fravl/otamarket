@@ -31,9 +31,21 @@ export class ItemsRepository {
         return this.db.oneOrNone("SELECT * FROM items WHERE id = $1", +id);
     }
 
-    all(): Promise<(Item & { claim_count: number; thumbnail: Buffer })[]> {
+    /*
+    all(): Promise<(Item & { claim_count: number; thumbnail: number })[]> {
         return this.db.any(
             `SELECT i.*, count(c.item_id) as claim_count, array_agg(im.image) as thumbnail
+                FROM items i
+                LEFT JOIN claims c ON c.item_id = i.id
+                LEFT JOIN item_images im ON im.id = i.thumbnail_id
+                GROUP BY i.id
+                ORDER BY listed_at DESC`,
+        );
+    }
+    */
+    all(): Promise<(Item & { claim_count: number })[]> {
+        return this.db.any(
+            `SELECT i.*, count(c.item_id) as claim_count
                 FROM items i
                 LEFT JOIN claims c ON c.item_id = i.id
                 LEFT JOIN item_images im ON im.id = i.thumbnail_id
@@ -79,10 +91,21 @@ export class ItemsRepository {
         );
     }
 
-    addImage(imgData: Buffer): Promise<any> {
+    addImage(imgData: Buffer, itemId: number): Promise<ItemImage> {
         return this.db.one(
-            'INSERT INTO images (imgData) VALUES ${imgData} RETURNING *', {imgData: imgData}
+            'INSERT INTO item_images (image, item_id) VALUES ($1, $2) RETURNING *', [imgData, itemId]
         )
+    }
+
+    addThumbnail(itemId: number, imgId: number): Promise<any> {
+        //console.log(`UPDATE items SET thumbnail_id = ${img.id} WHERE id = ${img.itemId}`);
+        return this.db.one(
+            'UPDATE items SET thumbnail_id = $1 WHERE id = $2 RETURNING *', [imgId, itemId]
+        )
+    }
+
+    getImageById(imgId: number): Promise<ItemImage | null> {
+        return this.db.oneOrNone("SELECT * FROM item_images WHERE id = $1", imgId);
     }
 
     addToCategory(itemId: number, categoryId: number): Promise<any> {

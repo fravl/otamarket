@@ -1,17 +1,14 @@
 import db from "../db";
 import { ItemDetails, ItemSummary } from "../dtos";
-import { Item } from "../db/models";
+import { Item, ItemImage } from "../db/models";
 import { toByteArray } from "base64-js";
+import sharp from "sharp";
 
 export async function all(): Promise<any> {
     const items = await db.items.all();
 
     const dtos = items.map((item) => {
-        if (item.thumbnail_id === null) {
-            return new ItemSummary(item, item.claim_count);
-        } else {
-            return new ItemSummary(item, item.claim_count, item.thumbnail);
-        }
+        return new ItemSummary(item, item.claim_count);
     });
 
     return dtos;
@@ -39,7 +36,7 @@ export async function findById(id: number): Promise<ItemDetails | null> {
 export async function addItem(
     item: Omit<Item, "id">,
     categories: string[],
-): Promise<any> {
+): Promise<Item> {
     const res = await db.items.addItem(item);
 
     const addedItemId: number = res.id;
@@ -50,10 +47,30 @@ export async function addItem(
     return res;
 }
 
-export async function addImage(imgData: string, imgExt: string) {
+export async function addImage(imgData: string, imgExt: string, itemId: number): Promise<ItemImage> {
+    const barray = toByteArray(imgData);
+    let binaryData;
     if (imgExt === 'png') {
         console.log('png image');
+        await sharp(barray).jpeg().toBuffer()
+            .then(jpeg => {
+                binaryData = jpeg;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    } else {
+        binaryData = Buffer.from(barray);
     }
-    const binaryData = Buffer.from(toByteArray(imgData));
-    const res = await db.items.addImage(binaryData);
+    const res = await db.items.addImage(binaryData as Buffer, itemId);
+    console.log(`RES: ${res.id}`);
+    return res;
+}
+
+export async function addThumbnail(itemId: number, imgId: number) {
+    return await db.items.addThumbnail(itemId, imgId);
+}
+
+export async function getImage(imgId: number) {
+    return await db.items.getImageById(imgId);
 }

@@ -8,8 +8,7 @@ interface User {
 interface ItemImage {
     id: number;
     image: Buffer; // Assuming binary data for images
-    order_num: number;
-    item_id: number;
+    itemId: number;
 }
 
 interface Item {

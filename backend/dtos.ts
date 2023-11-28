@@ -5,13 +5,13 @@ export class ItemSummary {
     title: string;
     price: number;
     claimCount: number;
-    thumbnail: Buffer | null;
-    constructor(item: Item, claimCount: number, thumbnail?: Buffer | null) {
+    thumbnail: string | null;
+    constructor(item: Item, claimCount: number) {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
         this.claimCount = claimCount;
-        this.thumbnail = thumbnail ?? null;
+        this.thumbnail = item.thumbnail_id ? `/image/${item.thumbnail_id}.jpg` : null;
     }
 }
 
@@ -21,16 +21,19 @@ export class ItemDetails {
     price: number;
     description: string;
     location: string;
-    thumbnail: ItemImage | null;
-    images: ItemImage[];
+    thumbnail: string | null;
+    images: string[];
     constructor(item: Item, images: ItemImage[]) {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
         this.description = item.description;
         this.location = item.location;
-        this.images = images;
-        this.thumbnail = images[0] ?? null;
+        this.images = [];
+        images.forEach((img) => {
+            this.images.push(`/image/${img.id}.jpg`);
+        });
+        this.thumbnail = this.images[0] ?? null;
     }
 }
 
