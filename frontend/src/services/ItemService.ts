@@ -28,6 +28,18 @@ const addItem = async (item: ItemSave) => {
     return response;
 };
 
+const getUserClaims = async (userId: number) => {
+    const request = axios.get<ClaimInfo>(`${baseUrl}/items/claims/${userId}`, {
+        headers: authHeader(),
+    });
+
+    const response = await request;
+
+    console.log(response.data);
+
+    return response.data;
+};
+
 const getClaimInfo = async (itemId: number) => {
     const request = axios.get<ClaimInfo>(`${baseUrl}/items/${itemId}/claims`, {
         headers: authHeader(),
@@ -59,8 +71,18 @@ const unclaimItem = async (itemId: number) => {
     );
     const response = await request;
     console.log(response.data);
+
     return response;
 };
+
+const removeItem = async (id :number) => {
+    const request = axios.delete(`${baseUrl}/items/${id}`, {
+        headers: authHeader(),
+    });
+    const response = await request;
+    console.log(response.data);
+    return response.data;
+}
 
 export default {
     getAll,
@@ -69,4 +91,6 @@ export default {
     getClaimInfo,
     claimItem,
     unclaimItem,
+    getUserClaims,
+    removeItem
 };

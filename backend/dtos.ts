@@ -6,10 +6,12 @@ export class ItemSummary {
     price: number;
     claimCount: number;
     thumbnail: string | null;
+    seller_id: number;
     constructor(item: Item, claimCount: number) {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
+        this.seller_id = item.seller_id;
         this.claimCount = claimCount;
         this.thumbnail = item.thumbnail_id ? `/image/${item.thumbnail_id}.jpg` : null;
     }
@@ -23,6 +25,7 @@ export class ItemDetails {
     location: string;
     thumbnail: string | null;
     images: string[];
+    seller_id: number;
     constructor(item: Item, images: ItemImage[]) {
         this.id = item.id;
         this.title = item.title;
@@ -34,6 +37,7 @@ export class ItemDetails {
             this.images.push(`/image/${img.id}.jpg`);
         });
         this.thumbnail = this.images[0] ?? null;
+        this.seller_id = item.seller_id;
     }
 }
 

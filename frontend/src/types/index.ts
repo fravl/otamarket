@@ -23,6 +23,7 @@ export type ItemSummary = {
     title: string;
     price: number;
     claimCount: number;
+    seller_id: number;
     thumbnail: any;
 };
 
@@ -41,6 +42,7 @@ export type Item = {
     location: string;
     claimCount: number;
     thumbnail: any;
+    seller_id: number;
     images: any[];
 };
 
@@ -48,6 +50,12 @@ export type ClaimInfo = {
     claimCount: number;
     userHasClaim: boolean;
     userClaimPosition: number | null;
+};
+
+export type Claim = {
+    item_id: number;
+    timestamp: string;
+    user_id: number;
 };
 
 export type Category = {

@@ -9,7 +9,7 @@ import { CarouselItem } from "react-bootstrap";
 import Select, { MultiValue } from "react-select";
 import { useLoaderData } from "react-router-dom";
 import { Category, OptionType } from "../types";
-
+import AuthService from "../services/AuthService";
 
 
 const ItemForm = () => {
@@ -67,6 +67,7 @@ const ItemForm = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         formData.append("price", priceValue);
+        formData.append("seller_id", AuthService.getUserId() )
 
         /*imageData.forEach((img) => {
             formData.append("images", img);

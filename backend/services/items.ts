@@ -74,3 +74,10 @@ export async function addThumbnail(itemId: number, imgId: number) {
 export async function getImage(imgId: number) {
     return await db.items.getImageById(imgId);
 }
+
+export async function removeItem(id: number): Promise<any> {
+   await db.items.remove(id)
+   await db.items.removeFromCategories(id)
+    
+
+}
