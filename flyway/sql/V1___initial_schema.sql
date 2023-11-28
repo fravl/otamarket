@@ -8,6 +8,7 @@ CREATE TABLE users (
 CREATE TABLE item_images (
     id SERIAL PRIMARY KEY,
     image BYTEA, -- assuming binary data for images
+    item_id INTEGER
 );
 
 CREATE TABLE items (
