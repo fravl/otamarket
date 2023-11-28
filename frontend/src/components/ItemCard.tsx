@@ -1,18 +1,19 @@
 import { ItemSummary } from "../types";
 import { Link } from "react-router-dom";
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const ItemCard = ({ item }: { item: ItemSummary }) => {
     function getThumbnail() {
         if (item.thumbnail === null || item.thumbnail.length === 0) {
             return <i className="bi bi-camera fs-1"></i>;
         } else {
-            var imgsrc =
-                "data:image/jpeg;base64," +
+            var imgsrc = baseUrl + item.thumbnail;
+                /*"data:image/jpeg;base64," +
                 btoa(
                     String.fromCharCode.apply(null, [
                         ...new Uint8Array(item.thumbnail[0].data),
                     ]),
-                );
+                );*/
 
             return (
                 <img
