@@ -58,7 +58,7 @@ const ItemForm = () => {
     }
 
     function handleChange(e: MultiValue<OptionType>) {
-        setCategories(e.map((optionType) => optionType.value));
+        setCategories(e.map((optionType: OptionType) => optionType.value));
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -69,9 +69,9 @@ const ItemForm = () => {
         formData.append("price", priceValue);
         formData.append("seller_id", AuthService.getUserId() )
 
-        imageData.forEach((img) => {
-            formData.append("images[]", img);
-        });
+        /*imageData.forEach((img) => {
+            formData.append("images", img);
+        });*/
 
         const formJson = Object.fromEntries(
             formData.entries(),
@@ -79,8 +79,7 @@ const ItemForm = () => {
         setLoadingSpinner(true);
 
         formJson.categories = categories;
-
-        console.log(formJson);
+        formJson.images = imageData;
 
         ItemService.addItem(formJson)
             .then((res) => {
@@ -115,7 +114,7 @@ const ItemForm = () => {
                 <div className="btn-toolbar">
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="image/jpeg, image/jpg, image/png"
                         capture="user"
                         id="imageInput"
                         onChange={handleImageCapture}
@@ -123,7 +122,7 @@ const ItemForm = () => {
                     />
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="image/jpeg, image/jpg, image/png"
                         id="imageInputUpload"
                         onChange={handleImageCapture}
                         className="d-none"
@@ -146,10 +145,11 @@ const ItemForm = () => {
                     style={{ height: 300 }}
                 >
                     {imageData.length === 0 && <CarouselItem></CarouselItem>}
-                    {imageData.map((img) => {
+                    {imageData.map((img, index) => {
                         return (
                             <CarouselItem style={{ maxHeight: 300 }}>
                                 <img
+                                    key={index}
                                     alt="item"
                                     className="mx-auto d-block img-fluid"
                                     style={{ maxHeight: 300 }}

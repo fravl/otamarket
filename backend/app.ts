@@ -39,7 +39,14 @@ app.get("/categories/items", async (req: Request, res: Response) => {
 });
 
 app.get("/items/:id", async (req: Request, res: Response) => {
+    //const imgIds = [];
+    //imgIds.forEach((id) => {
+    //    newItem.images.push(`/items/${id}.jpg`)
+    //});
     try {
+        await ItemService.findById(parseInt(req.params.id)).then(async (item) => {
+            
+        });
         res.send(await ItemService.findById(parseInt(req.params.id)));
     } catch (error) {
         res.status(500).send("Error querying database");
@@ -62,7 +69,26 @@ app.post("/items/add", async (req: Request, res: Response) => {
     try {
         raw.price = +raw.price;
         const newItem: ItemSave = raw;
-        await ItemService.addItem(newItem, req.body.categories);
+        //console.log(raw);
+        //console.log(raw.images);
+        //console.log(`img ids: ${newItem.images}`);
+        const addedItem = await ItemService.addItem(newItem, req.body.categories);
+        const base64imgs: string[] = raw.images;
+        let tn = true;
+        base64imgs.forEach(async (img: string) => {
+            const data = img.split(',');
+            if (data[0].startsWith('data:image')) {
+                const ext = data[0].split(':')[1];
+                const img = await ItemService.addImage(data[1], ext, addedItem.id);
+                if (tn) {
+                    //console.log(`Adding thumbnail: ${img}`);
+                    await ItemService.addThumbnail(addedItem.id, img.id);
+                    tn = false;
+                }
+            } else {
+                console.log(`Invalid image header ${data[0]}`)
+            }
+        });
         console.log(`Item ${newItem.title} added.`);
         res.status(204).send();
     } catch (error) {
@@ -71,6 +97,15 @@ app.post("/items/add", async (req: Request, res: Response) => {
             res.status(400).send(error.message);
         } else res.status(500).send();
     }
+});
+
+app.get("/image/:id.jpg", async (req: Request, res: Response) => {
+    console.log(`img ${req.params.id} requested`);
+    res.set('Content-Type', 'image/jpg');
+    await ItemService.getImage(+req.params.id).then(img => {
+        if (img !== null) res.send(img.image);
+        else res.status(404).send('Img not found');
+    });
 });
 
 app.get("/items/:id/claims", async (req: Request, res: Response) => {
