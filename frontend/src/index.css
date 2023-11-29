@@ -90,20 +90,6 @@ input[type="number"] {
     padding-right: 5%;
 }
 
-.item-page {
-    width: 100vw;
-    height: 100vh;
-    padding: 0%;
-    margin: 0%;
-    background-color: white;
-}
-
-.item-page-info-container {
-    position: relative;
-    margin: 5% 10% 0 10%;
-    text-align: left;
-}
-
 .item-page-description-container {
     color: #45474c;
     font-weight: 300;
@@ -114,7 +100,6 @@ input[type="number"] {
     font-weight: 500;
     line-height: 2.25rem;
     color: #45474c;
-    margin-bottom: 0.5em;
 }
 
 .item-page-title {
@@ -145,23 +130,6 @@ input[type="number"] {
     font-weight: 700;
 }
 
-.item-page-button-container {
-    margin-top: 2%;
-    width: 100%;
-}
-
-.item-page-button {
-    width: 100%;
-}
-
-.red-button {
-    background-color: red;
-}
-
-.red-button:hover {
-    background-color: crimson;
-}
-
 .item-page-contact-information {
     font-size: 1rem;
     color: black;
@@ -172,10 +140,6 @@ input[type="number"] {
     font-size: 1.25rem;
     font-weight: 600;
     line-height: 2.25rem;
-}
-
-.item-page-delete-button {
-    float: right;
 }
 
 .carousel-control-prev-icon {

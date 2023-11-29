@@ -22,13 +22,13 @@ const ItemImage = ({ item }: { item: Item }) => {
 
     if (item.images.length > 1) {
         return (
-            <Carousel className="col-10 mx-auto col-md-6 col-lg-6 my-3">
+            <Carousel className="col-10 mx-auto col-md-6 col-lg-6 ">
                 {getImages()}
             </Carousel>
         );
     } else if (item.images.length === 0) {
         return (
-            <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 item-page-image-container">
+            <div className="col-10 mx-auto col-md-6 col-lg-6 ">
                 <img
                     className="item-page-image"
                     alt="item"
@@ -38,7 +38,7 @@ const ItemImage = ({ item }: { item: Item }) => {
         );
     } else {
         return (
-            <div className="col-10 mx-auto col-md-6 col-lg-6 my-3">
+            <div className="col-10 mx-auto col-md-6 col-lg-6">
                 {getSingleImage(item.images[0])}
             </div>
         );
