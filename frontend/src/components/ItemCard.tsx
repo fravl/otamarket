@@ -8,12 +8,6 @@ const ItemCard = ({ item }: { item: ItemSummary }) => {
             return <i className="bi bi-camera fs-1"></i>;
         } else {
             var imgsrc = baseUrl + item.thumbnail;
-                /*"data:image/jpeg;base64," +
-                btoa(
-                    String.fromCharCode.apply(null, [
-                        ...new Uint8Array(item.thumbnail[0].data),
-                    ]),
-                );*/
 
             return (
                 <img
@@ -30,16 +24,18 @@ const ItemCard = ({ item }: { item: ItemSummary }) => {
             <Link className="item-card-navlink" to={`/item/${item.id}`}>
                 <div className="item-card">
                     <div>
-                        <div className="item-card-image d-flex justify-content-center align-items-center">
+                        <div className="item-card-image-container d-flex justify-content-center align-items-center">
                             {getThumbnail()}
                         </div>
                         <span
                             className={`item-card-badge badge ${
-                                +item.claimCount === 0 ? "bg-success" : "bg-warning"
-                            }`}>
+                                +item.claimCount === 0
+                                    ? "bg-success"
+                                    : "bg-warning"
+                            }`}
+                        >
                             {item.claimCount} in queue
                         </span>
-                        {/* <span className={`"badge ${item.queueSize === 0 ? 'bg-success' : 'bg-warning' }"`}>{item.queueSize} in queue</span> */}
                     </div>
                     <div className="item-card-text-container">
                         <div className="item-card-item-pricecontainer">

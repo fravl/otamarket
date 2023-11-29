@@ -54,7 +54,7 @@ const ItemForm = () => {
             console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
             const options = {
                 maxSizeMB: 0.5,
-                maxWidthOrHeight: 300,
+                maxWidthOrHeight: 150,
                 useWebWorker: true,
             };
             try {
