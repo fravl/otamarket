@@ -33,6 +33,7 @@ const ItemBuyerDetails = ({
                         onClick={() => {
                             getSeller(item.id);
                         }}
+                        className="w-100"
                     >
                         Contact seller!
                     </Button>
@@ -79,7 +80,7 @@ const ItemBuyerDetails = ({
     return (
         <>
             {getContactInformation()}
-            <div className="item-page-button-container mt-3">
+            <div className="mt-3">
                 <Button
                     type="submit"
                     className={claimButtonStyles()}

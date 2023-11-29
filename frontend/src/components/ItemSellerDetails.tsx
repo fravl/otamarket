@@ -52,6 +52,7 @@ const ItemSellerDetails = ({
                         onClick={() => {
                             updateDetails(item.id);
                         }}
+                        className="w-100"
                     >
                         View first person in queue
                     </Button>
@@ -94,18 +95,13 @@ const ItemSellerDetails = ({
         <>
             {getContactInformation()}
             <hr />
-            <div className="item-page-button-container">
-                <Button className="item-page-edit-button" variant="secondary">
-                    Edit
-                </Button>
-                <Button
-                    className="item-page-delete-button"
-                    variant="danger"
-                    onClick={() => onDelete()}
-                >
-                    Delete
-                </Button>
-            </div>
+            <Button
+                className="w-100"
+                variant="danger"
+                onClick={() => onDelete()}
+            >
+                Delete
+            </Button>
         </>
     );
 };
