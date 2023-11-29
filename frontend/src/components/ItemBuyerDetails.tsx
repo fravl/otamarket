@@ -12,7 +12,6 @@ const ItemBuyerDetails = ({
     item: Item;
     toggleClaimStatus: (value: boolean) => void;
 }) => {
-
     const [sellerContact, setSellerContact] = useState<ContactInfo>();
 
     const getSeller = (itemId: number) => {
@@ -21,20 +20,25 @@ const ItemBuyerDetails = ({
                 setSellerContact(res);
             })
             .catch((error) => {
-                setSellerContact({'email': '', 'telegram': ''});
+                setSellerContact({ email: "", telegram: "" });
             });
-    }
-
+    };
 
     const getContactInformation = () => {
         if (claimInfo.userClaimPosition === 0 && !sellerContact) {
             return (
                 <div className="item-page-contact-information">
-                    <Button variant="primary" onClick={() => {getSeller(item.id)}}>Contact seller!</Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            getSeller(item.id);
+                        }}
+                    >
+                        Contact seller!
+                    </Button>
                 </div>
-            )
-        }
-        else if (claimInfo.userClaimPosition === 0) {
+            );
+        } else if (claimInfo.userClaimPosition === 0) {
             return (
                 <div className="item-page-contact-information">
                     <span>Contact Information</span>
@@ -42,8 +46,15 @@ const ItemBuyerDetails = ({
                     <p>Email: {sellerContact!.email}</p>
                 </div>
             );
-        } else if (claimInfo.userClaimPosition && claimInfo.userClaimPosition > 0) {
-            return <span>Your position in queue: {claimInfo.userClaimPosition}</span>
+        } else if (
+            claimInfo.userClaimPosition &&
+            claimInfo.userClaimPosition > 0
+        ) {
+            return (
+                <span>
+                    Your position in queue: {claimInfo.userClaimPosition}
+                </span>
+            );
         } else {
             // return nothing
         }
@@ -68,7 +79,7 @@ const ItemBuyerDetails = ({
     return (
         <>
             {getContactInformation()}
-            <div className="item-page-button-container">
+            <div className="item-page-button-container mt-3">
                 <Button
                     type="submit"
                     className={claimButtonStyles()}
