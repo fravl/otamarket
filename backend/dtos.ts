@@ -4,6 +4,7 @@ export class ItemSummary {
     id: number;
     title: string;
     price: number;
+    listedAt: Date;
     claimCount: number;
     thumbnail: string | null;
     seller_id: number;
@@ -12,8 +13,11 @@ export class ItemSummary {
         this.title = item.title;
         this.price = item.price;
         this.seller_id = item.seller_id;
+        this.listedAt = item.listed_at;
         this.claimCount = claimCount;
-        this.thumbnail = item.thumbnail_id ? `/image/${item.thumbnail_id}.jpg` : null;
+        this.thumbnail = item.thumbnail_id
+            ? `/image/${item.thumbnail_id}.jpg`
+            : null;
     }
 }
 
@@ -23,6 +27,7 @@ export class ItemDetails {
     price: number;
     description: string;
     location: string;
+    listedAt: Date;
     thumbnail: string | null;
     images: string[];
     seller_id: number;
@@ -30,6 +35,7 @@ export class ItemDetails {
         this.id = item.id;
         this.title = item.title;
         this.price = item.price;
+        this.listedAt = item.listed_at;
         this.description = item.description;
         this.location = item.location;
         this.images = [];

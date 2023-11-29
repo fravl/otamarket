@@ -63,6 +63,15 @@ const ItemDetailsPage = () => {
                             </h1>
                             <hr />
                         </div>
+                        <span className="fs-6  mb-3">
+                            {item.listedAt.toLocaleString(undefined, {
+                                year: "numeric",
+                                month: "numeric",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                            })}
+                        </span>
                         <ItemImage item={item} />
                         <div className="col-10 col-md-6 col-lg-6 mt-3 item-page-info">
                             <ItemDetails item={item} />

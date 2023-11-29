@@ -23,6 +23,7 @@ export type ItemSummary = {
     title: string;
     price: number;
     claimCount: number;
+    listedAt: Date;
     seller_id: number;
     thumbnail: any;
 };
@@ -41,6 +42,7 @@ export type Item = {
     description: string;
     location: string;
     claimCount: number;
+    listedAt: Date;
     thumbnail: any;
     seller_id: number;
     images: any[];
@@ -55,7 +57,7 @@ export type ClaimInfo = {
 export type ContactInfo = {
     email: string;
     telegram: string;
-}
+};
 
 export type Claim = {
     item_id: number;
