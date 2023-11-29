@@ -127,34 +127,6 @@ const ItemForm = () => {
                     </Form.Floating>
                 </Form.Group>
 
-                <div className="btn-toolbar">
-                    <input
-                        type="file"
-                        accept="image/jpeg, image/jpg, image/png"
-                        capture="user"
-                        id="imageInput"
-                        onChange={handleImageCapture}
-                        className="d-none"
-                    />
-                    <input
-                        type="file"
-                        accept="image/jpeg, image/jpg, image/png"
-                        id="imageInputUpload"
-                        onChange={handleImageCapture}
-                        className="d-none"
-                    />
-                    <label className="btn btn-primary" htmlFor="imageInput">
-                        <i className="bi bi-camera"></i>
-                        &nbsp;Capture Image
-                    </label>
-                    <div>&nbsp;</div>
-                    <label
-                        className="btn btn-primary"
-                        htmlFor="imageInputUpload"
-                    >
-                        Upload Image
-                    </label>
-                </div>
                 <Carousel
                     controls={imageData.length < 2 ? false : true}
                     className="mt-3 mb-3 border"
@@ -175,6 +147,37 @@ const ItemForm = () => {
                         );
                     })}
                 </Carousel>
+                <div className="d-flex justify-content-around mb-3">
+                    <input
+                        type="file"
+                        accept="image/jpeg, image/jpg, image/png"
+                        capture="environment"
+                        id="imageInput"
+                        onChange={handleImageCapture}
+                        className="d-none"
+                    />
+                    <input
+                        type="file"
+                        accept="image/jpeg, image/jpg, image/png"
+                        id="imageInputUpload"
+                        onChange={handleImageCapture}
+                        className="d-none"
+                    />
+                    <label
+                        className="btn btn-primary flex-grow-1"
+                        htmlFor="imageInput"
+                    >
+                        <i className="bi bi-camera"></i>
+                        &nbsp;Capture Image
+                    </label>
+                    <div>&nbsp;</div>
+                    <label
+                        className="btn btn-primary  flex-grow-1"
+                        htmlFor="imageInputUpload"
+                    >
+                        Upload Image
+                    </label>
+                </div>
                 <Form.Check
                     type="checkbox"
                     id="freeCheckbox"
