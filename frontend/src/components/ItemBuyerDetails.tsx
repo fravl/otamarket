@@ -25,7 +25,7 @@ const ItemBuyerDetails = ({
     };
 
     const getContactInformation = () => {
-        if (claimInfo.userClaimPosition === 0 && !sellerContact) {
+        if (claimInfo.userClaimPosition === 1 && !sellerContact) {
             return (
                 <div className="item-page-contact-information">
                     <Button
@@ -39,7 +39,7 @@ const ItemBuyerDetails = ({
                     </Button>
                 </div>
             );
-        } else if (claimInfo.userClaimPosition === 0) {
+        } else if (claimInfo.userClaimPosition === 1) {
             return (
                 <div className="item-page-contact-information">
                     <span>Contact Information</span>

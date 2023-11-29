@@ -44,8 +44,11 @@ const ItemSellerDetails = ({
     const getContactInformation = () => {
         //let info = <React.Fragment><span>No buyers in queue!</span></React.Fragment>;
         return (
-            <div className="item-page-contact-information">
-                {claimCount === 0 && <span>No buyers in queue!</span>}
+            <div className="item-page-contact-information d-flex flex-column">
+                {claimCount === 0 && <span>No claims yet!</span>}
+                {claimCount > 0 && (
+                    <span>{`There are ${claimCount} claims`}</span>
+                )}
                 {claimCount > 0 && !details && (
                     <Button
                         variant="primary"
@@ -54,7 +57,7 @@ const ItemSellerDetails = ({
                         }}
                         className="w-100"
                     >
-                        View first person in queue
+                        Contact first in queue
                     </Button>
                 )}
                 {claimCount > 0 && details && (
@@ -67,12 +70,10 @@ const ItemSellerDetails = ({
                             onClick={() => {
                                 skipBuyer(item.id);
                                 setCC((prevCC) => Math.max(prevCC - 1, 0));
-                                alert(
-                                    "We skipped to next interested buyer in queue",
-                                );
                             }}
+                            className="w-100"
                         >
-                            SKIP
+                            Skip buyer
                         </Button>
                     </React.Fragment>
                 )}
