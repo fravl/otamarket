@@ -4,17 +4,23 @@ import authHeader from "./auth-header";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const getAll = async (): Promise<ItemSummary[]> => {
-    const request = axios.get(baseUrl);
+    const request = axios.get<ItemSummary[]>(baseUrl);
     const response = await request;
     console.log(response.data);
+    response.data = response.data.map((i) => {
+        return { ...i, listedAt: new Date(i.listedAt) };
+    });
     return response.data;
 };
 
 const getById = async (id: number): Promise<Item | null> => {
-    const request = axios.get(`${baseUrl}/items/${id}`, {
+    const request = axios.get<Item | null>(`${baseUrl}/items/${id}`, {
         headers: authHeader(),
     });
     const response = await request;
+    if (response.data)
+        response.data.listedAt = new Date(response.data.listedAt);
+
     console.log(response.data);
     return response.data;
 };

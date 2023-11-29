@@ -51,6 +51,15 @@ const ItemCard = ({ item }: { item: ItemSummary }) => {
                                     {item.title}
                                 </span>
                             </div>
+                            <span className="fs-6">
+                                {item.listedAt.toLocaleString(undefined, {
+                                    year: "numeric",
+                                    month: "numeric",
+                                    day: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                })}
+                            </span>
                         </div>
                     </div>
                 </div>
