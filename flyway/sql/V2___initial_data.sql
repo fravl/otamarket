@@ -1,5 +1,5 @@
 INSERT INTO users (email, password, telegram) 
-VALUES ('johndoe@example.com', 'password123', '@johndoe');
+VALUES ('johndoe@example.com', '$2b$04$G7ryuFeVQGSitbl.UDxm2.Nxog.Uvrc/srdTbx5nB6zXOl.IqkFce', '@johndoe');
 
 INSERT INTO items (title, description, price, location, seller_id, thumbnail_id) 
 VALUES ('Item 1', 'Description for Item 1', 50.00, 'New York', 1, null),
