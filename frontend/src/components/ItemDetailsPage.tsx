@@ -54,10 +54,17 @@ const ItemDetailsPage = () => {
         return (
             <div className="item-page">
                 <BackAndTitleNav title={item.title} />
-                <div className="item-page-info-container">
-                    <div className="row">
+                <div className="container">
+                    <div className="d-flex flex-column align-items-center">
+                        <div className="col-10">
+                            <hr />
+                            <h1 className="d-flex justify-content-center">
+                                {item.title}
+                            </h1>
+                            <hr />
+                        </div>
                         <ItemImage item={item} />
-                        <div className="col-10 mx-auto col-md-6 col-lg-6 my-3 item-page-info">
+                        <div className="col-10 col-md-6 col-lg-6 mt-3 item-page-info">
                             <ItemDetails item={item} />
                             {getAdditionalInfo()}
                         </div>

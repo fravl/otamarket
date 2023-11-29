@@ -22,7 +22,7 @@ const BackAndTitleNav = ({ title }: { title: string }) => {
                         <i className="bi bi-arrow-left"></i>
                     </button>
                 </li>
-                <h6 className="mb-0">{title}</h6>
+                <h6 className="mb-0">Item Details</h6>
                 <div></div>
             </ul>
         </nav>
