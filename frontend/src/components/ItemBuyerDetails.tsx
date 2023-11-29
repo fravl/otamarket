@@ -1,24 +1,51 @@
 import Button from "react-bootstrap/Button";
-import { ClaimInfo } from "../types";
+import { ClaimInfo, ContactInfo, Item } from "../types";
+import { useState } from "react";
+import ItemService from "../services/ItemService";
 
 const ItemBuyerDetails = ({
     claimInfo,
+    item,
     toggleClaimStatus,
 }: {
     claimInfo: ClaimInfo;
+    item: Item;
     toggleClaimStatus: (value: boolean) => void;
 }) => {
+
+    const [sellerContact, setSellerContact] = useState<ContactInfo>();
+
+    const getSeller = (itemId: number) => {
+        ItemService.getSellerContact(item.id)
+            .then((res) => {
+                setSellerContact(res);
+            })
+            .catch((error) => {
+                setSellerContact({'email': '', 'telegram': ''});
+            });
+    }
+
+
     const getContactInformation = () => {
-        if (claimInfo.userClaimPosition === 1) {
+        if (claimInfo.userClaimPosition === 0 && !sellerContact) {
+            return (
+                <div className="item-page-contact-information">
+                    <Button variant="primary" onClick={() => {getSeller(item.id)}}>Contact seller!</Button>
+                </div>
+            )
+        }
+        else if (claimInfo.userClaimPosition === 0) {
             return (
                 <div className="item-page-contact-information">
                     <span>Contact Information</span>
-                    <p>Tg: @itemseller</p>
-                    <p>Email: itemseller@aalto.fi</p>
+                    <p>Telegram: {sellerContact!.telegram}</p>
+                    <p>Email: {sellerContact!.email}</p>
                 </div>
             );
+        } else if (claimInfo.userClaimPosition && claimInfo.userClaimPosition > 0) {
+            return <span>Your position in queue: {claimInfo.userClaimPosition}</span>
         } else {
-            //return nothing
+            // return nothing
         }
     };
 

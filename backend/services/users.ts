@@ -23,6 +23,10 @@ export async function verifyLogin(credentials: {
     return user;
 }
 
+export async function findById(id: number) {
+    return await db.users.findById(id);
+}
+
 export async function findByEmail(email: string) {
     const user = await db.users.findByEmail(email);
     if (!user) throw new Error(`No user ${email} exists`);

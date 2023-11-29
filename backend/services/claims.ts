@@ -17,6 +17,10 @@ export async function unclaimItem(itemId: number, userId: number) {
     await db.claims.removeClaim(itemId, userId);
 }
 
+export async function skipClaim(itemId: number) {
+    await db.claims.skipTopClaim(itemId);
+}
+
 export async function getClaimInfo(
     itemId: number,
     userId: number,
@@ -35,4 +39,8 @@ export async function getClaimInfo(
         userHasClaim: userClaimPosition !== -1,
         userClaimPosition: userClaimPosition !== -1 ? userClaimPosition : null,
     };
+}
+
+export async function getTopClaim(itemId: number) {
+    return await db.claims.getTopClaim(itemId);
 }
