@@ -9,8 +9,8 @@ export async function claimItem(
     return claim;
 }
 
-export async function getClaimsOfUser(userId: number): Promise<Claim[]>{
-    return await db.claims.getClaimsOfUser(userId)
+export async function getClaimsOfUser(userId: number): Promise<Claim[]> {
+    return await db.claims.getClaimsOfUser(userId);
 }
 
 export async function unclaimItem(itemId: number, userId: number) {
@@ -37,7 +37,8 @@ export async function getClaimInfo(
     return {
         claimCount: claims.length,
         userHasClaim: userClaimPosition !== -1,
-        userClaimPosition: userClaimPosition !== -1 ? userClaimPosition : null,
+        userClaimPosition:
+            userClaimPosition !== -1 ? userClaimPosition + 1 : null,
     };
 }
 

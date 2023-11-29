@@ -15,7 +15,7 @@ const ItemBuyerDetails = ({
     const [sellerContact, setSellerContact] = useState<ContactInfo>();
 
     const getSeller = (itemId: number) => {
-        ItemService.getSellerContact(item.id)
+        ItemService.getSellerContact(itemId)
             .then((res) => {
                 setSellerContact(res);
             })
@@ -49,7 +49,7 @@ const ItemBuyerDetails = ({
             );
         } else if (
             claimInfo.userClaimPosition &&
-            claimInfo.userClaimPosition > 0
+            claimInfo.userClaimPosition > 1
         ) {
             return (
                 <span>
