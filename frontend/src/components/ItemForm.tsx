@@ -68,9 +68,7 @@ const ItemForm = () => {
                     } MB`,
                 ); // smaller than maxSizeMB
 
-                Array.from(e.target.files).forEach((f) =>
-                    reader.readAsDataURL(f),
-                );
+                reader.readAsDataURL(compressedFile);
             } catch (error) {
                 console.log(error);
             }
