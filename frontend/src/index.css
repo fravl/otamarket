@@ -90,13 +90,6 @@ input[type="number"] {
     padding-right: 5%;
 }
 
-.item-page {
-    width: 100vw;
-    height: 100vh;
-    padding: 0%;
-    margin: 0%;
-}
-
 .item-page-description-container {
     color: #45474c;
     font-weight: 300;

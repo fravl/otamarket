@@ -52,7 +52,7 @@ const ItemDetailsPage = () => {
         );
     } else {
         return (
-            <div className="item-page">
+            <div className="mb-3">
                 <BackAndTitleNav title="Item Details" />
                 <div className="container">
                     <div className="d-flex flex-column align-items-center">
