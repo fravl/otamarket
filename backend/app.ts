@@ -44,9 +44,9 @@ app.get("/items/:id", async (req: Request, res: Response) => {
     //    newItem.images.push(`/items/${id}.jpg`)
     //});
     try {
-        await ItemService.findById(parseInt(req.params.id)).then(async (item) => {
-            
-        });
+        await ItemService.findById(parseInt(req.params.id)).then(
+            async (item) => {},
+        );
         res.send(await ItemService.findById(parseInt(req.params.id)));
     } catch (error) {
         res.status(500).send("Error querying database");
@@ -61,36 +61,39 @@ app.delete("/items/:id", async (req: Request, res: Response) => {
     }
 });
 
-app.post("/items/add", async (req: Request, res: Response) => {
+app.post("/items", async (req: Request, res: Response) => {
     const raw = req.body;
-    const categories = req.body.categories;
     raw.seller_id = req.body.seller_id;
     raw.thumbnail_id = null;
     try {
         raw.price = +raw.price;
         const newItem: ItemSave = raw;
-        //console.log(raw);
-        //console.log(raw.images);
-        //console.log(`img ids: ${newItem.images}`);
-        const addedItem = await ItemService.addItem(newItem, req.body.categories);
+
+        const addedItem = await ItemService.addItem(
+            newItem,
+            req.body.categories,
+        );
         const base64imgs: string[] = raw.images;
         let tn = true;
         base64imgs.forEach(async (img: string) => {
-            const data = img.split(',');
-            if (data[0].startsWith('data:image')) {
-                const ext = data[0].split(':')[1];
-                const img = await ItemService.addImage(data[1], ext, addedItem.id);
+            const data = img.split(",");
+            if (data[0].startsWith("data:image")) {
+                const ext = data[0].split(":")[1];
+                const img = await ItemService.addImage(
+                    data[1],
+                    ext,
+                    addedItem.id,
+                );
                 if (tn) {
-                    //console.log(`Adding thumbnail: ${img}`);
                     await ItemService.addThumbnail(addedItem.id, img.id);
                     tn = false;
                 }
             } else {
-                console.log(`Invalid image header ${data[0]}`)
+                console.log(`Invalid image header ${data[0]}`);
             }
         });
         console.log(`Item ${newItem.title} added.`);
-        res.status(204).send();
+        res.status(201).send({ itemId: addedItem.id });
     } catch (error) {
         if (error instanceof Error) {
             console.log(`Error ${error.message}`);
@@ -101,10 +104,10 @@ app.post("/items/add", async (req: Request, res: Response) => {
 
 app.get("/image/:id.jpg", async (req: Request, res: Response) => {
     console.log(`img ${req.params.id} requested`);
-    res.set('Content-Type', 'image/jpg');
-    await ItemService.getImage(+req.params.id).then(img => {
+    res.set("Content-Type", "image/jpg");
+    await ItemService.getImage(+req.params.id).then((img) => {
         if (img !== null) res.send(img.image);
-        else res.status(404).send('Img not found');
+        else res.status(404).send("Img not found");
     });
 });
 
@@ -158,10 +161,13 @@ app.get("/items/:id/contact", async (req: Request, res: Response) => {
     await ItemService.findById(+req.params.id).then(async (item) => {
         if (item) {
             const seller = await UserService.findById(item!.seller_id);
-            res.status(201).send({'telegram': seller?.telegram, 'email': seller?.email});
+            res.status(201).send({
+                telegram: seller?.telegram,
+                email: seller?.email,
+            });
         } else res.status(404).send();
-    })
-})
+    });
+});
 
 app.get("/items/:id/claims/contact", async (req: Request, res: Response) => {
     const user = req.user!;
@@ -171,8 +177,13 @@ app.get("/items/:id/claims/contact", async (req: Request, res: Response) => {
             if (+item.seller_id === +user.id) {
                 const topClaim = await ClaimsService.getTopClaim(item.id);
                 if (topClaim) {
-                    const claimer = await UserService.findById(topClaim.user_id);
-                    res.status(201).send({'telegram': claimer?.telegram, 'email': claimer?.email});
+                    const claimer = await UserService.findById(
+                        topClaim.user_id,
+                    );
+                    res.status(201).send({
+                        telegram: claimer?.telegram,
+                        email: claimer?.email,
+                    });
                 } else res.status(201).send({});
             } else res.status(401).send("Unauthorized");
         } else res.status(404).send();
