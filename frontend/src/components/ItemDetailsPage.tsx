@@ -53,7 +53,7 @@ const ItemDetailsPage = () => {
     } else {
         return (
             <div className="item-page">
-                <BackAndTitleNav title={item.title} />
+                <BackAndTitleNav title="Item Details" />
                 <div className="container">
                     <div className="d-flex flex-column align-items-center">
                         <div className="col-10">
