@@ -1,5 +1,9 @@
 import { Item } from "../types";
 
+const priceToString = (price: number) => {
+    return price > 0 ? `${price}€` : "FREE";
+};
+
 const ItemDetails = ({ item }: { item: Item }) => {
     return (
         <>
@@ -10,7 +14,9 @@ const ItemDetails = ({ item }: { item: Item }) => {
                 <h2>item description</h2>
                 <p className="item-page-description">{item.description}</p>
             </div>
-            <span className="item-page-price">{`${item.price} €`}</span>
+            <span className="item-page-price">
+                {"Price: " + priceToString(item.price)}
+            </span>
             <hr />
         </>
     );

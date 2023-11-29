@@ -2,6 +2,10 @@ import { ItemSummary } from "../types";
 import { Link } from "react-router-dom";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
+const priceToString = (price: number) => {
+    return price > 0 ? `${price}€` : "FREE";
+};
+
 const ItemCard = ({ item }: { item: ItemSummary }) => {
     function getThumbnail() {
         if (item.thumbnail === null || item.thumbnail.length === 0) {
@@ -40,7 +44,9 @@ const ItemCard = ({ item }: { item: ItemSummary }) => {
                     <div className="item-card-text-container">
                         <div className="item-card-item-pricecontainer">
                             <div>
-                                <span className="item-card-item-price">{`${item.price} €`}</span>
+                                <span className="item-card-item-price">
+                                    {priceToString(item.price)}
+                                </span>
                                 <span className="item-card-item-name">
                                     {item.title}
                                 </span>
