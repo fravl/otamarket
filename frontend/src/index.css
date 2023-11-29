@@ -137,22 +137,6 @@ input[type="number"] {
     font-weight: 700;
 }
 
-.item-page-button-container {
-    width: 100%;
-}
-
-.item-page-button {
-    width: 100%;
-}
-
-.red-button {
-    background-color: red;
-}
-
-.red-button:hover {
-    background-color: crimson;
-}
-
 .item-page-contact-information {
     font-size: 1rem;
     color: black;

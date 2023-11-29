@@ -62,9 +62,9 @@ const ItemBuyerDetails = ({
 
     const claimButtonStyles = () => {
         if (claimInfo.userHasClaim) {
-            return "item-page-button red-button";
+            return "w-100 btn-danger";
         } else {
-            return "item-page-button";
+            return "w-100";
         }
     };
 
