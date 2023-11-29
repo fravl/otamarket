@@ -34,10 +34,11 @@ CREATE TABLE item_category (
 );
 
 CREATE TABLE claims (
+    id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, item_id)
+    skipped BOOLEAN DEFAULT FALSE,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE item_images

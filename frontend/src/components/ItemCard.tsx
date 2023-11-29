@@ -35,11 +35,8 @@ const ItemCard = ({ item }: { item: ItemSummary }) => {
                         </div>
                         <span
                             className={`item-card-badge badge ${
-                                item.claimCount === 0
-                                    ? "bg-success"
-                                    : "bg-warning"
-                            }`}
-                        >
+                                +item.claimCount === 0 ? "bg-success" : "bg-warning"
+                            }`}>
                             {item.claimCount} in queue
                         </span>
                         {/* <span className={`"badge ${item.queueSize === 0 ? 'bg-success' : 'bg-warning' }"`}>{item.queueSize} in queue</span> */}

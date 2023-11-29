@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ClaimInfo, Item, ItemSave, ItemSummary } from "../types";
+import { ClaimInfo, ContactInfo, Item, ItemSave, ItemSummary } from "../types";
 import authHeader from "./auth-header";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -49,6 +49,30 @@ const getClaimInfo = async (itemId: number) => {
     return response.data;
 };
 
+const getTopContact = async (itemId: number) => {
+    const request = axios.get<ContactInfo>(`${baseUrl}/items/${itemId}/claims/contact`, {
+        headers: authHeader(),
+    });
+    const res = await request;
+    return res.data;
+}
+
+const getSellerContact = async (itemId: number) => {
+    const request = axios.get<ContactInfo>(`${baseUrl}/items/${itemId}/contact`, {
+        headers: authHeader(),
+    });
+    const res = await request;
+    return res.data;
+}
+
+const skipClaim = async (itemId: number) => {
+    const request = axios.put(`${baseUrl}/items/${itemId}/claims/skip`, {}, {
+        headers: authHeader(),
+    });
+    const res = await request;
+    return res.data;
+}
+
 const claimItem = async (itemId: number) => {
     const request = axios.post<ClaimInfo>(
         `${baseUrl}/items/${itemId}/claims`,
@@ -92,5 +116,8 @@ export default {
     claimItem,
     unclaimItem,
     getUserClaims,
-    removeItem
+    removeItem,
+    getTopContact,
+    skipClaim,
+    getSellerContact
 };

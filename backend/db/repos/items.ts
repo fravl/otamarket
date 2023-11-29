@@ -53,7 +53,7 @@ export class ItemsRepository {
     */
     all(): Promise<(Item & { claim_count: number })[]> {
         return this.db.any(
-            `SELECT i.*, count(c.item_id) as claim_count
+            `SELECT i.*, COUNT(CASE WHEN c.skipped = FALSE THEN 1 END) AS claim_count
                 FROM items i
                 LEFT JOIN claims c ON c.item_id = i.id
                 LEFT JOIN item_images im ON im.id = i.thumbnail_id

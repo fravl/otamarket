@@ -5,7 +5,7 @@ import ItemDetails from "./ItemDetails";
 import ItemSellerDetails from "./ItemSellerDetails";
 import BackAndTitleNav from "./BackAndTitleNav";
 import Navbar from "./Navbar";
-import { ClaimInfo, Item } from "../types";
+import { ClaimInfo, ContactInfo, Item } from "../types";
 import ItemImage from "./ItemImage";
 import ItemService from "../services/ItemService";
 import AuthService from "../services/AuthService";
@@ -34,11 +34,12 @@ const ItemDetailsPage = () => {
             return (
                 <ItemBuyerDetails
                     claimInfo={claimInfo}
+                    item={item}
                     toggleClaimStatus={toggleClaimStatus}
                 />
             );
         } else {
-            return <ItemSellerDetails item={item} />;
+            return <ItemSellerDetails item={item} claimInfo={claimInfo} />;
         }
     };
 

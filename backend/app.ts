@@ -130,6 +130,18 @@ app.post("/items/:id/claims", async (req: Request, res: Response) => {
     }
 });
 
+app.put("/items/:id/claims/skip", async (req: Request, res: Response) => {
+    const user = req.user!;
+    await ItemService.findById(+req.params.id).then(async (item) => {
+        if (item) {
+            console.log(`seller: ${item.seller_id} user: ${user.id}`);
+            if (+item.seller_id === +user.id) {
+                res.status(201).send(await ClaimsService.skipClaim(item.id));
+            } else res.status(401).send("Unauthorized");
+        } else res.status(404).send();
+    });
+});
+
 app.delete("/items/:id/claims", async (req: Request, res: Response) => {
     const user = req.user;
     if (!user) throw new Error("Unauthorized");
@@ -140,6 +152,31 @@ app.delete("/items/:id/claims", async (req: Request, res: Response) => {
         console.log(error);
         res.status(500).send();
     }
+});
+
+app.get("/items/:id/contact", async (req: Request, res: Response) => {
+    await ItemService.findById(+req.params.id).then(async (item) => {
+        if (item) {
+            const seller = await UserService.findById(item!.seller_id);
+            res.status(201).send({'telegram': seller?.telegram, 'email': seller?.email});
+        } else res.status(404).send();
+    })
+})
+
+app.get("/items/:id/claims/contact", async (req: Request, res: Response) => {
+    const user = req.user!;
+    await ItemService.findById(+req.params.id).then(async (item) => {
+        if (item) {
+            console.log(`seller: ${item.seller_id} user: ${user.id}`);
+            if (+item.seller_id === +user.id) {
+                const topClaim = await ClaimsService.getTopClaim(item.id);
+                if (topClaim) {
+                    const claimer = await UserService.findById(topClaim.user_id);
+                    res.status(201).send({'telegram': claimer?.telegram, 'email': claimer?.email});
+                } else res.status(201).send({});
+            } else res.status(401).send("Unauthorized");
+        } else res.status(404).send();
+    });
 });
 
 app.post("/auth/register", async (req: Request, res: Response) => {

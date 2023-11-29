@@ -52,6 +52,11 @@ export type ClaimInfo = {
     userClaimPosition: number | null;
 };
 
+export type ContactInfo = {
+    email: string;
+    telegram: string;
+}
+
 export type Claim = {
     item_id: number;
     timestamp: string;
