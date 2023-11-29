@@ -7,12 +7,13 @@ import { Form, InputGroup } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { CarouselItem } from "react-bootstrap";
 import Select, { MultiValue } from "react-select";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { Category, OptionType } from "../types";
 import AuthService from "../services/AuthService";
 import imageCompression from "browser-image-compression";
 
 const ItemForm = () => {
+    const navigate = useNavigate();
     const { allCategories } = useLoaderData() as { allCategories: Category[] };
 
     const options: OptionType[] = [];
@@ -98,14 +99,13 @@ const ItemForm = () => {
         ItemService.addItem(formJson)
             .then((res) => {
                 setAlertStatus({ status: res.status, show: true });
-                form.reset();
+                navigate(`/item/${res.data.itemId}`, { replace: true });
             })
             .catch((error) => {
                 setAlertStatus({ status: error.response.status, show: true });
             })
             .finally(() => {
                 setLoadingSpinner(false);
-                setimageData([]);
             });
     }
 

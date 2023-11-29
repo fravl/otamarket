@@ -20,7 +20,7 @@ const getById = async (id: number): Promise<Item | null> => {
 };
 
 const addItem = async (item: ItemSave) => {
-    const request = axios.post(`${baseUrl}/items/add`, item, {
+    const request = axios.post<{ itemId: number }>(`${baseUrl}/items`, item, {
         headers: authHeader(),
     });
     const response = await request;
@@ -50,28 +50,38 @@ const getClaimInfo = async (itemId: number) => {
 };
 
 const getTopContact = async (itemId: number) => {
-    const request = axios.get<ContactInfo>(`${baseUrl}/items/${itemId}/claims/contact`, {
-        headers: authHeader(),
-    });
+    const request = axios.get<ContactInfo>(
+        `${baseUrl}/items/${itemId}/claims/contact`,
+        {
+            headers: authHeader(),
+        },
+    );
     const res = await request;
     return res.data;
-}
+};
 
 const getSellerContact = async (itemId: number) => {
-    const request = axios.get<ContactInfo>(`${baseUrl}/items/${itemId}/contact`, {
-        headers: authHeader(),
-    });
+    const request = axios.get<ContactInfo>(
+        `${baseUrl}/items/${itemId}/contact`,
+        {
+            headers: authHeader(),
+        },
+    );
     const res = await request;
     return res.data;
-}
+};
 
 const skipClaim = async (itemId: number) => {
-    const request = axios.put(`${baseUrl}/items/${itemId}/claims/skip`, {}, {
-        headers: authHeader(),
-    });
+    const request = axios.put(
+        `${baseUrl}/items/${itemId}/claims/skip`,
+        {},
+        {
+            headers: authHeader(),
+        },
+    );
     const res = await request;
     return res.data;
-}
+};
 
 const claimItem = async (itemId: number) => {
     const request = axios.post<ClaimInfo>(
@@ -99,14 +109,14 @@ const unclaimItem = async (itemId: number) => {
     return response;
 };
 
-const removeItem = async (id :number) => {
+const removeItem = async (id: number) => {
     const request = axios.delete(`${baseUrl}/items/${id}`, {
         headers: authHeader(),
     });
     const response = await request;
     console.log(response.data);
     return response.data;
-}
+};
 
 export default {
     getAll,
@@ -119,5 +129,5 @@ export default {
     removeItem,
     getTopContact,
     skipClaim,
-    getSellerContact
+    getSellerContact,
 };
