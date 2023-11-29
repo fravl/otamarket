@@ -1,12 +1,12 @@
-import { Item, ItemImageType } from "../types";
+import { Item } from "../types";
 import Carousel from "react-bootstrap/Carousel";
 import { CarouselItem } from "react-bootstrap";
 
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const ItemImage = ({ item }: { item: Item }) => {
-    const getSingleImage = (img: ItemImageType) => {
-        var imgsrc = baseUrl + item.thumbnail;
+    const getSingleImage = (img: string) => {
+        var imgsrc = baseUrl + img;
         return <img alt="item" src={imgsrc} />;
     };
 
