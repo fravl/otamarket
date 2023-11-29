@@ -1,13 +1,18 @@
 import db from "../db";
 import { User } from "../db/models";
+import bcrypt from "bcrypt";
 
-export async function add(user: Omit<User, "id">) {
+export async function add(user: Omit<User, "id">): Promise<User> {
     const existingUser = await db.users.findByEmail(user.email);
 
     if (existingUser) {
         throw new Error("User with this email already exists");
     }
-
+    await bcrypt.hash(user.password, 4)
+        .then(hash => {
+            console.log(`Hashed pw ${hash}`);
+            user.password = hash;
+        })
     return await db.users.add(user);
 }
 
@@ -17,10 +22,12 @@ export async function verifyLogin(credentials: {
 }) {
     const user = await findByEmail(credentials.email);
 
-    if (user.password !== credentials.password) {
+    const match = await bcrypt.compare(credentials.password, user.password);
+    if (match) {
+        return user;
+    } else {
         throw new Error(`Wrong password for user ${user.email}`);
     }
-    return user;
 }
 
 export async function findById(id: number) {
