@@ -10,17 +10,20 @@ import Select, { MultiValue } from "react-select";
 import { useLoaderData } from "react-router-dom";
 import { Category, OptionType } from "../types";
 import AuthService from "../services/AuthService";
-
+import imageCompression from "browser-image-compression";
 
 const ItemForm = () => {
     const { allCategories } = useLoaderData() as { allCategories: Category[] };
 
-    const options: OptionType[] = []
+    const options: OptionType[] = [];
 
-    allCategories.forEach( (category: Category) => {
-        const option: OptionType = {value: String(category.id), label: category.name}
-        options.push(option)
-    })
+    allCategories.forEach((category: Category) => {
+        const option: OptionType = {
+            value: String(category.id),
+            label: category.name,
+        };
+        options.push(option);
+    });
 
     const [alertStatus, setAlertStatus] = useState({
         status: 0,
@@ -35,8 +38,6 @@ const ItemForm = () => {
 
     const [categories, setCategories] = useState<string[]>([]);
 
-    //const [imageURLs, setimageURLs] = useState<string[]>([]);
-
     const [imageData, setimageData] = useState<string[]>([]);
 
     const reader = new FileReader();
@@ -46,14 +47,33 @@ const ItemForm = () => {
         setimageData((prevData) => [...prevData, b64str]);
     };
 
-    function handleImageCapture(e: React.ChangeEvent<HTMLInputElement>) {
+    async function handleImageCapture(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault();
         if (e.target.files) {
-            Array.from(e.target.files).forEach((f) => reader.readAsDataURL(f));
-            console.log(`Img size: ${e.target.files[0].size / 1000}`);
-            //const imgs = Array.from(e.target.files).map((imgData) => reader.readAsDataURL(imgData));
-            //setimageURLs((prevImages) => [...prevImages, ...imgs]);
-            //setimageData((prevData) => [...prevData, ...imgs]);
+            const imageFile = e.target.files[0];
+            console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+            const options = {
+                maxSizeMB: 0.5,
+                maxWidthOrHeight: 300,
+                useWebWorker: true,
+            };
+            try {
+                const compressedFile = await imageCompression(
+                    imageFile,
+                    options,
+                );
+                console.log(
+                    `compressedFile size ${
+                        compressedFile.size / 1024 / 1024
+                    } MB`,
+                ); // smaller than maxSizeMB
+
+                Array.from(e.target.files).forEach((f) =>
+                    reader.readAsDataURL(f),
+                );
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
@@ -67,11 +87,7 @@ const ItemForm = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         formData.append("price", priceValue);
-        formData.append("seller_id", AuthService.getUserId() )
-
-        /*imageData.forEach((img) => {
-            formData.append("images", img);
-        });*/
+        formData.append("seller_id", AuthService.getUserId());
 
         const formJson = Object.fromEntries(
             formData.entries(),
