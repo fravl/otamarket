@@ -107,7 +107,6 @@ input[type="number"] {
     font-weight: 500;
     line-height: 2.25rem;
     color: #45474c;
-    margin-bottom: 0.5em;
 }
 
 .item-page-title {
@@ -139,7 +138,6 @@ input[type="number"] {
 }
 
 .item-page-button-container {
-    margin-top: 2%;
     width: 100%;
 }
 
